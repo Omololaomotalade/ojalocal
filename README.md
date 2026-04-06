@@ -1,4 +1,4 @@
-#OMOLOLA OMOTALADE LOCAL MARKET PLACE
+# OMOLOLA OMOTALADE LOCAL MARKET PLACE
 
 ## Overview
 A local ecommerce platform built to explore inventory management challenges in Nigeria.
