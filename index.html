@@ -25,7 +25,6 @@
     body{font-family:'Outfit',sans-serif;background:var(--green-deep);color:var(--cream);min-height:100vh;overflow-x:hidden}
     .page{display:none;min-height:100vh}
     .page.active{display:block}
-
     /* NAV */
     nav{position:sticky;top:0;z-index:200;padding:0.9rem 2.5rem;display:flex;justify-content:space-between;align-items:center;background:rgba(10,31,6,0.96);border-bottom:1px solid var(--border);backdrop-filter:blur(10px)}
     .site-logo{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:900;color:var(--gold);cursor:pointer;line-height:1.1}
@@ -43,7 +42,6 @@
     .btn-signup:hover{background:var(--gold-light)}
     .user-pill{display:flex;align-items:center;gap:0.5rem;font-size:0.82rem;color:var(--green-bright);cursor:pointer}
     .user-avatar{width:28px;height:28px;border-radius:50%;background:var(--green-mid);border:1px solid var(--green-accent);display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:600}
-
     /* HERO */
     .hero{position:relative;min-height:88vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
     .hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1610832958506-aa56368176cf?w=1600&q=80') center/cover no-repeat;filter:brightness(0.3) saturate(1.2)}
@@ -58,7 +56,6 @@
     .btn-hero:hover{transform:translateY(-2px);background:var(--gold-light)}
     .btn-hero-ghost{background:transparent;color:var(--cream);padding:0.85rem 2.2rem;border-radius:2rem;font-weight:400;font-size:0.95rem;cursor:pointer;border:1px solid rgba(245,237,216,0.25);font-family:'Outfit',sans-serif;transition:border-color 0.2s}
     .btn-hero-ghost:hover{border-color:rgba(245,237,216,0.6)}
-
     /* FEATURED STRIP */
     .featured-strip{padding:3.5rem 2.5rem;max-width:1200px;margin:0 auto}
     .section-label{font-size:0.7rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--green-bright);margin-bottom:0.4rem}
@@ -72,7 +69,6 @@
     .feat-tag{display:inline-block;font-size:0.6rem;background:rgba(93,184,46,0.2);color:#8de060;border:1px solid rgba(93,184,46,0.3);padding:0.15rem 0.55rem;border-radius:1rem;margin-bottom:0.3rem;letter-spacing:0.06em;text-transform:uppercase}
     .feat-name{font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--white);font-weight:700}
     .feat-price{font-size:0.85rem;color:var(--gold);margin-top:0.2rem}
-
     /* PRODUCTS */
     .products-section{padding:3rem 2.5rem;max-width:1200px;margin:0 auto}
     .filters{display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1.8rem}
@@ -97,7 +93,6 @@
     .punit{font-size:0.65rem;color:var(--text-dim)}
     .addbtn{width:30px;height:30px;border-radius:50%;border:1px solid rgba(93,184,46,0.3);background:rgba(93,184,46,0.1);color:var(--green-bright);font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;font-family:monospace;line-height:1}
     .addbtn:hover{background:rgba(93,184,46,0.25);transform:scale(1.18)}
-
     /* STOCK BAR ON PRODUCT CARD */
     .pstock-row{display:flex;align-items:center;gap:0.5rem;margin-bottom:0.55rem}
     .pstock-bar-wrap{flex:1;height:4px;border-radius:2px;background:rgba(255,255,255,0.07);overflow:hidden}
@@ -106,13 +101,11 @@
     .stock-ok-clr{background:var(--green-bright);color:var(--green-bright)}
     .stock-low-clr{background:var(--gold);color:var(--gold)}
     .stock-out-clr{background:#e07070;color:#e07070}
-
     /* ── PUBLIC STOCK OVERVIEW SECTION ── */
     .stock-overview{padding:3.5rem 2.5rem;max-width:1200px;margin:0 auto}
     .stock-overview-header{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1rem;margin-bottom:2rem}
     .stock-meta{font-size:0.75rem;color:var(--text-muted)}
     .stock-meta span{color:var(--gold)}
-
     /* Summary stat pills */
     .stock-pills{display:flex;gap:0.75rem;flex-wrap:wrap;margin-bottom:2rem}
     .stock-pill{display:flex;align-items:center;gap:0.6rem;padding:0.6rem 1.1rem;border-radius:12px;border:1px solid var(--border);background:rgba(18,43,10,0.7);font-size:0.8rem}
@@ -122,7 +115,6 @@
     .pill-red .stock-pill-dot{background:#e07070}
     .stock-pill strong{color:var(--white)}
     .stock-pill span{color:var(--text-muted)}
-
     /* Stock grid cards */
     .stock-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem}
     .scard{background:rgba(18,43,10,0.85);border:1px solid var(--border);border-radius:16px;padding:1rem 1.1rem;transition:border-color 0.25s,transform 0.25s}
@@ -141,16 +133,13 @@
     .sb-ok{background:rgba(93,200,75,0.15);color:#70cc55}
     .sb-low{background:rgba(212,168,32,0.15);color:#c8a030}
     .sb-out{background:rgba(224,48,48,0.15);color:#e07070}
-
     /* Divider */
     .section-divider{height:1px;background:var(--border);max-width:1200px;margin:0 auto}
-
     /* CART BAR */
     .cart-bar{padding:1rem 2.5rem;background:rgba(8,18,5,0.97);border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
     .cart-info{font-size:0.85rem;color:var(--text-muted)}
     .cart-info strong{color:var(--gold);font-size:1rem}
     .btn-checkout{background:linear-gradient(135deg,var(--gold),#9e7814);color:var(--green-deep);padding:0.6rem 2rem;border-radius:2rem;font-weight:600;font-size:0.9rem;cursor:pointer;border:none;font-family:'Outfit',sans-serif}
-
     /* MODAL */
     .modal-wrap{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:1000;align-items:center;justify-content:center;padding:1rem}
     .modal-wrap.open{display:flex}
@@ -170,7 +159,6 @@
     .modal-switch a{color:var(--green-bright);cursor:pointer;text-decoration:none}
     .modal-switch a:hover{text-decoration:underline}
     .err-msg{font-size:0.78rem;color:var(--red-err);margin-top:0.3rem;display:none}
-
     /* CART DRAWER */
     .cart-modal-wrap{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:1000;align-items:flex-start;justify-content:flex-end}
     .cart-modal-wrap.open{display:flex}
@@ -197,7 +185,6 @@
     .pm-badge{font-size:0.65rem;font-weight:700;padding:0.1rem 0.4rem;border-radius:4px}
     .pm-paystack .pm-badge{background:#00C3F7;color:#000}
     .pm-flutter .pm-badge{background:#F5A623;color:#000}
-
     /* ADMIN */
     .admin-layout{display:grid;grid-template-columns:220px 1fr;min-height:100vh}
     .admin-sidebar{background:var(--green-dark);border-right:1px solid var(--border);padding:1.5rem 1rem}
@@ -253,7 +240,6 @@
   </style>
 </head>
 <body>
-
 <!-- NAV -->
 <nav id="mainNav">
   <div class="site-logo" onclick="showPage('home')">
@@ -279,7 +265,6 @@
     </div>
   </div>
 </nav>
-
 <!-- HOME PAGE -->
 <div id="homePage" class="page active">
   <!-- Hero -->
@@ -296,7 +281,6 @@
       </div>
     </div>
   </div>
-
   <!-- Featured -->
   <div class="featured-strip">
     <p class="section-label">Today's Picks</p>
@@ -319,7 +303,6 @@
       </div>
     </div>
   </div>
-
   <!-- Shop -->
   <div class="products-section" id="shopSection">
     <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1rem;margin-bottom:1.5rem;">
@@ -333,9 +316,7 @@
     </div>
     <div class="prod-grid" id="prodGrid"></div>
   </div>
-
   <div class="section-divider"></div>
-
   <!-- ══ PUBLIC STOCK OVERVIEW ══ -->
   <div class="stock-overview" id="stockSection">
     <div class="stock-overview-header">
@@ -345,14 +326,11 @@
       </div>
       <div class="stock-meta">Updated live &nbsp;·&nbsp; <span id="stockTimestamp"></span></div>
     </div>
-
     <!-- Summary pills -->
     <div class="stock-pills" id="stockPills"></div>
-
     <!-- Stock cards grid -->
     <div class="stock-grid" id="stockGrid"></div>
   </div>
-
   <div class="cart-bar">
     <div class="cart-info">Cart: <strong id="cartCountBar">0</strong> items &nbsp;·&nbsp; Total: <strong id="cartTotalBar">₦0</strong></div>
     <button class="btn-checkout" onclick="openCartDrawer()">View Cart & Checkout →</button>
@@ -362,7 +340,6 @@
     <div class="fr">Fresh Fruits Market · Lagos, Nigeria · © 2025</div>
   </footer>
 </div>
-
 <!-- ADMIN PAGE -->
 <div id="adminPage" class="page">
   <div class="admin-layout">
@@ -379,7 +356,6 @@
     <main class="admin-main" id="adminMain"></main>
   </div>
 </div>
-
 <!-- LOGIN MODAL -->
 <div class="modal-wrap" id="loginModal">
   <div class="modal">
@@ -392,7 +368,6 @@
     <p class="modal-switch" style="margin-top:0.4rem"><a onclick="switchModal('loginModal','signupModal')">Forgot password?</a></p>
   </div>
 </div>
-
 <!-- SIGNUP MODAL -->
 <div class="modal-wrap" id="signupModal">
   <div class="modal">
@@ -405,7 +380,6 @@
     <p class="modal-switch">Already have an account? <a onclick="switchModal('signupModal','loginModal')">Sign in</a></p>
   </div>
 </div>
-
 <!-- CART DRAWER -->
 <div class="cart-modal-wrap" id="cartDrawer" onclick="closeCartDrawer(event)">
   <div class="cart-drawer" id="cartDrawerInner">
@@ -417,7 +391,6 @@
     <div id="cartFooter"></div>
   </div>
 </div>
-
 <!-- CHECKOUT MODAL -->
 <div class="modal-wrap" id="checkoutModal">
   <div class="modal checkout-modal">
@@ -425,7 +398,6 @@
     <div id="checkoutContent"></div>
   </div>
 </div>
-
 <!-- ADD ITEM MODAL (Admin) -->
 <div class="modal-wrap" id="addItemModal">
   <div class="modal add-modal">
@@ -450,7 +422,6 @@
     <button class="btn-form" onclick="addInventoryItem()">Add to Inventory</button>
   </div>
 </div>
-
 <script>
 /* ═══ DATA ═══ */
 const IMGS = {
@@ -468,7 +439,6 @@ const IMGS = {
   Guava:'https://images.unsplash.com/photo-1536511132770-e5058c7e8c46?w=400&q=80',
 };
 const DEFAULT_IMG='https://images.unsplash.com/photo-1610832958506-aa56368176cf?w=400&q=80';
-
 let inventory = [
   {id:1,name:'Mango',vendor:'Borno Orchards',price:1500,unit:'per kg',cat:'tropical',badge:'Best Seller',bc:'b-fresh',stock:85},
   {id:2,name:'Pineapple',vendor:'Ondo Farms',price:1200,unit:'each',cat:'tropical',badge:'Sweet',bc:'b-local',stock:42},
@@ -483,7 +453,6 @@ let inventory = [
   {id:11,name:'Tangerine',vendor:'Plateau Citrus',price:850,unit:'per kg',cat:'citrus',badge:'Local',bc:'b-fresh',stock:70},
   {id:12,name:'Guava',vendor:'Ogun Orchards',price:600,unit:'per kg',cat:'tropical',badge:'Organic',bc:'b-org',stock:48},
 ];
-
 let users=[{name:'Omolola Omotalade',email:'admin@omolola.com',pass:'admin123',role:'admin'}];
 let currentUser=null;
 let cart=[];
@@ -492,21 +461,18 @@ let orders=[
   {id:'ORD-002',customer:'Amaka Eze',items:'Pineapple x1, Watermelon x1',total:3200,status:'Processing',date:'2025-04-02'},
   {id:'ORD-003',customer:'Tunde Bello',items:'Strawberry x1, Grape x1',total:5700,status:'Shipped',date:'2025-04-03'},
 ];
-
 /* ═══ PAGES ═══ */
 function showPage(p){
   document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
   document.getElementById(p+'Page').classList.add('active');
   if(p==='admin') renderAdminDash();
 }
-
 /* ═══ HELPERS ═══ */
 function getImg(name){return IMGS[name]||DEFAULT_IMG;}
 function stockClass(s){return s>20?'stock-ok':s>5?'stock-low':'stock-out';}
 function stockLabel(s){return s>20?'In Stock':s>5?'Low Stock':'Almost Out';}
 function stockBarColor(s){return s>20?'var(--green-bright)':s>5?'var(--gold)':'#e07070';}
 function stockBarPct(s){return Math.min(100,Math.max(4,Math.round((s/100)*100)))+'%';}
-
 /* ═══ PRODUCT GRID (with inline stock bar) ═══ */
 function renderGrid(list){
   document.getElementById('prodGrid').innerHTML=list.map(f=>`
@@ -533,26 +499,20 @@ function renderGrid(list){
       </div>
     </div>`).join('');
 }
-
 function filterProds(cat,btn){
   document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('on'));
   btn.classList.add('on');
   renderGrid(cat==='all'?inventory:inventory.filter(f=>f.cat===cat));
 }
-
 /* ═══ PUBLIC STOCK OVERVIEW ═══ */
 function renderStockOverview(){
   const inStock=inventory.filter(f=>f.stock>20).length;
   const lowStock=inventory.filter(f=>f.stock>5&&f.stock<=20).length;
   const almostOut=inventory.filter(f=>f.stock<=5).length;
   const totalUnits=inventory.reduce((s,f)=>s+f.stock,0);
-
-  // timestamp
   const now=new Date();
   document.getElementById('stockTimestamp').textContent=
     now.toLocaleTimeString('en-NG',{hour:'2-digit',minute:'2-digit'});
-
-  // summary pills
   document.getElementById('stockPills').innerHTML=`
     <div class="stock-pill pill-green"><div class="stock-pill-dot"></div><strong>${inStock}</strong><span>In Stock</span></div>
     <div class="stock-pill pill-gold"><div class="stock-pill-dot"></div><strong>${lowStock}</strong><span>Low Stock</span></div>
@@ -561,8 +521,6 @@ function renderStockOverview(){
       <div class="stock-pill-dot" style="background:var(--text-muted)"></div>
       <strong>${totalUnits}</strong><span>Total Units Available</span>
     </div>`;
-
-  // cards — sorted: out of stock last
   const sorted=[...inventory].sort((a,b)=>b.stock-a.stock);
   document.getElementById('stockGrid').innerHTML=sorted.map(f=>{
     const pct=stockBarPct(f.stock);
@@ -588,7 +546,6 @@ function renderStockOverview(){
     </div>`;
   }).join('');
 }
-
 /* ═══ CART ═══ */
 function addToCart(item){
   const ex=cart.find(c=>c.name===item.name);
@@ -695,10 +652,26 @@ function showPaymentScreen(gateway,total){
     </div>`;
   openModal('checkoutModal');
 }
+/* ═══ FIX: DEDUCT INVENTORY ON PAYMENT ═══ */
 function confirmPayment(gateway,total){
   const orderId='ORD-'+(Math.floor(Math.random()*9000)+1000);
-  orders.unshift({id:orderId,customer:currentUser?currentUser.name:'Guest',items:cart.map(c=>c.name+' x'+c.qty).join(', '),total,status:'Processing',date:new Date().toISOString().split('T')[0]});
-  cart=[];updateCartUI();
+  orders.unshift({
+    id:orderId,
+    customer:currentUser?currentUser.name:'Guest',
+    items:cart.map(c=>c.name+' x'+c.qty).join(', '),
+    total,
+    status:'Processing',
+    date:new Date().toISOString().split('T')[0]
+  });
+  // ✅ Deduct purchased quantities from inventory
+  cart.forEach(cartItem=>{
+    const product=inventory.find(p=>p.name===cartItem.name);
+    if(product) product.stock=Math.max(0,product.stock-cartItem.qty);
+  });
+  cart=[];
+  updateCartUI();
+  renderGrid(inventory);       // refresh product cards with new stock
+  renderStockOverview();       // refresh live stock section
   document.getElementById('checkoutContent').innerHTML=`
     <div class="success-screen">
       <div class="success-icon">✅</div>
@@ -708,7 +681,6 @@ function confirmPayment(gateway,total){
       <button class="btn-form" style="margin-top:1.5rem" onclick="closeModal('checkoutModal')">Continue Shopping</button>
     </div>`;
 }
-
 /* ═══ AUTH ═══ */
 function doLogin(){
   const email=document.getElementById('loginEmail').value.trim();
@@ -743,7 +715,6 @@ function updateAuthUI(){
     authBtns.style.display='flex';userPill.style.display='none';
   }
 }
-
 /* ═══ MODALS ═══ */
 function openModal(id){document.getElementById(id).classList.add('open');}
 function closeModal(id){document.getElementById(id).classList.remove('open');}
@@ -751,7 +722,6 @@ function switchModal(from,to){closeModal(from);openModal(to);}
 document.querySelectorAll('.modal-wrap').forEach(m=>{
   m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('open');});
 });
-
 /* ═══ ADMIN ═══ */
 function adminTab(tab,el){
   document.querySelectorAll('.sidebar-menu a').forEach(a=>a.classList.remove('active'));
@@ -808,8 +778,8 @@ function editStock(i){
   if(n!==null&&!isNaN(n)){
     inventory[i].stock=parseInt(n);
     renderInvTable();
-    renderGrid(inventory); // sync product cards
-    renderStockOverview(); // sync public stock section
+    renderGrid(inventory);
+    renderStockOverview();
   }
 }
 function deleteItem(i){
@@ -862,7 +832,6 @@ function renderAdminCustomers(){
       </tbody></table>
     </div>`;
 }
-
 /* ═══ INIT ═══ */
 renderGrid(inventory);
 renderStockOverview();
