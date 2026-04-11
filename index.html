@@ -7,25 +7,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700;900&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --green-deep: #0a1f06;
-      --green-dark: #122b0a;
-      --green-mid: #1e4a10;
-      --green-accent: #3d8a1e;
-      --green-bright: #5cb82e;
-      --gold: #d4a820;
-      --gold-light: #f0c84a;
-      --cream: #f5edd8;
-      --white: #faf8f2;
-      --text-muted: #7a9a6a;
-      --text-dim: #4a6638;
-      --red-err: #e03030;
+      --green-deep: #0a1f06; --green-dark: #122b0a; --green-mid: #1e4a10;
+      --green-accent: #3d8a1e; --green-bright: #5cb82e; --gold: #d4a820;
+      --gold-light: #f0c84a; --cream: #f5edd8; --white: #faf8f2;
+      --text-muted: #7a9a6a; --text-dim: #4a6638; --red-err: #e03030;
       --border: rgba(180,220,80,0.12);
     }
     *{margin:0;padding:0;box-sizing:border-box}
     body{font-family:'Outfit',sans-serif;background:var(--green-deep);color:var(--cream);min-height:100vh;overflow-x:hidden}
-    .page{display:none;min-height:100vh}
-    .page.active{display:block}
-    /* NAV */
+    .page{display:none;min-height:100vh} .page.active{display:block}
     nav{position:sticky;top:0;z-index:200;padding:0.9rem 2.5rem;display:flex;justify-content:space-between;align-items:center;background:rgba(10,31,6,0.96);border-bottom:1px solid var(--border);backdrop-filter:blur(10px)}
     .site-logo{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:900;color:var(--gold);cursor:pointer;line-height:1.1}
     .site-logo span{color:var(--green-bright);display:block;font-size:0.75rem;letter-spacing:0.15em;font-weight:400;text-transform:uppercase}
@@ -40,9 +30,10 @@
     .btn-login:hover{border-color:var(--gold);color:var(--gold)}
     .btn-signup{background:var(--gold);color:var(--green-deep);border:none;padding:0.4rem 1.2rem;border-radius:2rem;font-size:0.82rem;font-weight:600;cursor:pointer;transition:all 0.2s;font-family:'Outfit',sans-serif}
     .btn-signup:hover{background:var(--gold-light)}
-    .user-pill{display:flex;align-items:center;gap:0.5rem;font-size:0.82rem;color:var(--green-bright);cursor:pointer}
+    .user-pill{display:flex;align-items:center;gap:0.5rem;font-size:0.82rem;color:var(--green-bright)}
     .user-avatar{width:28px;height:28px;border-radius:50%;background:var(--green-mid);border:1px solid var(--green-accent);display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:600}
-    /* HERO */
+    .btn-dashboard{background:rgba(93,184,46,0.15);border:1px solid rgba(93,184,46,0.3);color:var(--green-bright);padding:0.3rem 0.85rem;border-radius:2rem;font-size:0.75rem;cursor:pointer;font-family:'Outfit',sans-serif;transition:all 0.2s}
+    .btn-dashboard:hover{background:rgba(93,184,46,0.28)}
     .hero{position:relative;min-height:88vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
     .hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1610832958506-aa56368176cf?w=1600&q=80') center/cover no-repeat;filter:brightness(0.3) saturate(1.2)}
     .hero-overlay{position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(10,31,6,0.2) 0%,rgba(10,31,6,0.8) 100%)}
@@ -56,7 +47,6 @@
     .btn-hero:hover{transform:translateY(-2px);background:var(--gold-light)}
     .btn-hero-ghost{background:transparent;color:var(--cream);padding:0.85rem 2.2rem;border-radius:2rem;font-weight:400;font-size:0.95rem;cursor:pointer;border:1px solid rgba(245,237,216,0.25);font-family:'Outfit',sans-serif;transition:border-color 0.2s}
     .btn-hero-ghost:hover{border-color:rgba(245,237,216,0.6)}
-    /* FEATURED STRIP */
     .featured-strip{padding:3.5rem 2.5rem;max-width:1200px;margin:0 auto}
     .section-label{font-size:0.7rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--green-bright);margin-bottom:0.4rem}
     .section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3.5vw,2.8rem);color:var(--white);margin-bottom:2rem;line-height:1.1}
@@ -69,7 +59,6 @@
     .feat-tag{display:inline-block;font-size:0.6rem;background:rgba(93,184,46,0.2);color:#8de060;border:1px solid rgba(93,184,46,0.3);padding:0.15rem 0.55rem;border-radius:1rem;margin-bottom:0.3rem;letter-spacing:0.06em;text-transform:uppercase}
     .feat-name{font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--white);font-weight:700}
     .feat-price{font-size:0.85rem;color:var(--gold);margin-top:0.2rem}
-    /* PRODUCTS */
     .products-section{padding:3rem 2.5rem;max-width:1200px;margin:0 auto}
     .filters{display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1.8rem}
     .fbtn{padding:0.38rem 1rem;border-radius:2rem;border:1px solid rgba(130,180,70,0.2);background:transparent;color:var(--text-dim);font-size:0.78rem;cursor:pointer;font-family:'Outfit',sans-serif;transition:all 0.2s}
@@ -89,33 +78,22 @@
     .pname{font-family:'Cormorant Garamond',serif;font-size:1.05rem;color:#e8ddb8;margin-bottom:0.12rem;font-weight:700}
     .pvendor{font-size:0.7rem;color:var(--text-dim);margin-bottom:0.6rem}
     .pfoot{display:flex;justify-content:space-between;align-items:center}
-    .pprice{font-size:0.95rem;font-weight:600;color:var(--gold)}
-    .punit{font-size:0.65rem;color:var(--text-dim)}
+    .pprice{font-size:0.95rem;font-weight:600;color:var(--gold)} .punit{font-size:0.65rem;color:var(--text-dim)}
     .addbtn{width:30px;height:30px;border-radius:50%;border:1px solid rgba(93,184,46,0.3);background:rgba(93,184,46,0.1);color:var(--green-bright);font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;font-family:monospace;line-height:1}
     .addbtn:hover{background:rgba(93,184,46,0.25);transform:scale(1.18)}
-    /* STOCK BAR ON PRODUCT CARD */
     .pstock-row{display:flex;align-items:center;gap:0.5rem;margin-bottom:0.55rem}
     .pstock-bar-wrap{flex:1;height:4px;border-radius:2px;background:rgba(255,255,255,0.07);overflow:hidden}
     .pstock-bar{height:100%;border-radius:2px;transition:width 0.4s}
     .pstock-label{font-size:0.62rem;white-space:nowrap;font-weight:500}
-    .stock-ok-clr{background:var(--green-bright);color:var(--green-bright)}
-    .stock-low-clr{background:var(--gold);color:var(--gold)}
-    .stock-out-clr{background:#e07070;color:#e07070}
-    /* ── PUBLIC STOCK OVERVIEW SECTION ── */
+    .stock-ok-clr{background:var(--green-bright)} .stock-low-clr{background:var(--gold)} .stock-out-clr{background:#e07070}
     .stock-overview{padding:3.5rem 2.5rem;max-width:1200px;margin:0 auto}
     .stock-overview-header{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1rem;margin-bottom:2rem}
-    .stock-meta{font-size:0.75rem;color:var(--text-muted)}
-    .stock-meta span{color:var(--gold)}
-    /* Summary stat pills */
+    .stock-meta{font-size:0.75rem;color:var(--text-muted)} .stock-meta span{color:var(--gold)}
     .stock-pills{display:flex;gap:0.75rem;flex-wrap:wrap;margin-bottom:2rem}
     .stock-pill{display:flex;align-items:center;gap:0.6rem;padding:0.6rem 1.1rem;border-radius:12px;border:1px solid var(--border);background:rgba(18,43,10,0.7);font-size:0.8rem}
     .stock-pill-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-    .pill-green .stock-pill-dot{background:var(--green-bright)}
-    .pill-gold .stock-pill-dot{background:var(--gold)}
-    .pill-red .stock-pill-dot{background:#e07070}
-    .stock-pill strong{color:var(--white)}
-    .stock-pill span{color:var(--text-muted)}
-    /* Stock grid cards */
+    .pill-green .stock-pill-dot{background:var(--green-bright)} .pill-gold .stock-pill-dot{background:var(--gold)} .pill-red .stock-pill-dot{background:#e07070}
+    .stock-pill strong{color:var(--white)} .stock-pill span{color:var(--text-muted)}
     .stock-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem}
     .scard{background:rgba(18,43,10,0.85);border:1px solid var(--border);border-radius:16px;padding:1rem 1.1rem;transition:border-color 0.25s,transform 0.25s}
     .scard:hover{border-color:rgba(180,220,80,0.22);transform:translateY(-3px)}
@@ -126,21 +104,13 @@
     .scard-bar-wrap{height:6px;background:rgba(255,255,255,0.07);border-radius:3px;overflow:hidden;margin-bottom:0.6rem}
     .scard-bar{height:100%;border-radius:3px;transition:width 0.5s}
     .scard-foot{display:flex;justify-content:space-between;align-items:center}
-    .scard-count{font-size:0.78rem}
-    .scard-count strong{color:var(--white)}
-    .scard-count span{color:var(--text-muted)}
+    .scard-count{font-size:0.78rem} .scard-count strong{color:var(--white)} .scard-count span{color:var(--text-muted)}
     .scard-badge{font-size:0.6rem;padding:0.18rem 0.55rem;border-radius:6px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase}
-    .sb-ok{background:rgba(93,200,75,0.15);color:#70cc55}
-    .sb-low{background:rgba(212,168,32,0.15);color:#c8a030}
-    .sb-out{background:rgba(224,48,48,0.15);color:#e07070}
-    /* Divider */
+    .sb-ok{background:rgba(93,200,75,0.15);color:#70cc55} .sb-low{background:rgba(212,168,32,0.15);color:#c8a030} .sb-out{background:rgba(224,48,48,0.15);color:#e07070}
     .section-divider{height:1px;background:var(--border);max-width:1200px;margin:0 auto}
-    /* CART BAR */
     .cart-bar{padding:1rem 2.5rem;background:rgba(8,18,5,0.97);border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
-    .cart-info{font-size:0.85rem;color:var(--text-muted)}
-    .cart-info strong{color:var(--gold);font-size:1rem}
+    .cart-info{font-size:0.85rem;color:var(--text-muted)} .cart-info strong{color:var(--gold);font-size:1rem}
     .btn-checkout{background:linear-gradient(135deg,var(--gold),#9e7814);color:var(--green-deep);padding:0.6rem 2rem;border-radius:2rem;font-weight:600;font-size:0.9rem;cursor:pointer;border:none;font-family:'Outfit',sans-serif}
-    /* MODAL */
     .modal-wrap{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:1000;align-items:center;justify-content:center;padding:1rem}
     .modal-wrap.open{display:flex}
     .modal{background:var(--green-dark);border:1px solid rgba(180,220,80,0.15);border-radius:22px;width:100%;max-width:440px;padding:2.2rem;position:relative}
@@ -159,7 +129,6 @@
     .modal-switch a{color:var(--green-bright);cursor:pointer;text-decoration:none}
     .modal-switch a:hover{text-decoration:underline}
     .err-msg{font-size:0.78rem;color:var(--red-err);margin-top:0.3rem;display:none}
-    /* CART DRAWER */
     .cart-modal-wrap{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:1000;align-items:flex-start;justify-content:flex-end}
     .cart-modal-wrap.open{display:flex}
     .cart-drawer{background:var(--green-dark);border-left:1px solid var(--border);width:100%;max-width:420px;min-height:100vh;padding:1.5rem;display:flex;flex-direction:column;overflow-y:auto}
@@ -183,8 +152,58 @@
     .pm-btn{padding:0.65rem;border:1px solid var(--border);border-radius:10px;background:rgba(255,255,255,0.04);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:0.4rem;font-size:0.78rem;color:var(--text-muted);font-family:'Outfit',sans-serif;transition:all 0.2s}
     .pm-btn:hover{border-color:var(--gold);color:var(--gold)}
     .pm-badge{font-size:0.65rem;font-weight:700;padding:0.1rem 0.4rem;border-radius:4px}
-    .pm-paystack .pm-badge{background:#00C3F7;color:#000}
-    .pm-flutter .pm-badge{background:#F5A623;color:#000}
+    .pm-paystack .pm-badge{background:#00C3F7;color:#000} .pm-flutter .pm-badge{background:#F5A623;color:#000}
+    /* USER DASHBOARD */
+    .udash-layout{max-width:1100px;margin:0 auto;padding:2.5rem 2rem}
+    .udash-header{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:1rem;margin-bottom:2.5rem;padding-bottom:1.5rem;border-bottom:1px solid var(--border)}
+    .udash-greeting{font-family:'Cormorant Garamond',serif;font-size:2.2rem;color:var(--white);line-height:1.1}
+    .udash-greeting em{font-style:italic;color:var(--gold)}
+    .udash-greeting small{display:block;font-family:'Outfit',sans-serif;font-size:0.8rem;color:var(--text-muted);font-weight:400;margin-top:0.4rem}
+    .udash-actions{display:flex;gap:0.7rem;flex-wrap:wrap;align-items:center;margin-top:0.3rem}
+    .btn-shop-now{background:var(--gold);color:var(--green-deep);border:none;padding:0.55rem 1.4rem;border-radius:2rem;font-weight:600;font-size:0.85rem;cursor:pointer;font-family:'Outfit',sans-serif;transition:background 0.2s}
+    .btn-shop-now:hover{background:var(--gold-light)}
+    .btn-signout{background:transparent;color:var(--text-muted);border:1px solid rgba(245,237,216,0.15);padding:0.55rem 1.2rem;border-radius:2rem;font-size:0.85rem;cursor:pointer;font-family:'Outfit',sans-serif;transition:all 0.2s}
+    .btn-signout:hover{color:#e07070;border-color:rgba(224,48,48,0.3)}
+    .udash-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1rem;margin-bottom:2rem}
+    .ustat{background:rgba(18,43,10,0.85);border:1px solid var(--border);border-radius:14px;padding:1.2rem 1.1rem}
+    .ustat-icon{font-size:1.4rem;margin-bottom:0.5rem}
+    .ustat-val{font-family:'Cormorant Garamond',serif;font-size:1.7rem;font-weight:700;color:var(--white)}
+    .ustat-label{font-size:0.68rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;margin-top:0.1rem}
+    .udash-tabs{display:flex;gap:0;margin-bottom:1.5rem;border-bottom:1px solid var(--border)}
+    .utab{background:transparent;border:none;border-bottom:2px solid transparent;color:var(--text-dim);font-size:0.85rem;font-family:'Outfit',sans-serif;padding:0.65rem 1.3rem;cursor:pointer;margin-bottom:-1px;transition:all 0.2s}
+    .utab.active,.utab:hover{color:var(--gold);border-bottom-color:var(--gold)}
+    .utab-panel{display:none} .utab-panel.active{display:block}
+    .udash-table-wrap{background:rgba(18,43,10,0.8);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+    .udash-table-wrap table{width:100%;border-collapse:collapse}
+    .udash-table-wrap th{padding:0.7rem 1rem;text-align:left;font-size:0.68rem;color:var(--text-dim);letter-spacing:0.1em;text-transform:uppercase;border-bottom:1px solid var(--border);font-weight:500}
+    .udash-table-wrap td{padding:0.75rem 1rem;font-size:0.83rem;color:var(--cream);border-bottom:1px solid rgba(180,220,80,0.06);vertical-align:middle}
+    .udash-table-wrap tr:last-child td{border-bottom:none}
+    .udash-table-wrap tr:hover td{background:rgba(93,184,46,0.04)}
+    .ostatus{display:inline-block;font-size:0.65rem;padding:0.18rem 0.55rem;border-radius:6px;font-weight:600}
+    .os-processing{background:rgba(212,168,32,0.15);color:#c8a030}
+    .os-shipped{background:rgba(70,180,175,0.15);color:#50c8c0}
+    .os-delivered{background:rgba(93,200,75,0.15);color:#70cc55}
+    .udash-empty{text-align:center;padding:3.5rem 1rem;color:var(--text-muted)}
+    .udash-empty-icon{font-size:3rem;margin-bottom:1rem}
+    .udash-empty p{font-size:0.9rem;margin-bottom:1.2rem}
+    .profile-card{background:rgba(18,43,10,0.85);border:1px solid var(--border);border-radius:16px;padding:1.8rem;max-width:480px}
+    .profile-avatar-row{display:flex;align-items:center;gap:1.2rem;margin-bottom:1.5rem;padding-bottom:1.2rem;border-bottom:1px solid var(--border)}
+    .profile-avatar-big{width:64px;height:64px;border-radius:50%;background:var(--green-mid);border:2px solid var(--green-accent);display:flex;align-items:center;justify-content:center;font-size:1.6rem;font-weight:700;color:var(--gold);font-family:'Cormorant Garamond',serif;flex-shrink:0}
+    .profile-name{font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--white)}
+    .profile-role-badge{font-size:0.7rem;color:var(--green-bright);background:rgba(93,184,46,0.12);border:1px solid rgba(93,184,46,0.25);padding:0.15rem 0.6rem;border-radius:1rem;display:inline-block;margin-top:0.3rem;text-transform:capitalize}
+    .profile-field{margin-bottom:1rem}
+    .profile-field label{display:block;font-size:0.7rem;color:var(--text-muted);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:0.25rem}
+    .profile-field p{font-size:0.9rem;color:var(--cream)}
+    .fav-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:0.9rem}
+    .fav-card{background:rgba(18,43,10,0.85);border:1px solid var(--border);border-radius:14px;overflow:hidden;position:relative;transition:border-color 0.2s}
+    .fav-card:hover{border-color:rgba(180,220,80,0.25)}
+    .fav-card img{width:100%;height:100px;object-fit:cover}
+    .fav-card-info{padding:0.65rem 0.8rem}
+    .fav-card-name{font-family:'Cormorant Garamond',serif;font-size:0.95rem;color:#e8ddb8;margin-bottom:0.15rem}
+    .fav-card-price{font-size:0.73rem;color:var(--gold);margin-bottom:0.5rem}
+    .fav-remove{position:absolute;top:7px;right:7px;background:rgba(0,0,0,0.55);border:none;color:#e07070;width:22px;height:22px;border-radius:50%;cursor:pointer;font-size:0.65rem;display:flex;align-items:center;justify-content:center}
+    .fav-add-btn{width:100%;padding:0.35rem;background:rgba(93,184,46,0.1);border:1px solid rgba(93,184,46,0.25);border-radius:7px;color:var(--green-bright);font-size:0.72rem;cursor:pointer;font-family:'Outfit',sans-serif;transition:all 0.2s}
+    .fav-add-btn:hover{background:rgba(93,184,46,0.22)}
     /* ADMIN */
     .admin-layout{display:grid;grid-template-columns:220px 1fr;min-height:100vh}
     .admin-sidebar{background:var(--green-dark);border-right:1px solid var(--border);padding:1.5rem 1rem}
@@ -209,17 +228,13 @@
     table{width:100%;border-collapse:collapse}
     th{padding:0.7rem 1rem;text-align:left;font-size:0.7rem;color:var(--text-dim);letter-spacing:0.1em;text-transform:uppercase;border-bottom:1px solid var(--border);font-weight:500}
     td{padding:0.75rem 1rem;font-size:0.83rem;color:var(--cream);border-bottom:1px solid rgba(180,220,80,0.06);vertical-align:middle}
-    tr:last-child td{border-bottom:none}
-    tr:hover td{background:rgba(93,184,46,0.04)}
+    tr:last-child td{border-bottom:none} tr:hover td{background:rgba(93,184,46,0.04)}
     td img{width:40px;height:40px;object-fit:cover;border-radius:8px}
     .stock-badge{display:inline-block;font-size:0.65rem;padding:0.18rem 0.55rem;border-radius:6px;font-weight:600}
-    .stock-ok{background:rgba(93,200,75,0.15);color:#70cc55}
-    .stock-low{background:rgba(212,168,32,0.15);color:#c8a030}
-    .stock-out{background:rgba(224,48,48,0.15);color:#e07070}
+    .stock-ok{background:rgba(93,200,75,0.15);color:#70cc55} .stock-low{background:rgba(212,168,32,0.15);color:#c8a030} .stock-out{background:rgba(224,48,48,0.15);color:#e07070}
     .tbl-action{background:transparent;border:1px solid var(--border);color:var(--text-muted);padding:0.25rem 0.65rem;border-radius:6px;cursor:pointer;font-size:0.72rem;font-family:'Outfit',sans-serif;transition:all 0.2s;margin-right:0.3rem}
     .tbl-action:hover{border-color:var(--gold);color:var(--gold)}
-    .tbl-del{border-color:rgba(224,48,48,0.3);color:rgba(224,100,100,0.7)}
-    .tbl-del:hover{border-color:var(--red-err);color:var(--red-err)}
+    .tbl-del{border-color:rgba(224,48,48,0.3);color:rgba(224,100,100,0.7)} .tbl-del:hover{border-color:#e03030;color:#e03030}
     .add-modal{max-width:520px}
     .form-row{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem}
     select.form-select{width:100%;padding:0.7rem 1rem;background:rgba(255,255,255,0.05);border:1px solid rgba(180,220,80,0.15);border-radius:10px;color:var(--cream);font-size:0.9rem;font-family:'Outfit',sans-serif;outline:none}
@@ -227,8 +242,7 @@
     .checkout-modal{max-width:500px}
     .checkout-steps{display:flex;gap:0.5rem;margin-bottom:1.5rem}
     .step-dot{flex:1;height:3px;border-radius:2px;background:rgba(180,220,80,0.15);transition:background 0.3s}
-    .step-dot.done{background:var(--green-bright)}
-    .step-dot.active{background:var(--gold)}
+    .step-dot.done{background:var(--green-bright)} .step-dot.active{background:var(--gold)}
     .success-screen{text-align:center;padding:2rem 1rem}
     .success-icon{font-size:3.5rem;margin-bottom:1rem}
     .success-screen h2{font-family:'Cormorant Garamond',serif;font-size:2rem;color:var(--white);margin-bottom:0.5rem}
@@ -236,20 +250,17 @@
     footer{padding:2rem 2.5rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
     footer .fl{font-family:'Cormorant Garamond',serif;color:var(--gold);font-size:1.1rem}
     footer .fr{font-size:0.75rem;color:var(--text-dim)}
-    @media(max-width:768px){nav{padding:0.8rem 1rem}nav ul{display:none}.admin-layout{grid-template-columns:1fr}.admin-sidebar{display:none}.hero-title{font-size:2.5rem}.featured-strip,.products-section,.cart-bar,.stock-overview{padding-left:1rem;padding-right:1rem}}
+    @media(max-width:768px){nav{padding:0.8rem 1rem}nav ul{display:none}.admin-layout{grid-template-columns:1fr}.admin-sidebar{display:none}.hero-title{font-size:2.5rem}.featured-strip,.products-section,.cart-bar,.stock-overview{padding-left:1rem;padding-right:1rem}.udash-layout{padding:1.5rem 1rem}}
   </style>
 </head>
 <body>
 <!-- NAV -->
 <nav id="mainNav">
-  <div class="site-logo" onclick="showPage('home')">
-    Omolola Omotalade
-    <span>Fresh Fruits Market</span>
-  </div>
+  <div class="site-logo" onclick="showPage('home')">Omolola Omotalade<span>Fresh Fruits Market</span></div>
   <ul class="nav-links">
     <li><a onclick="showPage('home')">Home</a></li>
-    <li><a onclick="document.getElementById('shopSection').scrollIntoView({behavior:'smooth'})">Shop</a></li>
-    <li><a onclick="document.getElementById('stockSection').scrollIntoView({behavior:'smooth'})">Stock</a></li>
+    <li><a onclick="showPage('home');setTimeout(()=>document.getElementById('shopSection').scrollIntoView({behavior:'smooth'}),80)">Shop</a></li>
+    <li><a onclick="showPage('home');setTimeout(()=>document.getElementById('stockSection').scrollIntoView({behavior:'smooth'}),80)">Stock</a></li>
     <li><a onclick="showPage('home')">Farmers</a></li>
   </ul>
   <div class="nav-right">
@@ -261,16 +272,16 @@
     <div id="userPill" style="display:none" class="user-pill">
       <div class="user-avatar" id="userAvatar">U</div>
       <span id="userName">User</span>
+      <button class="btn-dashboard" onclick="showPage('userDash')">My Account</button>
       <span style="font-size:0.7rem;color:var(--text-dim);cursor:pointer;" onclick="logout()">· Sign out</span>
     </div>
   </div>
 </nav>
+
 <!-- HOME PAGE -->
 <div id="homePage" class="page active">
-  <!-- Hero -->
   <div class="hero">
-    <div class="hero-bg"></div>
-    <div class="hero-overlay"></div>
+    <div class="hero-bg"></div><div class="hero-overlay"></div>
     <div class="hero-content">
       <p class="hero-eyebrow">Farm Fresh · Local · Nigerian Orchards</p>
       <h1 class="hero-title"><em>Omolola Omotalade</em><br>Fresh Fruits Market</h1>
@@ -281,7 +292,6 @@
       </div>
     </div>
   </div>
-  <!-- Featured -->
   <div class="featured-strip">
     <p class="section-label">Today's Picks</p>
     <h2 class="section-title">Featured Fruits</h2>
@@ -303,7 +313,6 @@
       </div>
     </div>
   </div>
-  <!-- Shop -->
   <div class="products-section" id="shopSection">
     <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1rem;margin-bottom:1.5rem;">
       <div><p class="section-label">Fresh Today</p><h2 class="section-title" style="margin-bottom:0">All Fruits</h2></div>
@@ -317,18 +326,12 @@
     <div class="prod-grid" id="prodGrid"></div>
   </div>
   <div class="section-divider"></div>
-  <!-- ══ PUBLIC STOCK OVERVIEW ══ -->
   <div class="stock-overview" id="stockSection">
     <div class="stock-overview-header">
-      <div>
-        <p class="section-label">Availability</p>
-        <h2 class="section-title" style="margin-bottom:0">Live Stock Overview</h2>
-      </div>
+      <div><p class="section-label">Availability</p><h2 class="section-title" style="margin-bottom:0">Live Stock Overview</h2></div>
       <div class="stock-meta">Updated live &nbsp;·&nbsp; <span id="stockTimestamp"></span></div>
     </div>
-    <!-- Summary pills -->
     <div class="stock-pills" id="stockPills"></div>
-    <!-- Stock cards grid -->
     <div class="stock-grid" id="stockGrid"></div>
   </div>
   <div class="cart-bar">
@@ -340,6 +343,32 @@
     <div class="fr">Fresh Fruits Market · Lagos, Nigeria · © 2025</div>
   </footer>
 </div>
+
+<!-- USER DASHBOARD PAGE -->
+<div id="userDashPage" class="page">
+  <div class="udash-layout">
+    <div class="udash-header">
+      <div>
+        <div class="udash-greeting">Welcome back, <em id="udashName">Friend</em></div>
+        <small id="udashEmail" style="font-size:0.8rem;color:var(--text-muted);margin-top:0.3rem;display:block"></small>
+      </div>
+      <div class="udash-actions">
+        <button class="btn-shop-now" onclick="showPage('home')">🛒 Continue Shopping</button>
+        <button class="btn-signout" onclick="logout()">Sign Out</button>
+      </div>
+    </div>
+    <div class="udash-stats" id="udashStats"></div>
+    <div class="udash-tabs">
+      <button class="utab active" onclick="switchUTab('orders',this)">📦 My Orders</button>
+      <button class="utab" onclick="switchUTab('favourites',this)">❤️ Favourites</button>
+      <button class="utab" onclick="switchUTab('profile',this)">👤 Profile</button>
+    </div>
+    <div class="utab-panel active" id="upanel-orders"><div id="udashOrders"></div></div>
+    <div class="utab-panel" id="upanel-favourites"><div id="udashFavs"></div></div>
+    <div class="utab-panel" id="upanel-profile"><div id="udashProfile"></div></div>
+  </div>
+</div>
+
 <!-- ADMIN PAGE -->
 <div id="adminPage" class="page">
   <div class="admin-layout">
@@ -356,6 +385,7 @@
     <main class="admin-main" id="adminMain"></main>
   </div>
 </div>
+
 <!-- LOGIN MODAL -->
 <div class="modal-wrap" id="loginModal">
   <div class="modal">
@@ -368,6 +398,7 @@
     <p class="modal-switch" style="margin-top:0.4rem"><a onclick="switchModal('loginModal','signupModal')">Forgot password?</a></p>
   </div>
 </div>
+
 <!-- SIGNUP MODAL -->
 <div class="modal-wrap" id="signupModal">
   <div class="modal">
@@ -380,6 +411,7 @@
     <p class="modal-switch">Already have an account? <a onclick="switchModal('signupModal','loginModal')">Sign in</a></p>
   </div>
 </div>
+
 <!-- CART DRAWER -->
 <div class="cart-modal-wrap" id="cartDrawer" onclick="closeCartDrawer(event)">
   <div class="cart-drawer" id="cartDrawerInner">
@@ -391,6 +423,7 @@
     <div id="cartFooter"></div>
   </div>
 </div>
+
 <!-- CHECKOUT MODAL -->
 <div class="modal-wrap" id="checkoutModal">
   <div class="modal checkout-modal">
@@ -398,7 +431,8 @@
     <div id="checkoutContent"></div>
   </div>
 </div>
-<!-- ADD ITEM MODAL (Admin) -->
+
+<!-- ADD ITEM MODAL -->
 <div class="modal-wrap" id="addItemModal">
   <div class="modal add-modal">
     <button class="modal-close" onclick="closeModal('addItemModal')">✕</button>
@@ -422,74 +456,34 @@
     <button class="btn-form" onclick="addInventoryItem()">Add to Inventory</button>
   </div>
 </div>
+
 <script>
-/* ═══ DATA ═══ */
-const IMGS = {
-  Mango:'https://images.unsplash.com/photo-1553279768-865429fa0078?w=400&q=80',
-  Pineapple:'https://images.unsplash.com/photo-1550258987-190a2d41a8ba?w=400&q=80',
-  Pawpaw:'https://images.unsplash.com/photo-1526318472351-c75fcf070305?w=400&q=80',
-  Watermelon:'https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=400&q=80',
-  Orange:'https://images.unsplash.com/photo-1582979512210-99b6a53386f9?w=400&q=80',
-  Banana:'https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=400&q=80',
-  Strawberry:'https://images.unsplash.com/photo-1518635017498-87f514b751ba?w=400&q=80',
-  Lemon:'https://images.unsplash.com/photo-1582587678592-4057c4d05fb1?w=400&q=80',
-  Avocado:'https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?w=400&q=80',
-  Grape:'https://images.unsplash.com/photo-1537640538966-79f369143f8f?w=400&q=80',
-  Tangerine:'https://images.unsplash.com/photo-1611080626919-7cf5a9dbab12?w=400&q=80',
-  Guava:'https://images.unsplash.com/photo-1536511132770-e5058c7e8c46?w=400&q=80',
-};
+const IMGS={Mango:'https://images.unsplash.com/photo-1553279768-865429fa0078?w=400&q=80',Pineapple:'https://images.unsplash.com/photo-1550258987-190a2d41a8ba?w=400&q=80',Pawpaw:'https://images.unsplash.com/photo-1526318472351-c75fcf070305?w=400&q=80',Watermelon:'https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=400&q=80',Orange:'https://images.unsplash.com/photo-1582979512210-99b6a53386f9?w=400&q=80',Banana:'https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=400&q=80',Strawberry:'https://images.unsplash.com/photo-1518635017498-87f514b751ba?w=400&q=80',Lemon:'https://images.unsplash.com/photo-1582587678592-4057c4d05fb1?w=400&q=80',Avocado:'https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?w=400&q=80',Grape:'https://images.unsplash.com/photo-1537640538966-79f369143f8f?w=400&q=80',Tangerine:'https://images.unsplash.com/photo-1611080626919-7cf5a9dbab12?w=400&q=80',Guava:'https://images.unsplash.com/photo-1536511132770-e5058c7e8c46?w=400&q=80'};
 const DEFAULT_IMG='https://images.unsplash.com/photo-1610832958506-aa56368176cf?w=400&q=80';
-let inventory = [
-  {id:1,name:'Mango',vendor:'Borno Orchards',price:1500,unit:'per kg',cat:'tropical',badge:'Best Seller',bc:'b-fresh',stock:85},
-  {id:2,name:'Pineapple',vendor:'Ondo Farms',price:1200,unit:'each',cat:'tropical',badge:'Sweet',bc:'b-local',stock:42},
-  {id:3,name:'Pawpaw',vendor:'Lagos Orchards',price:1400,unit:'each',cat:'tropical',badge:'Ripe Now',bc:'b-fresh',stock:30},
-  {id:4,name:'Watermelon',vendor:'Nasarawa Farms',price:2000,unit:'each',cat:'tropical',badge:'Juicy',bc:'b-org',stock:18},
-  {id:5,name:'Orange',vendor:'Cross River',price:900,unit:'per kg',cat:'citrus',badge:'Vitamin C',bc:'b-fresh',stock:95},
-  {id:6,name:'Banana',vendor:'Ondo State',price:1100,unit:'per bunch',cat:'tropical',badge:'Ripe',bc:'b-fresh',stock:60},
-  {id:7,name:'Strawberry',vendor:'Jos Plateau',price:2200,unit:'per punnet',cat:'berries',badge:'Premium',bc:'b-local',stock:12},
-  {id:8,name:'Lemon',vendor:'Kano Citrus',price:700,unit:'per kg',cat:'citrus',badge:'Organic',bc:'b-org',stock:55},
-  {id:9,name:'Avocado',vendor:'Ekiti Farms',price:1800,unit:'each',cat:'tropical',badge:'Creamy',bc:'b-local',stock:8},
-  {id:10,name:'Grape',vendor:'Kaduna Vines',price:3500,unit:'per kg',cat:'berries',badge:'Imported',bc:'b-org',stock:22},
-  {id:11,name:'Tangerine',vendor:'Plateau Citrus',price:850,unit:'per kg',cat:'citrus',badge:'Local',bc:'b-fresh',stock:70},
-  {id:12,name:'Guava',vendor:'Ogun Orchards',price:600,unit:'per kg',cat:'tropical',badge:'Organic',bc:'b-org',stock:48},
-];
-let users=[{name:'Omolola Omotalade',email:'admin@omolola.com',pass:'admin123',role:'admin'}];
-let currentUser=null;
-let cart=[];
-let orders=[
-  {id:'ORD-001',customer:'Chidi Obi',items:'Mango x2, Orange x1',total:3900,status:'Delivered',date:'2025-03-28'},
-  {id:'ORD-002',customer:'Amaka Eze',items:'Pineapple x1, Watermelon x1',total:3200,status:'Processing',date:'2025-04-02'},
-  {id:'ORD-003',customer:'Tunde Bello',items:'Strawberry x1, Grape x1',total:5700,status:'Shipped',date:'2025-04-03'},
-];
-/* ═══ PAGES ═══ */
+let inventory=[{id:1,name:'Mango',vendor:'Borno Orchards',price:1500,unit:'per kg',cat:'tropical',badge:'Best Seller',bc:'b-fresh',stock:85},{id:2,name:'Pineapple',vendor:'Ondo Farms',price:1200,unit:'each',cat:'tropical',badge:'Sweet',bc:'b-local',stock:42},{id:3,name:'Pawpaw',vendor:'Lagos Orchards',price:1400,unit:'each',cat:'tropical',badge:'Ripe Now',bc:'b-fresh',stock:30},{id:4,name:'Watermelon',vendor:'Nasarawa Farms',price:2000,unit:'each',cat:'tropical',badge:'Juicy',bc:'b-org',stock:18},{id:5,name:'Orange',vendor:'Cross River',price:900,unit:'per kg',cat:'citrus',badge:'Vitamin C',bc:'b-fresh',stock:95},{id:6,name:'Banana',vendor:'Ondo State',price:1100,unit:'per bunch',cat:'tropical',badge:'Ripe',bc:'b-fresh',stock:60},{id:7,name:'Strawberry',vendor:'Jos Plateau',price:2200,unit:'per punnet',cat:'berries',badge:'Premium',bc:'b-local',stock:12},{id:8,name:'Lemon',vendor:'Kano Citrus',price:700,unit:'per kg',cat:'citrus',badge:'Organic',bc:'b-org',stock:55},{id:9,name:'Avocado',vendor:'Ekiti Farms',price:1800,unit:'each',cat:'tropical',badge:'Creamy',bc:'b-local',stock:8},{id:10,name:'Grape',vendor:'Kaduna Vines',price:3500,unit:'per kg',cat:'berries',badge:'Imported',bc:'b-org',stock:22},{id:11,name:'Tangerine',vendor:'Plateau Citrus',price:850,unit:'per kg',cat:'citrus',badge:'Local',bc:'b-fresh',stock:70},{id:12,name:'Guava',vendor:'Ogun Orchards',price:600,unit:'per kg',cat:'tropical',badge:'Organic',bc:'b-org',stock:48}];
+let users=[{name:'Omolola Omotalade',email:'admin@omolola.com',pass:'admin123',role:'admin',favourites:[],joined:'2024-01-15'}];
+let currentUser=null,cart=[];
+let orders=[{id:'ORD-001',customer:'Chidi Obi',email:'',items:'Mango x2, Orange x1',total:3900,status:'Delivered',date:'2025-03-28'},{id:'ORD-002',customer:'Amaka Eze',email:'',items:'Pineapple x1, Watermelon x1',total:3200,status:'Processing',date:'2025-04-02'},{id:'ORD-003',customer:'Tunde Bello',email:'',items:'Strawberry x1, Grape x1',total:5700,status:'Shipped',date:'2025-04-03'}];
+
 function showPage(p){
   document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
   document.getElementById(p+'Page').classList.add('active');
-  if(p==='admin') renderAdminDash();
+  if(p==='admin')renderAdminDash();
+  if(p==='userDash')renderUserDash();
 }
-/* ═══ HELPERS ═══ */
-function getImg(name){return IMGS[name]||DEFAULT_IMG;}
-function stockClass(s){return s>20?'stock-ok':s>5?'stock-low':'stock-out';}
+function getImg(n){return IMGS[n]||DEFAULT_IMG;}
 function stockLabel(s){return s>20?'In Stock':s>5?'Low Stock':'Almost Out';}
 function stockBarColor(s){return s>20?'var(--green-bright)':s>5?'var(--gold)':'#e07070';}
 function stockBarPct(s){return Math.min(100,Math.max(4,Math.round((s/100)*100)))+'%';}
-/* ═══ PRODUCT GRID (with inline stock bar) ═══ */
+
 function renderGrid(list){
   document.getElementById('prodGrid').innerHTML=list.map(f=>`
     <div class="pcard">
-      <div class="pimg">
-        <img src="${getImg(f.name)}" alt="${f.name}" loading="lazy" onerror="this.src='${DEFAULT_IMG}'">
-        <div class="pimg-overlay"></div>
-        <span class="pbadge ${f.bc}">${f.badge}</span>
-      </div>
+      <div class="pimg"><img src="${getImg(f.name)}" alt="${f.name}" loading="lazy" onerror="this.src='${DEFAULT_IMG}'"><div class="pimg-overlay"></div><span class="pbadge ${f.bc}">${f.badge}</span></div>
       <div class="pinfo">
-        <div class="pname">${f.name}</div>
-        <div class="pvendor">${f.vendor}</div>
+        <div class="pname">${f.name}</div><div class="pvendor">${f.vendor}</div>
         <div class="pstock-row">
-          <div class="pstock-bar-wrap">
-            <div class="pstock-bar ${f.stock>20?'stock-ok-clr':f.stock>5?'stock-low-clr':'stock-out-clr'}"
-              style="width:${stockBarPct(f.stock)};background:${stockBarColor(f.stock)}"></div>
-          </div>
+          <div class="pstock-bar-wrap"><div class="pstock-bar ${f.stock>20?'stock-ok-clr':f.stock>5?'stock-low-clr':'stock-out-clr'}" style="width:${stockBarPct(f.stock)};background:${stockBarColor(f.stock)}"></div></div>
           <span class="pstock-label" style="color:${stockBarColor(f.stock)}">${f.stock} left</span>
         </div>
         <div class="pfoot">
@@ -500,339 +494,163 @@ function renderGrid(list){
     </div>`).join('');
 }
 function filterProds(cat,btn){
-  document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('on'));
-  btn.classList.add('on');
+  document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('on'));btn.classList.add('on');
   renderGrid(cat==='all'?inventory:inventory.filter(f=>f.cat===cat));
 }
-/* ═══ PUBLIC STOCK OVERVIEW ═══ */
 function renderStockOverview(){
-  const inStock=inventory.filter(f=>f.stock>20).length;
-  const lowStock=inventory.filter(f=>f.stock>5&&f.stock<=20).length;
-  const almostOut=inventory.filter(f=>f.stock<=5).length;
-  const totalUnits=inventory.reduce((s,f)=>s+f.stock,0);
-  const now=new Date();
-  document.getElementById('stockTimestamp').textContent=
-    now.toLocaleTimeString('en-NG',{hour:'2-digit',minute:'2-digit'});
-  document.getElementById('stockPills').innerHTML=`
-    <div class="stock-pill pill-green"><div class="stock-pill-dot"></div><strong>${inStock}</strong><span>In Stock</span></div>
-    <div class="stock-pill pill-gold"><div class="stock-pill-dot"></div><strong>${lowStock}</strong><span>Low Stock</span></div>
-    <div class="stock-pill pill-red"><div class="stock-pill-dot"></div><strong>${almostOut}</strong><span>Almost Out</span></div>
-    <div class="stock-pill" style="border-color:rgba(180,220,80,0.2)">
-      <div class="stock-pill-dot" style="background:var(--text-muted)"></div>
-      <strong>${totalUnits}</strong><span>Total Units Available</span>
-    </div>`;
-  const sorted=[...inventory].sort((a,b)=>b.stock-a.stock);
-  document.getElementById('stockGrid').innerHTML=sorted.map(f=>{
-    const pct=stockBarPct(f.stock);
-    const color=stockBarColor(f.stock);
-    const label=stockLabel(f.stock);
-    const cls=f.stock>20?'sb-ok':f.stock>5?'sb-low':'sb-out';
-    return `
-    <div class="scard">
-      <div class="scard-top">
-        <img class="scard-img" src="${getImg(f.name)}" alt="${f.name}" onerror="this.src='${DEFAULT_IMG}'">
-        <div>
-          <div class="scard-name">${f.name}</div>
-          <div class="scard-vendor">${f.vendor}</div>
-        </div>
-      </div>
-      <div class="scard-bar-wrap">
-        <div class="scard-bar" style="width:${pct};background:${color}"></div>
-      </div>
-      <div class="scard-foot">
-        <div class="scard-count"><strong>${f.stock}</strong> <span>units · ${f.unit}</span></div>
-        <span class="scard-badge ${cls}">${label}</span>
-      </div>
-    </div>`;
-  }).join('');
+  const inStock=inventory.filter(f=>f.stock>20).length,lowStock=inventory.filter(f=>f.stock>5&&f.stock<=20).length,almostOut=inventory.filter(f=>f.stock<=5).length,totalUnits=inventory.reduce((s,f)=>s+f.stock,0);
+  document.getElementById('stockTimestamp').textContent=new Date().toLocaleTimeString('en-NG',{hour:'2-digit',minute:'2-digit'});
+  document.getElementById('stockPills').innerHTML=`<div class="stock-pill pill-green"><div class="stock-pill-dot"></div><strong>${inStock}</strong><span>In Stock</span></div><div class="stock-pill pill-gold"><div class="stock-pill-dot"></div><strong>${lowStock}</strong><span>Low Stock</span></div><div class="stock-pill pill-red"><div class="stock-pill-dot"></div><strong>${almostOut}</strong><span>Almost Out</span></div><div class="stock-pill" style="border-color:rgba(180,220,80,0.2)"><div class="stock-pill-dot" style="background:var(--text-muted)"></div><strong>${totalUnits}</strong><span>Total Units Available</span></div>`;
+  document.getElementById('stockGrid').innerHTML=[...inventory].sort((a,b)=>b.stock-a.stock).map(f=>`<div class="scard"><div class="scard-top"><img class="scard-img" src="${getImg(f.name)}" alt="${f.name}" onerror="this.src='${DEFAULT_IMG}'"><div><div class="scard-name">${f.name}</div><div class="scard-vendor">${f.vendor}</div></div></div><div class="scard-bar-wrap"><div class="scard-bar" style="width:${stockBarPct(f.stock)};background:${stockBarColor(f.stock)}"></div></div><div class="scard-foot"><div class="scard-count"><strong>${f.stock}</strong><span> units · ${f.unit}</span></div><span class="scard-badge ${f.stock>20?'sb-ok':f.stock>5?'sb-low':'sb-out'}">${stockLabel(f.stock)}</span></div></div>`).join('');
 }
-/* ═══ CART ═══ */
-function addToCart(item){
-  const ex=cart.find(c=>c.name===item.name);
-  if(ex) ex.qty++;
-  else cart.push({...item,qty:1});
-  updateCartUI();
-  flashCart();
-}
-function updateCartUI(){
-  const total=cart.reduce((s,c)=>s+c.price*c.qty,0);
-  const count=cart.reduce((s,c)=>s+c.qty,0);
-  document.getElementById('cartCount').textContent=count;
-  document.getElementById('cartCountBar').textContent=count;
-  document.getElementById('cartTotalBar').textContent='₦'+total.toLocaleString();
-}
-function flashCart(){
-  const el=document.querySelector('.cart-pill');
-  el.style.background='rgba(212,168,32,0.3)';
-  setTimeout(()=>el.style.background='',400);
-}
+
+function addToCart(item){const ex=cart.find(c=>c.name===item.name);if(ex)ex.qty++;else cart.push({...item,qty:1});updateCartUI();flashCart();}
+function updateCartUI(){const total=cart.reduce((s,c)=>s+c.price*c.qty,0),count=cart.reduce((s,c)=>s+c.qty,0);document.getElementById('cartCount').textContent=count;document.getElementById('cartCountBar').textContent=count;document.getElementById('cartTotalBar').textContent='₦'+total.toLocaleString();}
+function flashCart(){const el=document.querySelector('.cart-pill');el.style.background='rgba(212,168,32,0.3)';setTimeout(()=>el.style.background='',400);}
 function openCartDrawer(){document.getElementById('cartDrawer').classList.add('open');renderCartDrawer();}
-function closeCartDrawer(e,force){
-  if(force||!e||e.target===document.getElementById('cartDrawer'))
-    document.getElementById('cartDrawer').classList.remove('open');
-}
+function closeCartDrawer(e,force){if(force||!e||e.target===document.getElementById('cartDrawer'))document.getElementById('cartDrawer').classList.remove('open');}
 function renderCartDrawer(){
-  const listEl=document.getElementById('cartItemsList');
-  const footEl=document.getElementById('cartFooter');
-  if(!cart.length){
-    listEl.innerHTML='<div class="cart-empty">Your cart is empty.<br><br>Add some fresh fruits! 🍉</div>';
-    footEl.innerHTML='';return;
-  }
-  listEl.innerHTML=cart.map((c,i)=>`
-    <div class="cart-item">
-      <img src="${c.img}" alt="${c.name}" onerror="this.src='${DEFAULT_IMG}'">
-      <div class="cart-item-info">
-        <div class="cart-item-name">${c.name}</div>
-        <div class="cart-item-price">₦${(c.price*c.qty).toLocaleString()}</div>
-      </div>
-      <div class="cart-item-qty">
-        <button class="qty-btn" onclick="changeQty(${i},-1)">−</button>
-        <span class="qty-val">${c.qty}</span>
-        <button class="qty-btn" onclick="changeQty(${i},1)">+</button>
-      </div>
-    </div>`).join('');
+  const listEl=document.getElementById('cartItemsList'),footEl=document.getElementById('cartFooter');
+  if(!cart.length){listEl.innerHTML='<div class="cart-empty">Your cart is empty.<br><br>Add some fresh fruits! 🍉</div>';footEl.innerHTML='';return;}
+  listEl.innerHTML=cart.map((c,i)=>`<div class="cart-item"><img src="${c.img}" alt="${c.name}" onerror="this.src='${DEFAULT_IMG}'"><div class="cart-item-info"><div class="cart-item-name">${c.name}</div><div class="cart-item-price">₦${(c.price*c.qty).toLocaleString()}</div></div><div class="cart-item-qty"><button class="qty-btn" onclick="changeQty(${i},-1)">−</button><span class="qty-val">${c.qty}</span><button class="qty-btn" onclick="changeQty(${i},1)">+</button></div></div>`).join('');
   const total=cart.reduce((s,c)=>s+c.price*c.qty,0);
-  footEl.innerHTML=`
-    <div class="cart-total"><span>Total</span><strong>₦${total.toLocaleString()}</strong></div>
-    <div class="cart-actions">
-      <button class="btn-pay" onclick="closeCartDrawer(null,true);openCheckout()">Proceed to Checkout</button>
-      <div class="payment-methods">
-        <button class="pm-btn pm-paystack" onclick="payWith('Paystack')"><span class="pm-badge">PAYSTACK</span> Pay Now</button>
-        <button class="pm-btn pm-flutter" onclick="payWith('Flutterwave')"><span class="pm-badge">FLUTTERWAVE</span> Pay Now</button>
-      </div>
-    </div>`;
+  footEl.innerHTML=`<div class="cart-total"><span>Total</span><strong>₦${total.toLocaleString()}</strong></div><div class="cart-actions"><button class="btn-pay" onclick="closeCartDrawer(null,true);openCheckout()">Proceed to Checkout</button><div class="payment-methods"><button class="pm-btn pm-paystack" onclick="payWith('Paystack')"><span class="pm-badge">PAYSTACK</span> Pay Now</button><button class="pm-btn pm-flutter" onclick="payWith('Flutterwave')"><span class="pm-badge">FLUTTERWAVE</span> Pay Now</button></div></div>`;
 }
-function changeQty(i,d){
-  cart[i].qty+=d;
-  if(cart[i].qty<=0)cart.splice(i,1);
-  updateCartUI();renderCartDrawer();
-}
-function payWith(gateway){
-  const total=cart.reduce((s,c)=>s+c.price*c.qty,0);
-  if(!currentUser){closeCartDrawer(null,true);openModal('loginModal');return;}
-  closeCartDrawer(null,true);
-  showPaymentScreen(gateway,total);
-}
+function changeQty(i,d){cart[i].qty+=d;if(cart[i].qty<=0)cart.splice(i,1);updateCartUI();renderCartDrawer();}
+function payWith(gw){const total=cart.reduce((s,c)=>s+c.price*c.qty,0);if(!currentUser){closeCartDrawer(null,true);openModal('loginModal');return;}closeCartDrawer(null,true);showPaymentScreen(gw,total);}
 function openCheckout(){
   if(!currentUser){openModal('loginModal');return;}
   const total=cart.reduce((s,c)=>s+c.price*c.qty,0);
-  document.getElementById('checkoutContent').innerHTML=`
-    <div class="checkout-steps"><div class="step-dot done"></div><div class="step-dot active"></div><div class="step-dot"></div></div>
-    <h2>Checkout</h2><p class="modal-sub">Deliver to ${currentUser.name}</p>
-    <div class="form-group" style="margin-top:1rem"><label>Delivery Address</label><input type="text" placeholder="Enter your full address"></div>
-    <div class="form-group"><label>Phone Number</label><input type="text" placeholder="+234 xxx xxx xxxx"></div>
-    <div style="margin:1rem 0;padding:0.8rem;background:rgba(93,184,46,0.07);border-radius:10px;border:1px solid var(--border)">
-      <div style="font-size:0.78rem;color:var(--text-muted);margin-bottom:0.3rem">Order Total</div>
-      <div style="font-size:1.3rem;font-family:'Cormorant Garamond',serif;color:var(--gold)">₦${total.toLocaleString()}</div>
-    </div>
-    <p style="font-size:0.78rem;color:var(--text-muted);margin-bottom:0.8rem">Choose payment method:</p>
-    <div class="payment-methods" style="margin-bottom:1rem">
-      <button class="pm-btn pm-paystack" onclick="closeModal('checkoutModal');showPaymentScreen('Paystack',${total})"><span class="pm-badge">PAYSTACK</span> Pay</button>
-      <button class="pm-btn pm-flutter" onclick="closeModal('checkoutModal');showPaymentScreen('Flutterwave',${total})"><span class="pm-badge">FLUTTERWAVE</span> Pay</button>
-    </div>`;
+  document.getElementById('checkoutContent').innerHTML=`<div class="checkout-steps"><div class="step-dot done"></div><div class="step-dot active"></div><div class="step-dot"></div></div><h2>Checkout</h2><p class="modal-sub">Deliver to ${currentUser.name}</p><div class="form-group" style="margin-top:1rem"><label>Delivery Address</label><input type="text" placeholder="Enter your full address"></div><div class="form-group"><label>Phone Number</label><input type="text" placeholder="+234 xxx xxx xxxx"></div><div style="margin:1rem 0;padding:0.8rem;background:rgba(93,184,46,0.07);border-radius:10px;border:1px solid var(--border)"><div style="font-size:0.78rem;color:var(--text-muted);margin-bottom:0.3rem">Order Total</div><div style="font-size:1.3rem;font-family:'Cormorant Garamond',serif;color:var(--gold)">₦${total.toLocaleString()}</div></div><p style="font-size:0.78rem;color:var(--text-muted);margin-bottom:0.8rem">Choose payment method:</p><div class="payment-methods" style="margin-bottom:1rem"><button class="pm-btn pm-paystack" onclick="closeModal('checkoutModal');showPaymentScreen('Paystack',${total})"><span class="pm-badge">PAYSTACK</span> Pay</button><button class="pm-btn pm-flutter" onclick="closeModal('checkoutModal');showPaymentScreen('Flutterwave',${total})"><span class="pm-badge">FLUTTERWAVE</span> Pay</button></div>`;
   openModal('checkoutModal');
 }
-function showPaymentScreen(gateway,total){
-  document.getElementById('checkoutContent').innerHTML=`
-    <div style="text-align:center;padding:1.5rem 0">
-      <div style="font-size:2.5rem;margin-bottom:1rem">${gateway==='Paystack'?'💙':'🧡'}</div>
-      <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:var(--white);margin-bottom:0.3rem">${gateway}</h2>
-      <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:1.5rem">Secure payment powered by ${gateway}</p>
-      <div style="background:rgba(93,184,46,0.07);border:1px solid var(--border);border-radius:12px;padding:1rem;margin-bottom:1.5rem">
-        <div style="font-size:0.72rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em">Amount to Pay</div>
-        <div style="font-size:2rem;color:var(--gold);font-family:'Cormorant Garamond',serif;font-weight:700">₦${total.toLocaleString()}</div>
-        <div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.2rem">${currentUser?currentUser.email:'guest@example.com'}</div>
-      </div>
-      <div class="form-group" style="text-align:left"><label>Card Number</label><input type="text" placeholder="4084 0840 8408 4084" maxlength="19"></div>
-      <div class="form-row" style="text-align:left">
-        <div class="form-group"><label>Expiry</label><input type="text" placeholder="MM/YY"></div>
-        <div class="form-group"><label>CVV</label><input type="text" placeholder="123" maxlength="3"></div>
-      </div>
-      <button class="btn-form" onclick="confirmPayment('${gateway}',${total})">Pay ₦${total.toLocaleString()}</button>
-    </div>`;
+function showPaymentScreen(gw,total){
+  document.getElementById('checkoutContent').innerHTML=`<div style="text-align:center;padding:1.5rem 0"><div style="font-size:2.5rem;margin-bottom:1rem">${gw==='Paystack'?'💙':'🧡'}</div><h2 style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:var(--white);margin-bottom:0.3rem">${gw}</h2><p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:1.5rem">Secure payment powered by ${gw}</p><div style="background:rgba(93,184,46,0.07);border:1px solid var(--border);border-radius:12px;padding:1rem;margin-bottom:1.5rem"><div style="font-size:0.72rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em">Amount to Pay</div><div style="font-size:2rem;color:var(--gold);font-family:'Cormorant Garamond',serif;font-weight:700">₦${total.toLocaleString()}</div><div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.2rem">${currentUser?currentUser.email:'guest@example.com'}</div></div><div class="form-group" style="text-align:left"><label>Card Number</label><input type="text" placeholder="4084 0840 8408 4084" maxlength="19"></div><div class="form-row" style="text-align:left"><div class="form-group"><label>Expiry</label><input type="text" placeholder="MM/YY"></div><div class="form-group"><label>CVV</label><input type="text" placeholder="123" maxlength="3"></div></div><button class="btn-form" onclick="confirmPayment('${gw}',${total})">Pay ₦${total.toLocaleString()}</button></div>`;
   openModal('checkoutModal');
 }
+
 /* ═══ FIX: DEDUCT INVENTORY ON PAYMENT ═══ */
-function confirmPayment(gateway,total){
+function confirmPayment(gw,total){
   const orderId='ORD-'+(Math.floor(Math.random()*9000)+1000);
-  orders.unshift({
-    id:orderId,
-    customer:currentUser?currentUser.name:'Guest',
-    items:cart.map(c=>c.name+' x'+c.qty).join(', '),
-    total,
-    status:'Processing',
-    date:new Date().toISOString().split('T')[0]
-  });
-  // ✅ Deduct purchased quantities from inventory
-  cart.forEach(cartItem=>{
-    const product=inventory.find(p=>p.name===cartItem.name);
-    if(product) product.stock=Math.max(0,product.stock-cartItem.qty);
-  });
-  cart=[];
-  updateCartUI();
-  renderGrid(inventory);       // refresh product cards with new stock
-  renderStockOverview();       // refresh live stock section
-  document.getElementById('checkoutContent').innerHTML=`
-    <div class="success-screen">
-      <div class="success-icon">✅</div>
-      <h2>Payment Successful!</h2>
-      <p style="color:var(--green-bright);font-size:1rem;margin:0.5rem 0">₦${total.toLocaleString()} via ${gateway}</p>
-      <p>Order <strong style="color:var(--gold)">${orderId}</strong> confirmed.<br>Your fruits will be delivered today!</p>
-      <button class="btn-form" style="margin-top:1.5rem" onclick="closeModal('checkoutModal')">Continue Shopping</button>
-    </div>`;
+  orders.unshift({id:orderId,customer:currentUser?currentUser.name:'Guest',email:currentUser?currentUser.email:'',items:cart.map(c=>c.name+' x'+c.qty).join(', '),total,status:'Processing',date:new Date().toISOString().split('T')[0]});
+  // Deduct inventory
+  cart.forEach(ci=>{const p=inventory.find(x=>x.name===ci.name);if(p)p.stock=Math.max(0,p.stock-ci.qty);});
+  cart=[];updateCartUI();renderGrid(inventory);renderStockOverview();
+  document.getElementById('checkoutContent').innerHTML=`<div class="success-screen"><div class="success-icon">✅</div><h2>Payment Successful!</h2><p style="color:var(--green-bright);font-size:1rem;margin:0.5rem 0">₦${total.toLocaleString()} via ${gw}</p><p>Order <strong style="color:var(--gold)">${orderId}</strong> confirmed.<br>Your fruits will be delivered today!</p><div style="display:flex;gap:0.7rem;margin-top:1.5rem;justify-content:center;flex-wrap:wrap"><button class="btn-form" style="max-width:190px" onclick="closeModal('checkoutModal')">Continue Shopping</button><button class="btn-form" style="max-width:190px;background:rgba(93,184,46,0.15);color:var(--green-bright);border:1px solid rgba(93,184,46,0.3)" onclick="closeModal('checkoutModal');showPage('userDash')">View My Orders</button></div></div>`;
 }
+
 /* ═══ AUTH ═══ */
 function doLogin(){
-  const email=document.getElementById('loginEmail').value.trim();
-  const pass=document.getElementById('loginPass').value;
+  const email=document.getElementById('loginEmail').value.trim(),pass=document.getElementById('loginPass').value;
   const user=users.find(u=>u.email===email&&u.pass===pass);
   const err=document.getElementById('loginErr');
   if(!user){err.style.display='block';return;}
-  err.style.display='none';
-  currentUser=user;updateAuthUI();closeModal('loginModal');
-  if(user.role==='admin')showPage('admin');
+  err.style.display='none';currentUser=user;updateAuthUI();closeModal('loginModal');
+  if(user.role==='admin')showPage('admin');else showPage('userDash');
 }
 function doSignup(){
-  const name=document.getElementById('signupName').value.trim();
-  const email=document.getElementById('signupEmail').value.trim();
-  const pass=document.getElementById('signupPass').value;
+  const name=document.getElementById('signupName').value.trim(),email=document.getElementById('signupEmail').value.trim(),pass=document.getElementById('signupPass').value;
   const err=document.getElementById('signupErr');
   if(!name||!email||pass.length<6){err.style.display='block';return;}
   if(users.find(u=>u.email===email)){err.textContent='Email already registered';err.style.display='block';return;}
   err.style.display='none';
-  const newUser={name,email,pass,role:'customer'};
-  users.push(newUser);currentUser=newUser;updateAuthUI();closeModal('signupModal');
+  const nu={name,email,pass,role:'customer',favourites:[],joined:new Date().toISOString().split('T')[0]};
+  users.push(nu);currentUser=nu;updateAuthUI();closeModal('signupModal');showPage('userDash');
 }
 function logout(){currentUser=null;updateAuthUI();showPage('home');}
 function updateAuthUI(){
-  const authBtns=document.getElementById('authButtons');
-  const userPill=document.getElementById('userPill');
-  if(currentUser){
-    authBtns.style.display='none';userPill.style.display='flex';
-    document.getElementById('userAvatar').textContent=currentUser.name[0].toUpperCase();
-    document.getElementById('userName').textContent=currentUser.name.split(' ')[0];
-  }else{
-    authBtns.style.display='flex';userPill.style.display='none';
-  }
+  const ab=document.getElementById('authButtons'),up=document.getElementById('userPill');
+  if(currentUser){ab.style.display='none';up.style.display='flex';document.getElementById('userAvatar').textContent=currentUser.name[0].toUpperCase();document.getElementById('userName').textContent=currentUser.name.split(' ')[0];}
+  else{ab.style.display='flex';up.style.display='none';}
 }
+
 /* ═══ MODALS ═══ */
 function openModal(id){document.getElementById(id).classList.add('open');}
 function closeModal(id){document.getElementById(id).classList.remove('open');}
-function switchModal(from,to){closeModal(from);openModal(to);}
-document.querySelectorAll('.modal-wrap').forEach(m=>{
-  m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('open');});
-});
+function switchModal(f,t){closeModal(f);openModal(t);}
+document.querySelectorAll('.modal-wrap').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('open');}));
+
+/* ═══ USER DASHBOARD ═══ */
+function renderUserDash(){
+  if(!currentUser)return;
+  document.getElementById('udashName').textContent=currentUser.name.split(' ')[0];
+  document.getElementById('udashEmail').textContent=currentUser.email;
+  const myOrders=orders.filter(o=>o.customer===currentUser.name||o.email===currentUser.email);
+  const totalSpent=myOrders.reduce((s,o)=>s+o.total,0);
+  document.getElementById('udashStats').innerHTML=`
+    <div class="ustat"><div class="ustat-icon">📦</div><div class="ustat-val">${myOrders.length}</div><div class="ustat-label">Total Orders</div></div>
+    <div class="ustat"><div class="ustat-icon">💰</div><div class="ustat-val">₦${totalSpent.toLocaleString()}</div><div class="ustat-label">Total Spent</div></div>
+    <div class="ustat"><div class="ustat-icon">❤️</div><div class="ustat-val" id="favCount">${(currentUser.favourites||[]).length}</div><div class="ustat-label">Favourites</div></div>
+    <div class="ustat"><div class="ustat-icon">🗓️</div><div class="ustat-val" style="font-size:1rem;padding-top:0.3rem">${currentUser.joined||'—'}</div><div class="ustat-label">Member Since</div></div>`;
+  renderUOrders(myOrders);
+  renderUFavourites();
+  renderUProfile();
+}
+function switchUTab(tab,el){
+  document.querySelectorAll('.utab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.utab-panel').forEach(p=>p.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('upanel-'+tab).classList.add('active');
+}
+function renderUOrders(myOrders){
+  const el=document.getElementById('udashOrders');
+  if(!myOrders||!myOrders.length){
+    el.innerHTML=`<div class="udash-empty"><div class="udash-empty-icon">🛒</div><p>You haven't placed any orders yet.</p><button class="btn-shop-now" onclick="showPage('home')">Start Shopping</button></div>`;return;
+  }
+  el.innerHTML=`<div class="udash-table-wrap"><table><thead><tr><th>Order ID</th><th>Items</th><th>Total</th><th>Status</th><th>Date</th></tr></thead><tbody>${myOrders.map(o=>`<tr><td><strong style="color:var(--gold)">${o.id}</strong></td><td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${o.items}</td><td>₦${o.total.toLocaleString()}</td><td><span class="ostatus ${o.status==='Delivered'?'os-delivered':o.status==='Shipped'?'os-shipped':'os-processing'}">${o.status}</span></td><td>${o.date}</td></tr>`).join('')}</tbody></table></div>`;
+}
+function renderUFavourites(){
+  const el=document.getElementById('udashFavs');
+  const favs=currentUser.favourites||[];
+  const favItems=inventory.filter(f=>favs.includes(f.name));
+  if(!favItems.length){
+    el.innerHTML=`<div class="udash-empty"><div class="udash-empty-icon">❤️</div><p>No favourites saved yet.<br>Browse the shop and heart items to save them here.</p><button class="btn-shop-now" onclick="showPage('home')">Browse Fruits</button></div>`;return;
+  }
+  el.innerHTML=`<div class="fav-grid">${favItems.map(f=>`<div class="fav-card"><img src="${getImg(f.name)}" alt="${f.name}" onerror="this.src='${DEFAULT_IMG}'"><button class="fav-remove" onclick="removeFav('${f.name}')">✕</button><div class="fav-card-info"><div class="fav-card-name">${f.name}</div><div class="fav-card-price">₦${f.price.toLocaleString()} · ${f.unit}</div><button class="fav-add-btn" onclick='addToCart(${JSON.stringify({name:f.name,price:f.price,unit:f.unit,img:getImg(f.name)})});showPage("home")'>+ Add to Cart</button></div></div>`).join('')}</div>`;
+}
+function renderUProfile(){
+  document.getElementById('udashProfile').innerHTML=`<div class="profile-card"><div class="profile-avatar-row"><div class="profile-avatar-big">${currentUser.name[0].toUpperCase()}</div><div><div class="profile-name">${currentUser.name}</div><span class="profile-role-badge">${currentUser.role}</span></div></div><div class="profile-field"><label>Full Name</label><p>${currentUser.name}</p></div><div class="profile-field"><label>Email Address</label><p>${currentUser.email}</p></div><div class="profile-field"><label>Member Since</label><p>${currentUser.joined||'—'}</p></div><div class="profile-field"><label>Account Type</label><p style="text-transform:capitalize">${currentUser.role}</p></div><button class="btn-signout" style="margin-top:0.5rem;width:100%;padding:0.65rem;border-radius:10px;cursor:pointer" onclick="logout()">Sign Out</button></div>`;
+}
+function removeFav(name){
+  if(!currentUser)return;
+  currentUser.favourites=(currentUser.favourites||[]).filter(f=>f!==name);
+  renderUFavourites();
+  const fc=document.getElementById('favCount');if(fc)fc.textContent=(currentUser.favourites||[]).length;
+}
+
 /* ═══ ADMIN ═══ */
 function adminTab(tab,el){
-  document.querySelectorAll('.sidebar-menu a').forEach(a=>a.classList.remove('active'));
-  el.classList.add('active');
-  if(tab==='dashboard')renderAdminDash();
-  else if(tab==='inventory')renderAdminInventory();
-  else if(tab==='orders')renderAdminOrders();
-  else if(tab==='customers')renderAdminCustomers();
+  document.querySelectorAll('.sidebar-menu a').forEach(a=>a.classList.remove('active'));el.classList.add('active');
+  if(tab==='dashboard')renderAdminDash();else if(tab==='inventory')renderAdminInventory();else if(tab==='orders')renderAdminOrders();else if(tab==='customers')renderAdminCustomers();
 }
 function renderAdminDash(){
   const revenue=orders.reduce((s,o)=>s+o.total,0);
-  document.getElementById('adminMain').innerHTML=`
-    <div class="admin-topbar"><h1>Dashboard</h1><div style="font-size:0.8rem;color:var(--text-muted)">${new Date().toDateString()}</div></div>
-    <div class="stat-cards">
-      <div class="stat-card"><div class="stat-label">Total Revenue</div><div class="stat-val">₦${revenue.toLocaleString()}</div><div class="stat-change">↑ 12% this week</div></div>
-      <div class="stat-card"><div class="stat-label">Orders</div><div class="stat-val">${orders.length}</div><div class="stat-change">↑ 3 new today</div></div>
-      <div class="stat-card"><div class="stat-label">Customers</div><div class="stat-val">${users.filter(u=>u.role!=='admin').length}</div><div class="stat-change">↑ 2 new</div></div>
-      <div class="stat-card"><div class="stat-label">Products</div><div class="stat-val">${inventory.length}</div><div class="stat-change">${inventory.filter(i=>i.stock<15).length} low stock</div></div>
-    </div>
-    <div class="admin-table-wrap">
-      <div class="table-header"><h3>Recent Orders</h3></div>
-      <table><thead><tr><th>Order ID</th><th>Customer</th><th>Items</th><th>Total</th><th>Status</th><th>Date</th></tr></thead>
-      <tbody>${orders.map(o=>`
-        <tr><td>${o.id}</td><td>${o.customer}</td><td style="max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${o.items}</td><td>₦${o.total.toLocaleString()}</td>
-        <td><span class="stock-badge ${o.status==='Delivered'?'stock-ok':o.status==='Shipped'?'stock-low':'b-org'}">${o.status}</span></td><td>${o.date}</td></tr>`).join('')}
-      </tbody></table>
-    </div>`;
+  document.getElementById('adminMain').innerHTML=`<div class="admin-topbar"><h1>Dashboard</h1><div style="font-size:0.8rem;color:var(--text-muted)">${new Date().toDateString()}</div></div><div class="stat-cards"><div class="stat-card"><div class="stat-label">Total Revenue</div><div class="stat-val">₦${revenue.toLocaleString()}</div><div class="stat-change">↑ 12% this week</div></div><div class="stat-card"><div class="stat-label">Orders</div><div class="stat-val">${orders.length}</div><div class="stat-change">↑ 3 new today</div></div><div class="stat-card"><div class="stat-label">Customers</div><div class="stat-val">${users.filter(u=>u.role!=='admin').length}</div><div class="stat-change">↑ 2 new</div></div><div class="stat-card"><div class="stat-label">Products</div><div class="stat-val">${inventory.length}</div><div class="stat-change">${inventory.filter(i=>i.stock<15).length} low stock</div></div></div><div class="admin-table-wrap"><div class="table-header"><h3>Recent Orders</h3></div><table><thead><tr><th>Order ID</th><th>Customer</th><th>Items</th><th>Total</th><th>Status</th><th>Date</th></tr></thead><tbody>${orders.map(o=>`<tr><td>${o.id}</td><td>${o.customer}</td><td style="max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${o.items}</td><td>₦${o.total.toLocaleString()}</td><td><span class="stock-badge ${o.status==='Delivered'?'stock-ok':o.status==='Shipped'?'stock-low':'b-org'}">${o.status}</span></td><td>${o.date}</td></tr>`).join('')}</tbody></table></div>`;
 }
 function renderAdminInventory(){
-  document.getElementById('adminMain').innerHTML=`
-    <div class="admin-topbar"><h1>Inventory</h1><button class="btn-add-item" onclick="openModal('addItemModal')">+ Add Fruit</button></div>
-    <div class="admin-table-wrap">
-      <table><thead><tr><th>Photo</th><th>Name</th><th>Vendor</th><th>Price</th><th>Unit</th><th>Category</th><th>Stock</th><th>Actions</th></tr></thead>
-      <tbody id="invTableBody"></tbody></table>
-    </div>`;
+  document.getElementById('adminMain').innerHTML=`<div class="admin-topbar"><h1>Inventory</h1><button class="btn-add-item" onclick="openModal('addItemModal')">+ Add Fruit</button></div><div class="admin-table-wrap"><table><thead><tr><th>Photo</th><th>Name</th><th>Vendor</th><th>Price</th><th>Unit</th><th>Category</th><th>Stock</th><th>Actions</th></tr></thead><tbody id="invTableBody"></tbody></table></div>`;
   renderInvTable();
 }
 function renderInvTable(){
-  const tbody=document.getElementById('invTableBody');
-  if(!tbody)return;
-  tbody.innerHTML=inventory.map((f,i)=>`
-    <tr>
-      <td><img src="${getImg(f.name)}" alt="${f.name}" onerror="this.src='${DEFAULT_IMG}'"></td>
-      <td><strong>${f.name}</strong></td><td>${f.vendor}</td><td>₦${f.price.toLocaleString()}</td><td>${f.unit}</td><td>${f.cat}</td>
-      <td><span class="stock-badge ${f.stock>20?'stock-ok':f.stock>5?'stock-low':'stock-out'}">${f.stock} units</span></td>
-      <td>
-        <button class="tbl-action" onclick="editStock(${i})">Edit Stock</button>
-        <button class="tbl-action tbl-del" onclick="deleteItem(${i})">Delete</button>
-      </td>
-    </tr>`).join('');
+  const tbody=document.getElementById('invTableBody');if(!tbody)return;
+  tbody.innerHTML=inventory.map((f,i)=>`<tr><td><img src="${getImg(f.name)}" alt="${f.name}" onerror="this.src='${DEFAULT_IMG}'"></td><td><strong>${f.name}</strong></td><td>${f.vendor}</td><td>₦${f.price.toLocaleString()}</td><td>${f.unit}</td><td>${f.cat}</td><td><span class="stock-badge ${f.stock>20?'stock-ok':f.stock>5?'stock-low':'stock-out'}">${f.stock} units</span></td><td><button class="tbl-action" onclick="editStock(${i})">Edit Stock</button><button class="tbl-action tbl-del" onclick="deleteItem(${i})">Delete</button></td></tr>`).join('');
 }
-function editStock(i){
-  const n=prompt(`Update stock for ${inventory[i].name} (current: ${inventory[i].stock}):`,inventory[i].stock);
-  if(n!==null&&!isNaN(n)){
-    inventory[i].stock=parseInt(n);
-    renderInvTable();
-    renderGrid(inventory);
-    renderStockOverview();
-  }
-}
-function deleteItem(i){
-  if(confirm(`Delete ${inventory[i].name}?`)){
-    inventory.splice(i,1);
-    renderAdminInventory();
-    renderGrid(inventory);
-    renderStockOverview();
-  }
-}
+function editStock(i){const n=prompt(`Update stock for ${inventory[i].name} (current: ${inventory[i].stock}):`,inventory[i].stock);if(n!==null&&!isNaN(n)){inventory[i].stock=parseInt(n);renderInvTable();renderGrid(inventory);renderStockOverview();}}
+function deleteItem(i){if(confirm(`Delete ${inventory[i].name}?`)){inventory.splice(i,1);renderAdminInventory();renderGrid(inventory);renderStockOverview();}}
 function addInventoryItem(){
-  const name=document.getElementById('ai_name').value.trim();
-  const price=parseInt(document.getElementById('ai_price').value);
-  const unit=document.getElementById('ai_unit').value.trim();
-  const stock=parseInt(document.getElementById('ai_stock').value)||0;
-  const cat=document.getElementById('ai_cat').value;
-  const vendor=document.getElementById('ai_vendor').value.trim();
+  const name=document.getElementById('ai_name').value.trim(),price=parseInt(document.getElementById('ai_price').value),unit=document.getElementById('ai_unit').value.trim(),stock=parseInt(document.getElementById('ai_stock').value)||0,cat=document.getElementById('ai_cat').value,vendor=document.getElementById('ai_vendor').value.trim();
   if(!name||!price||!unit||!vendor)return alert('Please fill all fields');
   inventory.push({id:Date.now(),name,vendor,price,unit,cat,badge:'New',bc:'b-fresh',stock});
-  renderGrid(inventory);
-  renderStockOverview();
-  closeModal('addItemModal');
-  renderAdminInventory();
+  renderGrid(inventory);renderStockOverview();closeModal('addItemModal');renderAdminInventory();
 }
 function renderAdminOrders(){
-  document.getElementById('adminMain').innerHTML=`
-    <div class="admin-topbar"><h1>Orders</h1></div>
-    <div class="admin-table-wrap">
-      <table><thead><tr><th>Order ID</th><th>Customer</th><th>Items</th><th>Total</th><th>Status</th><th>Date</th><th>Action</th></tr></thead>
-      <tbody>${orders.map((o,i)=>`
-        <tr><td>${o.id}</td><td>${o.customer}</td><td style="max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${o.items}</td><td>₦${o.total.toLocaleString()}</td>
-        <td><span class="stock-badge ${o.status==='Delivered'?'stock-ok':o.status==='Shipped'?'stock-low':'b-org'}">${o.status}</span></td><td>${o.date}</td>
-        <td><button class="tbl-action" onclick="updateOrderStatus(${i})">Update</button></td></tr>`).join('')}
-      </tbody></table>
-    </div>`;
+  document.getElementById('adminMain').innerHTML=`<div class="admin-topbar"><h1>Orders</h1></div><div class="admin-table-wrap"><table><thead><tr><th>Order ID</th><th>Customer</th><th>Items</th><th>Total</th><th>Status</th><th>Date</th><th>Action</th></tr></thead><tbody>${orders.map((o,i)=>`<tr><td>${o.id}</td><td>${o.customer}</td><td style="max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${o.items}</td><td>₦${o.total.toLocaleString()}</td><td><span class="stock-badge ${o.status==='Delivered'?'stock-ok':o.status==='Shipped'?'stock-low':'b-org'}">${o.status}</span></td><td>${o.date}</td><td><button class="tbl-action" onclick="updateOrderStatus(${i})">Update</button></td></tr>`).join('')}</tbody></table></div>`;
 }
-function updateOrderStatus(i){
-  const statuses=['Processing','Shipped','Delivered'];
-  const cur=statuses.indexOf(orders[i].status);
-  orders[i].status=statuses[(cur+1)%statuses.length];
-  renderAdminOrders();
-}
+function updateOrderStatus(i){const s=['Processing','Shipped','Delivered'];orders[i].status=s[(s.indexOf(orders[i].status)+1)%s.length];renderAdminOrders();}
 function renderAdminCustomers(){
-  document.getElementById('adminMain').innerHTML=`
-    <div class="admin-topbar"><h1>Customers</h1></div>
-    <div class="admin-table-wrap">
-      <table><thead><tr><th>Name</th><th>Email</th><th>Role</th></tr></thead>
-      <tbody>${users.map(u=>`
-        <tr><td>${u.name}</td><td>${u.email}</td><td><span class="stock-badge ${u.role==='admin'?'stock-low':'stock-ok'}">${u.role}</span></td></tr>`).join('')}
-      </tbody></table>
-    </div>`;
+  document.getElementById('adminMain').innerHTML=`<div class="admin-topbar"><h1>Customers</h1></div><div class="admin-table-wrap"><table><thead><tr><th>Name</th><th>Email</th><th>Role</th></tr></thead><tbody>${users.map(u=>`<tr><td>${u.name}</td><td>${u.email}</td><td><span class="stock-badge ${u.role==='admin'?'stock-low':'stock-ok'}">${u.role}</span></td></tr>`).join('')}</tbody></table></div>`;
 }
-/* ═══ INIT ═══ */
+
 renderGrid(inventory);
 renderStockOverview();
 console.log('Admin: admin@omolola.com / admin123');
