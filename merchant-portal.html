@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>OjaSaye · Merchant Portal</title>
+<title>OjaLocal · Merchant Portal</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700;900&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -150,11 +150,11 @@ tr:hover td{background:rgba(93,184,46,0.03)}
 
 <div id="loadingOverlay">
   <div class="loader"></div>
-  <div class="loader-text" id="loadingText">Loading OjaSaye...</div>
+  <div class="loader-text" id="loadingText">Loading OjaLocal...</div>
 </div>
 
 <nav>
-  <div class="logo">OjaSaye<span>Merchant Portal</span></div>
+  <div class="logo">OjaLocal<span>Merchant Portal</span></div>
   <div class="nav-r">
     <span class="nav-biz" id="navBiz"></span>
     <a href="index.html" class="btn-back">← Back to Store</a>
@@ -168,7 +168,7 @@ tr:hover td{background:rgba(93,184,46,0.03)}
   <div class="onboard-card">
     <div style="text-align:center;margin-bottom:1.5rem">
       <div style="font-size:2.5rem;margin-bottom:0.5rem">🏪</div>
-      <div style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:900;color:var(--white)">OjaSaye</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:900;color:var(--white)">OjaLocal</div>
       <div style="font-size:0.8rem;color:var(--muted);margin-top:0.3rem">Merchant Portal · FIFO &amp; LIFO Inventory Intelligence</div>
     </div>
     <div class="otabs">
@@ -177,7 +177,7 @@ tr:hover td{background:rgba(93,184,46,0.03)}
     </div>
     <div class="opanel active" id="opanel-signup">
       <div class="oh">Create your account</div>
-      <div class="os">Start selling on OjaSaye today</div>
+      <div class="os">Start selling on OjaLocal today</div>
       <div class="fg2">
         <div class="fg"><label>First Name</label><input type="text" id="su_fname" placeholder="Amaka"></div>
         <div class="fg"><label>Last Name</label><input type="text" id="su_lname" placeholder="Eze"></div>
@@ -761,7 +761,7 @@ document.querySelectorAll('.mw').forEach(m=>m.addEventListener('click',e=>{if(e.
 function v(id){return document.getElementById(id)?.value?.trim()||'';}
 function today(){return new Date().toISOString().split('T')[0];}
 
-showLoad('Loading OjaSaye...');
+showLoad('Loading OjaLocal...');
 </script>
 </body>
 </html>
