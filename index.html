@@ -488,9 +488,10 @@ footer .fr{font-size:0.75rem;color:var(--text-dim)}
       <div><p class="section-label">Fresh Today</p><h2 class="section-title" style="margin-bottom:0">All Fruits</h2></div>
       <div class="filters">
         <button class="fbtn on" onclick="filterProds('all',this)">All</button>
-        <button class="fbtn" onclick="filterProds('tropical',this)">Tropical</button>
-        <button class="fbtn" onclick="filterProds('citrus',this)">Citrus</button>
-        <button class="fbtn" onclick="filterProds('berries',this)">Berries</button>
+        <button class="fbtn" onclick="filterProds('fruits',this)">Fruits</button>
+        <button class="fbtn" onclick="filterProds('vegetables',this)">Vegetables</button>
+        <button class="fbtn" onclick="filterProds('grains',this)">Grains</button>
+        <button class="fbtn" onclick="filterProds('spices',this)">Spices</button>
       </div>
     </div>
     <div class="prod-grid" id="prodGrid"></div>
@@ -900,9 +901,104 @@ function renderAdminCustomers(){
   document.getElementById('adminMain').innerHTML=`<div class="admin-topbar"><h1>Customers</h1></div><div class="admin-table-wrap"><table><thead><tr><th>Name</th><th>Email</th><th>Role</th></tr></thead><tbody>${users.map(u=>`<tr><td>${u.name}</td><td>${u.email}</td><td><span class="stock-badge ${u.role==='admin'?'stock-low':'stock-ok'}">${u.role}</span></td></tr>`).join('')}</tbody></table></div>`;
 }
 
-renderGrid(inventory);
+// ── SUPABASE SHOP CONNECTION ────────────────────────────────────────────────
+const { createClient } = supabase;
+const sbShop = createClient(
+  'https://wuxnuibdrajbtkzgcifo.supabase.co',
+  'sb_publishable_GyIqYVC6TW_nLBS4fIz5Ow_OY3zCUfe'
+);
+
+let shopProducts = []; // live products from Supabase
+
+function mapProduct(p) {
+  const stock = (p.batches || []).reduce((s, b) => s + b.remaining, 0);
+  const badges = {fruits:'Fresh',vegetables:'Organic',grains:'Local',spices:'Premium',dairy:'Farm Fresh',other:'Available'};
+  const colors = {fruits:'b-fresh',vegetables:'b-org',grains:'b-local',spices:'b-local',dairy:'b-fresh',other:'b-fresh'};
+  return {
+    id: p.id,
+    name: p.name,
+    vendor: p.vendor_name || p.cat,
+    price: p.sell_price,
+    unit: p.unit,
+    cat: p.cat,
+    badge: badges[p.cat] || 'Fresh',
+    bc: colors[p.cat] || 'b-fresh',
+    stock,
+    supabaseId: p.id,
+    batches: p.batches || [],
+    method: p.method
+  };
+}
+
+async function loadShopProducts() {
+  document.getElementById('prodGrid').innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--text-muted)"><div style="font-size:1.5rem;margin-bottom:0.5rem">🌿</div>Loading fresh products...</div>`;
+  try {
+    const { data, error } = await sbShop
+      .from('products')
+      .select('*, merchants(biz)')
+      .order('name');
+    if (error) throw error;
+    shopProducts = (data || []).map(p => mapProduct({...p, vendor_name: p.merchants?.biz}));
+    inventory = shopProducts; // keep inventory in sync for other functions
+    if (!shopProducts.length) {
+      document.getElementById('prodGrid').innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--text-muted)"><div style="font-size:2rem;margin-bottom:0.5rem">🛒</div><div>No products listed yet.</div><div style="font-size:0.8rem;margin-top:0.5rem"><a href="merchant-portal.html" style="color:var(--gold)">Become a merchant to list products →</a></div></div>`;
+    } else {
+      renderGrid(shopProducts);
+    }
+    renderStockOverview();
+  } catch(e) {
+    console.error('Failed to load products:', e);
+    // fallback to local inventory if Supabase fails
+    renderGrid(inventory);
+    renderStockOverview();
+  }
+}
+
+// Override filterProds to use shopProducts
+function filterProds(cat, btn) {
+  document.querySelectorAll('.fbtn').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+  const list = cat === 'all' ? shopProducts : shopProducts.filter(f => f.cat === cat);
+  if (!list.length) {
+    document.getElementById('prodGrid').innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:2rem;color:var(--text-muted)">No ${cat} products listed yet.</div>`;
+  } else {
+    renderGrid(list);
+  }
+}
+
+// Save buyer order to Supabase on checkout
+const _origConfirmPayment = confirmPayment;
+async function confirmPayment(gw, total) {
+  // Save each cart item as a buyer order in Supabase
+  if (cart.length) {
+    for (const item of cart) {
+      const prod = shopProducts.find(p => p.name === item.name);
+      if (prod) {
+        await sbShop.from('buyer_orders').insert({
+          product_id: prod.supabaseId,
+          product_name: item.name,
+          qty: item.qty,
+          total: item.price * item.qty,
+          buyer_name: currentUser ? currentUser.name : 'Guest',
+          buyer_email: currentUser ? currentUser.email : '',
+          status: 'pending',
+          payment_method: gw
+        });
+      }
+    }
+  }
+  _origConfirmPayment(gw, total);
+  // Reload products to reflect updated stock
+  setTimeout(() => loadShopProducts(), 1000);
+}
+
+// Start — load products from Supabase
+loadShopProducts();
 renderStockOverview();
 console.log('Admin: admin@omolola.com / admin123');
 </script>
+
+<!-- SUPABASE CDN -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </body>
 </html>
