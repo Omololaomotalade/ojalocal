@@ -4,814 +4,711 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>OjaLocal · Merchant Portal</title>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700;900&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root {
-  --green-deep:#0d3d1f; --green-mid:#1b6535; --green-bright:#2d9e52;
-  --green-light:#e8f5ed; --green-pale:#f4faf6;
-  --amber:#d97706; --amber-light:#fef3c7;
-  --red:#dc2626; --red-light:#fee2e2;
-  --blue:#2563eb; --blue-light:#dbeafe;
-  --text-primary:#111; --text-secondary:#555; --text-muted:#888;
-  --border:#e2e8f0; --border-strong:#cbd5e1;
-  --surface:#fff; --surface-2:#f8faf9; --surface-3:#f1f5f2;
-  --radius:10px; --radius-lg:16px;
-  --shadow-sm:0 1px 3px rgba(0,0,0,.08);
-  --shadow-lg:0 8px 32px rgba(0,0,0,.12);
+:root{
+  --g-deep:#0a1f06;--g-dark:#122b0a;--g-mid:#1e4a10;--g-accent:#3d8a1e;--g-bright:#5cb82e;
+  --gold:#d4a820;--gold-lt:#f0c84a;--cream:#f5edd8;--white:#faf8f2;
+  --muted:#7a9a6a;--dim:#4a6638;--border:rgba(180,220,80,0.12);
+  --red:#e03030;--fifo:#5cb82e;--lifo:#d4a820;
 }
-*{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'DM Sans',sans-serif;background:var(--surface-2);color:var(--text-primary);min-height:100vh;}
-
-.screen{display:none;min-height:100vh;}
-.screen.active{display:flex;}
-
-/* AUTH */
-.auth-wrap{min-height:100vh;width:100%;background:#0d3d1f;display:flex;align-items:center;justify-content:center;padding:1.5rem;}
-.auth-card{background:#fff;border-radius:20px;padding:2.5rem 2rem;width:min(400px,100%);box-shadow:0 24px 60px rgba(0,0,0,.4);animation:slideUp .45s cubic-bezier(.22,1,.36,1) both;}
-@keyframes slideUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
-.auth-logo{font-family:'Fraunces',serif;font-size:24px;font-weight:600;color:#0d3d1f;margin-bottom:3px;}
-.auth-sub{font-size:11px;color:#888;text-transform:uppercase;letter-spacing:1.2px;margin-bottom:1.75rem;}
-.auth-icon{font-size:34px;margin-bottom:1.25rem;}
-.auth-title{font-family:'Fraunces',serif;font-size:20px;font-weight:600;color:#0d3d1f;margin-bottom:.35rem;}
-.auth-desc{font-size:13px;color:#666;margin-bottom:1.5rem;line-height:1.55;}
-.form-group{margin-bottom:.9rem;}
-.form-label{font-size:11px;font-weight:500;color:#555;display:block;margin-bottom:5px;text-transform:uppercase;letter-spacing:.5px;}
-.form-input{width:100%;padding:10px 13px;border:1.5px solid #e2e8f0;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px;color:#111;background:#f8faf9;transition:border-color .2s;}
-.form-input:focus{outline:none;border-color:#2d9e52;background:#fff;}
-.pw-wrap{position:relative;}
-.pw-wrap .form-input{padding-right:42px;}
-.pw-toggle{position:absolute;right:11px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:15px;color:#888;padding:3px;}
-.auth-error{font-size:12.5px;color:#dc2626;margin-bottom:.75rem;min-height:18px;}
-.btn-full{width:100%;padding:12px;background:#1b6535;color:#fff;border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer;transition:background .15s,transform .1s;margin-top:.25rem;}
-.btn-full:hover{background:#0d3d1f;}
-.btn-full:active{transform:scale(.98);}
-.btn-full.secondary{background:#fff;color:#1b6535;border:1.5px solid #1b6535;}
-.btn-full.secondary:hover{background:#f4faf6;}
-.auth-link{font-size:13px;color:#888;text-align:center;margin-top:1.1rem;}
-.auth-link a{color:#1b6535;cursor:pointer;font-weight:500;text-decoration:none;}
-.auth-link a:hover{text-decoration:underline;}
-
-/* PORTAL */
-#portal-screen{display:none;}
-#portal-screen.active{display:flex;}
-.sidebar{width:240px;background:var(--green-deep);min-height:100vh;position:fixed;left:0;top:0;bottom:0;display:flex;flex-direction:column;z-index:100;}
-.sidebar-logo{padding:1.5rem 1.25rem 1rem;border-bottom:1px solid rgba(255,255,255,.1);}
-.sidebar-logo .brand{font-family:'Fraunces',serif;font-size:18px;color:#fff;font-weight:600;}
-.sidebar-logo .sub{font-size:11px;color:rgba(255,255,255,.5);margin-top:2px;letter-spacing:.5px;text-transform:uppercase;}
-.merchant-info{padding:.75rem 1.25rem;border-bottom:1px solid rgba(255,255,255,.08);display:flex;align-items:center;gap:10px;}
-.merchant-avatar{width:36px;height:36px;border-radius:50%;background:var(--green-bright);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500;color:#fff;flex-shrink:0;}
-.merchant-name{font-size:13px;color:#fff;font-weight:500;}
-.merchant-role{font-size:11px;color:rgba(255,255,255,.45);}
-.online-dot{width:7px;height:7px;background:#4ade80;border-radius:50%;margin-left:auto;flex-shrink:0;}
-nav{padding:.75rem 0;flex:1;}
-.nav-section{padding:.4rem 1.25rem .2rem;font-size:10px;text-transform:uppercase;letter-spacing:.8px;color:rgba(255,255,255,.3);font-weight:500;}
-.nav-item{display:flex;align-items:center;gap:10px;padding:.6rem 1.25rem;font-size:13.5px;color:rgba(255,255,255,.65);cursor:pointer;transition:all .15s;position:relative;border:none;background:none;width:100%;text-align:left;}
-.nav-item:hover{color:#fff;background:rgba(255,255,255,.06);}
-.nav-item.active{color:#fff;background:rgba(255,255,255,.1);font-weight:500;}
-.nav-item.active::before{content:'';position:absolute;left:0;top:25%;bottom:25%;width:3px;background:var(--green-bright);border-radius:0 2px 2px 0;}
-.nav-icon{font-size:15px;width:18px;text-align:center;}
-.nav-badge{margin-left:auto;background:var(--amber);color:#fff;font-size:10px;font-weight:600;border-radius:10px;padding:1px 6px;min-width:18px;text-align:center;}
-.nav-badge.red{background:var(--red);}
-.sidebar-bottom{padding:.75rem 1.25rem 1.25rem;border-top:1px solid rgba(255,255,255,.08);}
-.back-link{display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,.5);text-decoration:none;transition:color .15s;}
-.back-link:hover{color:rgba(255,255,255,.85);}
-.logout-btn{display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,100,100,.7);cursor:pointer;background:none;border:none;width:100%;margin-top:.6rem;padding:0;transition:color .15s;}
-.logout-btn:hover{color:#f87171;}
-
-.main{margin-left:240px;flex:1;min-height:100vh;}
-.topbar{background:var(--surface);border-bottom:1px solid var(--border);padding:0 2rem;height:60px;display:flex;align-items:center;gap:1rem;position:sticky;top:0;z-index:50;}
-.topbar-title{font-family:'Fraunces',serif;font-size:18px;font-weight:600;color:var(--green-deep);}
-.topbar-actions{margin-left:auto;display:flex;align-items:center;gap:.75rem;}
-.notif-btn{position:relative;background:none;border:1px solid var(--border);border-radius:var(--radius);width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;color:var(--text-secondary);transition:all .15s;}
-.notif-btn:hover{background:var(--surface-3);}
-.notif-dot{position:absolute;top:6px;right:6px;width:7px;height:7px;background:var(--red);border-radius:50%;border:1.5px solid var(--surface);}
-.content{padding:2rem;}
-.section{display:none;}
-.section.active{display:block;}
-
-.metrics-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:1.5rem;}
-.metric-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.25rem;}
-.metric-label{font-size:12px;color:var(--text-muted);font-weight:500;text-transform:uppercase;letter-spacing:.5px;margin-bottom:.5rem;}
-.metric-value{font-family:'Fraunces',serif;font-size:28px;font-weight:600;line-height:1;margin-bottom:.25rem;}
-.metric-change{font-size:12px;color:var(--green-bright);}
-
-.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;}
-.card-header{padding:1rem 1.25rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:.75rem;}
-.card-title{font-size:14px;font-weight:500;}
-.card-action{margin-left:auto;font-size:13px;color:var(--green-mid);cursor:pointer;background:none;border:none;font-family:'DM Sans',sans-serif;font-weight:500;}
-.card-action:hover{text-decoration:underline;}
-.three-col{display:grid;grid-template-columns:2fr 1fr;gap:1rem;margin-bottom:1.5rem;}
-.two-col{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.5rem;}
-
-table{width:100%;border-collapse:collapse;}
-th{font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--text-muted);font-weight:500;padding:.75rem 1rem;text-align:left;background:var(--surface-2);border-bottom:1px solid var(--border);}
-td{padding:.85rem 1rem;font-size:13.5px;border-bottom:1px solid var(--border);vertical-align:middle;}
-tr:last-child td{border-bottom:none;}
-tr:hover td{background:var(--surface-2);}
-
-.badge{display:inline-flex;align-items:center;font-size:11px;font-weight:500;padding:3px 10px;border-radius:20px;white-space:nowrap;}
-.badge-pending{background:var(--amber-light);color:#92400e;}
-.badge-shipped{background:var(--blue-light);color:#1d4ed8;}
-.badge-delivered{background:var(--green-light);color:var(--green-mid);}
-.badge-cancelled{background:var(--red-light);color:#991b1b;}
-.badge-in-stock{background:var(--green-light);color:var(--green-mid);}
-.badge-low{background:var(--amber-light);color:#92400e;}
-.badge-out{background:var(--red-light);color:#991b1b;}
-.badge-paid{background:var(--green-light);color:var(--green-mid);}
-.badge-processing{background:var(--blue-light);color:#1d4ed8;}
-.badge-approved{background:var(--green-light);color:var(--green-mid);}
-
-.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;font-size:13px;font-weight:500;border-radius:var(--radius);cursor:pointer;border:1px solid var(--border);background:var(--surface);color:var(--text-primary);font-family:'DM Sans',sans-serif;transition:all .15s;}
-.btn:hover{background:var(--surface-3);}
-.btn-primary{background:var(--green-mid);color:#fff;border-color:var(--green-mid);}
-.btn-primary:hover{background:var(--green-deep);}
-.btn-sm{padding:5px 12px;font-size:12px;}
-.btn-danger{background:var(--red-light);color:var(--red);border-color:#fca5a5;}
-.btn-danger:hover{background:#fecaca;}
-
-.toolbar{display:flex;align-items:center;gap:.75rem;padding:1rem 1.25rem;border-bottom:1px solid var(--border);flex-wrap:wrap;}
-.search-wrap{position:relative;flex:1;min-width:180px;}
-.search-wrap input{width:100%;padding:7px 12px 7px 34px;border:1px solid var(--border);border-radius:var(--radius);font-size:13px;background:var(--surface-2);font-family:'DM Sans',sans-serif;color:var(--text-primary);transition:border-color .15s;}
-.search-wrap input:focus{outline:none;border-color:var(--green-bright);background:#fff;}
-.search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--text-muted);font-size:14px;pointer-events:none;}
-.filter-pill{padding:6px 14px;border-radius:20px;font-size:12px;font-weight:500;border:1px solid var(--border);background:var(--surface);cursor:pointer;color:var(--text-secondary);transition:all .15s;white-space:nowrap;}
-.filter-pill:hover{border-color:var(--green-bright);color:var(--green-mid);}
-.filter-pill.active{background:var(--green-light);border-color:var(--green-bright);color:var(--green-mid);font-weight:600;}
-
-.stars-sm{color:var(--amber);font-size:12px;}
-.review-item{padding:1.25rem;border-bottom:1px solid var(--border);}
-.review-item:last-child{border-bottom:none;}
-.review-head{display:flex;align-items:flex-start;gap:10px;margin-bottom:.5rem;}
-.reviewer-av{width:34px;height:34px;border-radius:50%;background:var(--blue-light);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:var(--blue);flex-shrink:0;}
-.reviewer-name{font-size:14px;font-weight:500;}
-.review-meta{font-size:12px;color:var(--text-muted);margin-top:2px;}
-.review-body{font-size:13.5px;color:var(--text-secondary);line-height:1.65;margin-bottom:.75rem;}
-.reply-area{background:var(--surface-2);border-radius:var(--radius);padding:.75rem 1rem;}
-.reply-area textarea{width:100%;border:1px solid var(--border);border-radius:8px;padding:8px 10px;font-size:13px;font-family:'DM Sans',sans-serif;resize:none;background:var(--surface);color:var(--text-primary);transition:border-color .15s;}
-.reply-area textarea:focus{outline:none;border-color:var(--green-bright);}
-.merchant-reply{background:var(--green-pale);border:1px solid #c6e8d2;border-radius:var(--radius);padding:.75rem 1rem;font-size:13px;color:var(--text-secondary);line-height:1.6;}
-.merchant-reply-label{font-size:11px;font-weight:600;color:var(--green-mid);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;}
-
-.product-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;padding:1.25rem;}
-.product-card{border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:box-shadow .15s;background:var(--surface);}
-.product-card:hover{box-shadow:var(--shadow-sm);}
-.product-img{width:100%;height:130px;object-fit:cover;display:block;background:var(--surface-3);}
-.product-body{padding:.75rem;}
-.product-name{font-size:13.5px;font-weight:500;margin-bottom:3px;}
-.product-price{font-size:13px;color:var(--green-mid);font-weight:600;}
-.product-stock{font-size:12px;margin-top:4px;}
-.product-actions{padding:.5rem .75rem .75rem;display:flex;gap:6px;}
-
-.fm-group{margin-bottom:1rem;}
-.fm-label{font-size:12px;font-weight:500;color:var(--text-secondary);margin-bottom:5px;display:block;text-transform:uppercase;letter-spacing:.4px;}
-.fm-input{width:100%;padding:9px 12px;border:1px solid var(--border);border-radius:var(--radius);font-size:13.5px;font-family:'DM Sans',sans-serif;background:var(--surface);color:var(--text-primary);transition:border-color .15s;}
-.fm-input:focus{outline:none;border-color:var(--green-bright);}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
-
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:200;align-items:center;justify-content:center;padding:1rem;}
-.modal-overlay.open{display:flex;}
-.modal-box{background:var(--surface);border-radius:var(--radius-lg);width:min(500px,100%);max-height:90vh;overflow-y:auto;box-shadow:var(--shadow-lg);}
-.modal-head{padding:1.25rem 1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--surface);z-index:1;}
-.modal-title{font-family:'Fraunces',serif;font-size:18px;font-weight:600;}
-.modal-close{background:none;border:none;font-size:20px;cursor:pointer;color:var(--text-muted);line-height:1;padding:4px;}
-.modal-body{padding:1.5rem;}
-
-.mini-chart{display:flex;align-items:flex-end;gap:4px;height:60px;padding:0 1.25rem 1rem;}
-.chart-bar{flex:1;background:var(--green-light);border-radius:3px 3px 0 0;cursor:pointer;transition:background .15s;}
-.chart-bar:hover{background:var(--green-bright);}
-.chart-bar.highlight{background:var(--green-mid);}
-
-.notif-item{display:flex;gap:12px;padding:1rem 1.25rem;border-bottom:1px solid var(--border);cursor:pointer;transition:background .1s;}
-.notif-item:hover{background:var(--surface-2);}
-.notif-item.unread{background:#f0fdf4;}
-.notif-icon-wrap{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
-.ni-order{background:var(--blue-light);}.ni-review{background:var(--amber-light);}.ni-payout{background:var(--green-light);}
-.notif-text{font-size:13.5px;color:var(--text-primary);line-height:1.5;}
-.notif-time{font-size:11px;color:var(--text-muted);margin-top:3px;}
-.unread-dot{width:8px;height:8px;background:var(--green-bright);border-radius:50%;margin-left:auto;margin-top:6px;flex-shrink:0;}
-
-.seller-card{display:flex;align-items:center;gap:12px;padding:1rem 1.25rem;border-bottom:1px solid var(--border);}
-.seller-card:last-child{border-bottom:none;}
-.seller-av{width:40px;height:40px;border-radius:50%;background:var(--green-light);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;color:var(--green-mid);flex-shrink:0;}
-.seller-info{flex:1;}
-.seller-name{font-size:14px;font-weight:500;}
-.seller-meta{font-size:12px;color:var(--text-muted);margin-top:2px;}
-.seller-actions{display:flex;gap:6px;}
-
-.toast{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--green-deep);color:#fff;padding:.75rem 1.25rem;border-radius:var(--radius);font-size:13.5px;font-weight:500;box-shadow:var(--shadow-lg);z-index:999;display:flex;align-items:center;gap:8px;transform:translateY(80px);opacity:0;transition:all .3s ease;pointer-events:none;}
-.toast.show{transform:translateY(0);opacity:1;}
-::-webkit-scrollbar{width:5px;height:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--border-strong);border-radius:10px}
-@media(max-width:900px){.sidebar{transform:translateX(-100%)}.main{margin-left:0}.metrics-grid{grid-template-columns:1fr 1fr}.product-grid{grid-template-columns:1fr 1fr}.two-col,.three-col{grid-template-columns:1fr}}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Outfit',sans-serif;background:var(--g-deep);color:var(--cream);min-height:100vh}
+.screen{display:none}.screen.active{display:block}
+#loadingOverlay{position:fixed;inset:0;background:rgba(10,31,6,0.92);z-index:9999;display:none;align-items:center;justify-content:center;flex-direction:column;gap:1rem;backdrop-filter:blur(6px)}
+#loadingOverlay.show{display:flex}
+.loader{width:36px;height:36px;border:3px solid rgba(212,168,32,0.2);border-top-color:var(--gold);border-radius:50%;animation:spin 0.8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loader-text{font-size:0.82rem;color:var(--muted)}
+nav{position:sticky;top:0;z-index:200;padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center;background:rgba(10,31,6,0.97);border-bottom:1px solid var(--border);backdrop-filter:blur(12px)}
+.logo{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:900;color:var(--gold)}
+.logo span{color:var(--g-bright);display:block;font-size:0.65rem;letter-spacing:0.15em;font-weight:400;text-transform:uppercase;font-family:'Outfit',sans-serif}
+.nav-r{display:flex;align-items:center;gap:0.8rem}
+.nav-biz{font-size:0.8rem;color:var(--muted);display:none}
+.nav-biz strong{color:var(--cream)}
+.btn-back{background:transparent;border:1px solid var(--border);color:var(--muted);padding:0.35rem 0.9rem;border-radius:2rem;font-size:0.75rem;cursor:pointer;font-family:'Outfit',sans-serif;transition:all 0.2s;text-decoration:none;display:inline-block}
+.btn-back:hover{color:var(--cream);border-color:rgba(245,237,216,0.3)}
+.btn-so{background:transparent;border:1px solid rgba(224,48,48,0.25);color:rgba(224,100,100,0.7);padding:0.35rem 0.9rem;border-radius:2rem;font-size:0.75rem;cursor:pointer;font-family:'Outfit',sans-serif;transition:all 0.2s;display:none}
+.btn-so:hover{border-color:#e03030;color:#e03030}
+.onboard-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:2rem;position:relative;overflow:hidden}
+.onboard-wrap::before{content:'';position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1488459716781-31db52582fe9?w=1600&q=60') center/cover;opacity:0.07}
+.onboard-card{position:relative;z-index:2;background:rgba(18,43,10,0.95);border:1px solid rgba(180,220,80,0.15);border-radius:24px;padding:2.5rem;width:100%;max-width:520px}
+.otabs{display:flex;margin-bottom:2rem;border-bottom:1px solid var(--border)}
+.otab{flex:1;background:transparent;border:none;border-bottom:2px solid transparent;color:var(--dim);font-size:0.9rem;font-family:'Outfit',sans-serif;padding:0.7rem;cursor:pointer;margin-bottom:-1px;transition:all 0.2s}
+.otab.active{color:var(--gold);border-bottom-color:var(--gold)}
+.opanel{display:none}.opanel.active{display:block}
+.oh{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:900;color:var(--white);margin-bottom:0.3rem}
+.os{font-size:0.82rem;color:var(--muted);margin-bottom:1.5rem}
+.fg{margin-bottom:1rem}
+.fg label{display:block;font-size:0.72rem;color:var(--muted);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:0.3rem}
+.fg input,.fg select{width:100%;padding:0.7rem 1rem;background:rgba(255,255,255,0.05);border:1px solid rgba(180,220,80,0.15);border-radius:10px;color:var(--cream);font-size:0.88rem;font-family:'Outfit',sans-serif;outline:none;transition:border-color 0.2s}
+.fg input:focus,.fg select:focus{border-color:rgba(93,184,46,0.5)}
+.fg input::placeholder{color:var(--dim)}
+.fg select option{background:var(--g-dark)}
+.fg2{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem}
+.btn-p{width:100%;padding:0.85rem;background:var(--gold);color:var(--g-deep);border:none;border-radius:12px;font-weight:700;font-size:0.95rem;cursor:pointer;font-family:'Outfit',sans-serif;transition:background 0.2s;margin-top:0.5rem}
+.btn-p:hover{background:var(--gold-lt)}
+.err{font-size:0.75rem;color:var(--red);margin-top:0.3rem;display:none}
+.dash-layout{display:grid;grid-template-columns:230px 1fr;min-height:calc(100vh - 53px)}
+.sidebar{background:rgba(12,28,8,0.97);border-right:1px solid var(--border);padding:1.5rem 0.8rem;display:flex;flex-direction:column;gap:0.25rem}
+.ss{font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--dim);padding:0.5rem 0.8rem;margin-top:0.8rem}
+.sl{display:flex;align-items:center;gap:0.65rem;padding:0.6rem 0.8rem;border-radius:10px;color:var(--muted);font-size:0.83rem;cursor:pointer;transition:all 0.2s;border:none;background:transparent;width:100%;font-family:'Outfit',sans-serif;text-align:left}
+.sl:hover,.sl.active{background:rgba(93,184,46,0.12);color:var(--g-bright)}
+.sl .ico{font-size:1rem;width:20px;text-align:center}
+.sl .bdg{margin-left:auto;background:var(--gold);color:var(--g-deep);font-size:0.6rem;font-weight:700;padding:0.1rem 0.45rem;border-radius:1rem}
+.dm{padding:2rem;overflow-y:auto}
+.tp{display:none}.tp.active{display:block}
+.ph{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1rem;margin-bottom:1.8rem}
+.pt{font-family:'Cormorant Garamond',serif;font-size:2rem;color:var(--white);font-weight:900}
+.ps{font-size:0.78rem;color:var(--muted);margin-top:0.2rem}
+.bsm{padding:0.45rem 1.1rem;border-radius:8px;font-size:0.8rem;cursor:pointer;font-family:'Outfit',sans-serif;transition:all 0.2s;border:none}
+.bg{background:var(--gold);color:var(--g-deep);font-weight:600}
+.bg:hover{background:var(--gold-lt)}
+.bo{background:transparent;color:var(--muted);border:1px solid var(--border)}
+.bo:hover{color:var(--cream);border-color:rgba(245,237,216,0.3)}
+.bgr{background:rgba(93,184,46,0.15);color:var(--g-bright);border:1px solid rgba(93,184,46,0.3)}
+.bgr:hover{background:rgba(93,184,46,0.28)}
+.card{background:rgba(18,43,10,0.85);border:1px solid var(--border);border-radius:16px;padding:1.3rem}
+.ct{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--white);font-weight:700;margin-bottom:1rem}
+.sr{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem;margin-bottom:1.5rem}
+.sb{background:rgba(18,43,10,0.85);border:1px solid var(--border);border-radius:14px;padding:1.1rem}
+.sb .ico{font-size:1.3rem;margin-bottom:0.4rem}
+.sb .val{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:700;color:var(--white);line-height:1}
+.sb .lbl{font-size:0.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-top:0.25rem}
+.tw{background:rgba(18,43,10,0.85);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.tt{padding:1rem 1.2rem;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);flex-wrap:wrap;gap:0.8rem}
+.tt h3{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--white)}
+table{width:100%;border-collapse:collapse}
+th{padding:0.65rem 1rem;text-align:left;font-size:0.65rem;color:var(--dim);letter-spacing:0.1em;text-transform:uppercase;border-bottom:1px solid var(--border);font-weight:500}
+td{padding:0.7rem 1rem;font-size:0.82rem;color:var(--cream);border-bottom:1px solid rgba(180,220,80,0.06);vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:rgba(93,184,46,0.03)}
+.tb{background:transparent;border:1px solid var(--border);color:var(--muted);padding:0.22rem 0.65rem;border-radius:6px;cursor:pointer;font-size:0.7rem;font-family:'Outfit',sans-serif;transition:all 0.2s;margin-right:0.25rem}
+.tb:hover{border-color:var(--gold);color:var(--gold)}
+.tb.dl{border-color:rgba(224,48,48,0.25);color:rgba(224,100,100,0.6)}
+.tb.dl:hover{border-color:var(--red);color:var(--red)}
+.badge{display:inline-block;font-size:0.63rem;padding:0.18rem 0.6rem;border-radius:6px;font-weight:600;letter-spacing:0.04em}
+.bok{background:rgba(93,200,75,0.15);color:#70cc55}
+.blow{background:rgba(212,168,32,0.15);color:#c8a030}
+.bout{background:rgba(224,48,48,0.15);color:#e07070}
+.bcat{background:rgba(59,130,246,0.15);color:#93c5fd}
+.mw{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:500;align-items:center;justify-content:center;padding:1rem}
+.mw.open{display:flex}
+.modal{background:var(--g-dark);border:1px solid rgba(180,220,80,0.15);border-radius:20px;width:100%;max-width:500px;padding:2rem;position:relative;max-height:90vh;overflow-y:auto}
+.mc{position:absolute;top:1rem;right:1rem;background:transparent;border:none;color:var(--muted);font-size:1.2rem;cursor:pointer}
+.mc:hover{color:var(--cream)}
+.modal h2{font-family:'Cormorant Garamond',serif;font-size:1.7rem;color:var(--white);margin-bottom:0.3rem}
+.msub{font-size:0.8rem;color:var(--muted);margin-bottom:1.4rem}
+.pc{background:rgba(18,43,10,0.85);border:1px solid var(--border);border-radius:16px;overflow:hidden;transition:border-color 0.25s,transform 0.25s}
+.pc:hover{border-color:rgba(180,220,80,0.22);transform:translateY(-2px)}
+.pch{padding:1rem;display:flex;justify-content:space-between;align-items:flex-start;border-bottom:1px solid var(--border)}
+.pcn{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--white);font-weight:700}
+.pcc{font-size:0.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-top:0.1rem}
+.rp{display:inline-flex;align-items:center;gap:0.4rem;font-size:0.7rem;padding:0.22rem 0.65rem;border-radius:2rem;font-weight:600}
+.rf{background:rgba(92,184,46,0.15);color:var(--fifo);border:1px solid rgba(92,184,46,0.3)}
+.rl{background:rgba(212,168,32,0.15);color:var(--lifo);border:1px solid rgba(212,168,32,0.3)}
+.bl{display:flex;flex-direction:column;gap:0.4rem;margin-bottom:0.8rem}
+.br{display:flex;align-items:center;gap:0.6rem;padding:0.5rem 0.7rem;border-radius:8px;font-size:0.75rem;border:1px solid transparent}
+.br.oldest{background:rgba(92,184,46,0.08);border-color:rgba(92,184,46,0.18)}
+.br.newest{background:rgba(212,168,32,0.08);border-color:rgba(212,168,32,0.18)}
+.br.mid{background:rgba(255,255,255,0.03)}
+.bd{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.bi{flex:1}
+.bdate{color:var(--muted);font-size:0.68rem}
+.bqty{font-weight:600;color:var(--cream)}
+.bcost{color:var(--gold);font-size:0.7rem}
+.blbl{font-size:0.6rem;padding:0.1rem 0.4rem;border-radius:4px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em}
+.lo{background:rgba(92,184,46,0.15);color:var(--fifo)}
+.ln{background:rgba(212,168,32,0.15);color:var(--lifo)}
+.lns{background:rgba(59,130,246,0.15);color:#93c5fd}
+.cc{display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;margin-top:0.8rem}
+.cb{border-radius:10px;padding:0.7rem 0.8rem;text-align:center}
+.cf{background:rgba(92,184,46,0.08);border:1px solid rgba(92,184,46,0.2)}
+.cl{background:rgba(212,168,32,0.08);border:1px solid rgba(212,168,32,0.2)}
+.cm{font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.2rem}
+.cf .cm{color:var(--fifo)}.cl .cm{color:var(--lifo)}
+.cv{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:700;color:var(--white)}
+.cn{font-size:0.62rem;color:var(--muted);margin-top:0.15rem}
+.rb{border-radius:10px;padding:0.65rem 0.9rem;display:flex;gap:0.6rem;align-items:flex-start;margin-top:0.8rem;font-size:0.75rem;line-height:1.5}
+.rbf{background:rgba(92,184,46,0.08);border:1px solid rgba(92,184,46,0.2)}
+.rbl{background:rgba(212,168,32,0.08);border:1px solid rgba(212,168,32,0.2)}
+.ri{font-size:1rem;flex-shrink:0;margin-top:1px}
+.rr{color:var(--cream)}
+.rr strong{display:block;margin-bottom:0.15rem;font-size:0.78rem}
+.rr em{font-style:normal;color:var(--muted)}
+.sbw{height:5px;background:rgba(255,255,255,0.07);border-radius:3px;overflow:hidden;margin-bottom:0.6rem}
+.sbb{height:100%;border-radius:3px;transition:width 0.5s}
+.pcf{padding:0.75rem 1rem;background:rgba(0,0,0,0.15);border-top:1px solid var(--border);display:flex;gap:0.5rem;flex-wrap:wrap}
+.pg{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:1.2rem}
+.sp{background:rgba(0,0,0,0.2);border-radius:10px;padding:0.8rem;margin:0.8rem 0;font-size:0.8rem}
+.sr2{display:flex;justify-content:space-between;padding:0.25rem 0;border-bottom:1px solid rgba(180,220,80,0.08)}
+.sr2:last-child{border-bottom:none;padding-top:0.4rem;font-weight:600;color:var(--gold)}
+@media(max-width:768px){.dash-layout{grid-template-columns:1fr}.sidebar{display:none}.pg{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 
-<!-- ══ SCREEN 1: LOGIN ══ -->
-<div id="login-screen" class="screen active">
-  <div class="auth-wrap">
-    <div class="auth-card">
-      <div class="auth-logo">OjaLocal</div>
-      <div class="auth-sub">Merchant Portal</div>
-      <div class="auth-icon">🔐</div>
-      <div class="auth-title">Welcome back</div>
-      <div class="auth-desc">Sign in to manage your store.</div>
-      <div class="form-group">
-        <label class="form-label">Email address</label>
-        <input class="form-input" type="email" id="login-email" placeholder="you@example.com" onkeydown="if(event.key==='Enter')doLogin()">
+<div id="loadingOverlay">
+  <div class="loader"></div>
+  <div class="loader-text" id="loadingText">Loading OjaLocal...</div>
+</div>
+
+<nav>
+  <div class="logo">OjaLocal<span>Merchant Portal</span></div>
+  <div class="nav-r">
+    <span class="nav-biz" id="navBiz"></span>
+    <a href="index.html" class="btn-back">← Back to Store</a>
+    <button class="btn-so" id="btnSO" onclick="doSignOut()">Sign Out</button>
+  </div>
+</nav>
+
+<!-- ONBOARDING -->
+<div class="screen active" id="screenOnboard">
+<div class="onboard-wrap">
+  <div class="onboard-card">
+    <div style="text-align:center;margin-bottom:1.5rem">
+      <div style="font-size:2.5rem;margin-bottom:0.5rem">🏪</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:900;color:var(--white)">OjaLocal</div>
+      <div style="font-size:0.8rem;color:var(--muted);margin-top:0.3rem">Merchant Portal · FIFO &amp; LIFO Inventory Intelligence</div>
+    </div>
+    <div class="otabs">
+      <button class="otab active" onclick="switchOTab('signup',this)">Sign Up</button>
+      <button class="otab" onclick="switchOTab('login',this)">Log In</button>
+    </div>
+    <div class="opanel active" id="opanel-signup">
+      <div class="oh">Create your account</div>
+      <div class="os">Start selling on OjaLocal today</div>
+      <div class="fg2">
+        <div class="fg"><label>First Name</label><input type="text" id="su_fname" placeholder="Amaka"></div>
+        <div class="fg"><label>Last Name</label><input type="text" id="su_lname" placeholder="Eze"></div>
       </div>
-      <div class="form-group">
-        <label class="form-label">Password</label>
-        <div class="pw-wrap">
-          <input class="form-input" type="password" id="login-pw" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()">
-          <button class="pw-toggle" onclick="togglePw('login-pw',this)">👁️</button>
+      <div class="fg"><label>Business Name</label><input type="text" id="su_biz" placeholder="Amaka Fresh Farms"></div>
+      <div class="fg"><label>Email Address</label><input type="email" id="su_email" placeholder="you@email.com"></div>
+      <div class="fg2">
+        <div class="fg"><label>Phone</label><input type="text" id="su_phone" placeholder="+234 xxx xxx xxxx"></div>
+        <div class="fg"><label>Product Category</label>
+          <select id="su_cat">
+            <option value="">Select...</option>
+            <option value="fruits">Fresh Fruits</option>
+            <option value="vegetables">Vegetables</option>
+            <option value="grains">Grains &amp; Cereals</option>
+            <option value="spices">Spices &amp; Condiments</option>
+            <option value="dairy">Dairy &amp; Eggs</option>
+            <option value="other">Other</option>
+          </select>
         </div>
       </div>
-      <div class="auth-error" id="login-error"></div>
-      <button class="btn-full" onclick="doLogin()">Sign in</button>
-      <div class="auth-link">Don't have an account? <a onclick="showScreen('request-screen')">Request access</a></div>
+      <div class="fg"><label>Location / Market</label><input type="text" id="su_loc" placeholder="e.g. Mile 12 Market, Lagos"></div>
+      <div class="fg"><label>Password</label><input type="password" id="su_pass" placeholder="Min. 6 characters"></div>
+      <div class="err" id="su_err"></div>
+      <button class="btn-p" onclick="doSignup()">Create Merchant Account →</button>
+    </div>
+    <div class="opanel" id="opanel-login">
+      <div class="oh">Welcome back</div>
+      <div class="os">Sign in to your merchant account</div>
+      <div class="fg"><label>Email Address</label><input type="email" id="li_email" placeholder="you@email.com"></div>
+      <div class="fg"><label>Password</label><input type="password" id="li_pass" placeholder="••••••••"></div>
+      <div class="err" id="li_err"></div>
+      <button class="btn-p" onclick="doLogin()">Sign In →</button>
     </div>
   </div>
 </div>
-
-<!-- ══ SCREEN 2: REQUEST ACCESS ══ -->
-<div id="request-screen" class="screen">
-  <div class="auth-wrap">
-    <div class="auth-card">
-      <div class="auth-logo">OjaLocal</div>
-      <div class="auth-sub">Merchant Portal</div>
-      <div class="auth-icon">🌿</div>
-      <div class="auth-title">Request seller access</div>
-      <div class="auth-desc">Fill in your details. Omolola will review and approve your request before you can log in.</div>
-      <div class="form-group">
-        <label class="form-label">Full name</label>
-        <input class="form-input" type="text" id="req-name" placeholder="e.g. Tunde Bello">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Store name</label>
-        <input class="form-input" type="text" id="req-store" placeholder="e.g. Tunde's Fresh Farm">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Email address</label>
-        <input class="form-input" type="email" id="req-email" placeholder="you@example.com">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Choose a password</label>
-        <div class="pw-wrap">
-          <input class="form-input" type="password" id="req-pw" placeholder="••••••••">
-          <button class="pw-toggle" onclick="togglePw('req-pw',this)">👁️</button>
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="form-label">What do you sell?</label>
-        <input class="form-input" type="text" id="req-desc" placeholder="e.g. Fresh mangoes and citrus from Benue">
-      </div>
-      <div class="auth-error" id="req-error"></div>
-      <button class="btn-full" onclick="submitRequest()">Submit request</button>
-      <div class="auth-link"><a onclick="showScreen('login-screen')">← Back to sign in</a></div>
-    </div>
-  </div>
 </div>
 
-<!-- ══ SCREEN 3: PENDING ══ -->
-<div id="pending-screen" class="screen">
-  <div class="auth-wrap">
-    <div class="auth-card" style="text-align:center">
-      <div class="auth-logo">OjaLocal</div>
-      <div class="auth-sub">Merchant Portal</div>
-      <div style="font-size:52px;margin:1.5rem 0">⏳</div>
-      <div class="auth-title">Request submitted!</div>
-      <div class="auth-desc" style="margin-bottom:1.5rem">Your request has been sent to Omolola for review. You will be able to log in once it has been approved. Check back soon!</div>
-      <button class="btn-full secondary" onclick="showScreen('login-screen')">← Back to sign in</button>
-    </div>
-  </div>
-</div>
-
-<!-- ══ SCREEN 4: PORTAL ══ -->
-<div id="portal-screen" class="screen">
+<!-- DASHBOARD -->
+<div class="screen" id="screenDash">
+<div class="dash-layout">
   <aside class="sidebar">
-    <div class="sidebar-logo">
-      <div class="brand">OjaLocal</div>
-      <div class="sub">Merchant Portal</div>
-    </div>
-    <div class="merchant-info">
-      <div class="merchant-avatar" id="sidebar-av">OO</div>
-      <div>
-        <div class="merchant-name" id="sidebar-name">My Store</div>
-        <div class="merchant-role" id="sidebar-role">Verified Merchant</div>
-      </div>
-      <div class="online-dot"></div>
-    </div>
-
-    <!-- Seller nav -->
-    <nav id="seller-nav">
-      <div class="nav-section">Main</div>
-      <button class="nav-item active" onclick="showSection('overview',this)"><span class="nav-icon">📊</span> Overview</button>
-      <button class="nav-item" onclick="showSection('orders',this)"><span class="nav-icon">📦</span> Orders<span class="nav-badge red" id="orders-badge">0</span></button>
-      <button class="nav-item" onclick="showSection('products',this)"><span class="nav-icon">🌿</span> Products</button>
-      <div class="nav-section">Engagement</div>
-      <button class="nav-item" onclick="showSection('reviews',this)"><span class="nav-icon">⭐</span> Reviews</button>
-      <button class="nav-item" onclick="showSection('notifications',this)"><span class="nav-icon">🔔</span> Notifications<span class="nav-badge red">2</span></button>
-      <div class="nav-section">Finance</div>
-      <button class="nav-item" onclick="showSection('payouts',this)"><span class="nav-icon">💰</span> Payouts</button>
-      <button class="nav-item" onclick="showSection('settings',this)"><span class="nav-icon">⚙️</span> Settings</button>
-    </nav>
-
-    <!-- Admin nav -->
-    <nav id="admin-nav" style="display:none">
-      <div class="nav-section">Main</div>
-      <button class="nav-item active" onclick="showSection('overview',this)"><span class="nav-icon">📊</span> Overview</button>
-      <button class="nav-item" onclick="showSection('orders',this)"><span class="nav-icon">📦</span> Orders</button>
-      <button class="nav-item" onclick="showSection('products',this)"><span class="nav-icon">🌿</span> Products</button>
-      <div class="nav-section">Admin</div>
-      <button class="nav-item" onclick="showSection('sellers',this)"><span class="nav-icon">👥</span> Sellers<span class="nav-badge red" id="requests-badge">0</span></button>
-      <button class="nav-item" onclick="showSection('reviews',this)"><span class="nav-icon">⭐</span> Reviews</button>
-      <button class="nav-item" onclick="showSection('payouts',this)"><span class="nav-icon">💰</span> Payouts</button>
-      <button class="nav-item" onclick="showSection('settings',this)"><span class="nav-icon">⚙️</span> Settings</button>
-    </nav>
-
-    <div class="sidebar-bottom">
-      <a href="https://omololaomotalade.github.io/ojalocal/" class="back-link" target="_blank">← Back to store</a>
-      <button class="logout-btn" onclick="doLogout()">🚪 Log out</button>
-    </div>
+    <div class="ss">Overview</div>
+    <button class="sl active" onclick="switchTab('overview',this)"><span class="ico">📊</span> Dashboard</button>
+    <div class="ss">Inventory</div>
+    <button class="sl" onclick="switchTab('products',this)"><span class="ico">📦</span> My Products</button>
+    <button class="sl" onclick="switchTab('fifolifo',this)"><span class="ico">🧠</span> FIFO / LIFO Engine</button>
+    <button class="sl" onclick="switchTab('restock',this)"><span class="ico">➕</span> Restock</button>
+    <div class="ss">Sales</div>
+    <button class="sl" onclick="switchTab('sell',this)"><span class="ico">💰</span> Record Sale</button>
+    <button class="sl" onclick="switchTab('orders',this)"><span class="ico">🧾</span> Orders <span class="bdg" id="oBdg">0</span></button>
+    <div class="ss">Account</div>
+    <button class="sl" onclick="switchTab('settings',this)"><span class="ico">⚙️</span> Settings</button>
+    <button class="sl" onclick="doSignOut()" style="margin-top:auto"><span class="ico">🚪</span> Sign Out</button>
   </aside>
-
-  <main class="main">
-    <div class="topbar">
-      <div class="topbar-title" id="page-title">Overview</div>
-      <div class="topbar-actions">
-        <button class="notif-btn" onclick="showSection('notifications',null)">🔔<span class="notif-dot"></span></button>
-        <button class="btn btn-primary btn-sm" id="add-product-btn" onclick="openModal('add-product-modal')">+ Add product</button>
+  <main class="dm">
+    <!-- OVERVIEW -->
+    <div class="tp active" id="tab-overview">
+      <div class="ph">
+        <div><div class="pt" id="ovTitle">Dashboard</div><div class="ps" id="ovSub"></div></div>
+        <button class="bsm bg" onclick="switchTab('restock',null)">+ Restock Product</button>
       </div>
+      <div class="sr" id="ovStats"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-bottom:1.5rem" id="ovAlerts"></div>
+      <div class="tw"><div class="tt"><h3>Recent Sales</h3></div><div id="ovAct"></div></div>
     </div>
-
-    <div class="content">
-
-      <!-- OVERVIEW -->
-      <div id="overview" class="section active">
-        <div class="metrics-grid" id="overview-metrics"></div>
-        <div class="three-col">
-          <div class="card">
-            <div class="card-header">
-              <span class="card-title">Recent orders</span>
-              <button class="card-action" onclick="showSection('orders',null)">View all →</button>
-            </div>
-            <table>
-              <thead><tr><th>Order</th><th>Customer</th><th>Amount</th><th>Status</th></tr></thead>
-              <tbody id="overview-orders"></tbody>
-            </table>
-          </div>
-          <div>
-            <div class="card" style="margin-bottom:1rem">
-              <div class="card-header"><span class="card-title">Sales this week</span></div>
-              <div style="padding:.75rem 1.25rem .25rem;display:flex;justify-content:space-between;font-size:11px;color:var(--text-muted)">
-                <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
-              </div>
-              <div class="mini-chart">
-                <div class="chart-bar" style="height:40%"></div><div class="chart-bar" style="height:55%"></div>
-                <div class="chart-bar" style="height:35%"></div><div class="chart-bar" style="height:70%"></div>
-                <div class="chart-bar" style="height:60%"></div><div class="chart-bar highlight" style="height:90%"></div>
-                <div class="chart-bar" style="height:75%"></div>
-              </div>
-            </div>
-            <div class="card">
-              <div class="card-header"><span class="card-title">Low stock alert</span></div>
-              <div id="low-stock-list" style="padding:.75rem 1.25rem"></div>
-            </div>
-          </div>
+    <!-- PRODUCTS -->
+    <div class="tp" id="tab-products">
+      <div class="ph">
+        <div><div class="pt">My Products</div><div class="ps">Manage your product catalogue</div></div>
+        <button class="bsm bg" onclick="openM('mAddProd')">+ Add Product</button>
+      </div>
+      <div class="tw"><table><thead><tr><th>Product</th><th>Category</th><th>Method</th><th>Batches</th><th>Stock</th><th>Avg Cost</th><th>Status</th><th>Actions</th></tr></thead><tbody id="prodTbl"></tbody></table></div>
+    </div>
+    <!-- FIFO/LIFO -->
+    <div class="tp" id="tab-fifolifo">
+      <div class="ph"><div><div class="pt">FIFO / LIFO Engine</div><div class="ps">Smart inventory method per product</div></div></div>
+      <div class="card" style="margin-bottom:1.5rem">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem">
+          <div><div style="font-size:0.8rem;font-weight:600;color:var(--cream);margin-bottom:0.5rem">🟢 FIFO — First In, First Out</div><div style="font-size:0.75rem;color:var(--muted);line-height:1.65">Oldest stock sells first. Best for <strong style="color:var(--cream)">perishables</strong> like fruits &amp; vegetables to prevent spoilage.</div></div>
+          <div><div style="font-size:0.8rem;font-weight:600;color:var(--cream);margin-bottom:0.5rem">🟡 LIFO — Last In, First Out</div><div style="font-size:0.75rem;color:var(--muted);line-height:1.65">Newest stock sells first. Best for <strong style="color:var(--cream)">shelf-stable goods</strong> when prices are rising — reduces taxable profit.</div></div>
         </div>
       </div>
-
-      <!-- ORDERS -->
-      <div id="orders" class="section">
-        <div class="card">
-          <div class="toolbar">
-            <div class="search-wrap"><span class="search-icon">🔍</span><input type="text" id="order-search" placeholder="Search orders..." oninput="renderOrders()"></div>
-            <button class="filter-pill active" onclick="setFilter('orderFilter','all',this)">All</button>
-            <button class="filter-pill" onclick="setFilter('orderFilter','pending',this)">Pending</button>
-            <button class="filter-pill" onclick="setFilter('orderFilter','shipped',this)">Shipped</button>
-            <button class="filter-pill" onclick="setFilter('orderFilter','delivered',this)">Delivered</button>
-          </div>
-          <table>
-            <thead><tr><th>Order ID</th><th>Customer</th><th>Items</th><th>Amount</th><th>Date</th><th>Status</th><th>Action</th></tr></thead>
-            <tbody id="orders-tbody"></tbody>
-          </table>
+      <div class="pg" id="flGrid"></div>
+    </div>
+    <!-- RESTOCK -->
+    <div class="tp" id="tab-restock">
+      <div class="ph"><div><div class="pt">Restock</div><div class="ps">Add a new stock delivery batch</div></div></div>
+      <div style="max-width:560px"><div class="card">
+        <div class="ct">Record New Delivery</div>
+        <div class="fg"><label>Product</label><select id="rs_prod"><option value="">Select product</option></select></div>
+        <div class="fg2">
+          <div class="fg"><label>Quantity Received</label><input type="number" id="rs_qty" placeholder="e.g. 50" min="1"></div>
+          <div class="fg"><label>Unit</label><input type="text" id="rs_unit" placeholder="kg / crates / bags"></div>
         </div>
-      </div>
-
-      <!-- PRODUCTS -->
-      <div id="products" class="section">
-        <div class="card">
-          <div class="toolbar">
-            <div class="search-wrap"><span class="search-icon">🔍</span><input type="text" placeholder="Search products..." oninput="renderProducts(this.value)"></div>
-            <button class="filter-pill active" onclick="setFilter('productFilter','all',this)">All</button>
-            <button class="filter-pill" onclick="setFilter('productFilter','in-stock',this)">In stock</button>
-            <button class="filter-pill" onclick="setFilter('productFilter','low',this)">Low stock</button>
-            <button class="filter-pill" onclick="setFilter('productFilter','out',this)">Out of stock</button>
-            <button class="btn btn-primary btn-sm" onclick="openModal('add-product-modal')" style="margin-left:auto">+ Add product</button>
-          </div>
-          <div class="product-grid" id="product-grid"></div>
+        <div class="fg2">
+          <div class="fg"><label>Cost Price (₦ per unit)</label><input type="number" id="rs_cost" placeholder="e.g. 800"></div>
+          <div class="fg"><label>Date Received</label><input type="date" id="rs_date"></div>
         </div>
-      </div>
-
-      <!-- REVIEWS -->
-      <div id="reviews" class="section">
-        <div class="card" id="reviews-list"></div>
-      </div>
-
-      <!-- NOTIFICATIONS -->
-      <div id="notifications" class="section">
-        <div class="card">
-          <div class="card-header"><span class="card-title">Notifications</span></div>
-          <div id="notif-list"></div>
-        </div>
-      </div>
-
-      <!-- PAYOUTS -->
-      <div id="payouts" class="section">
-        <div class="card">
-          <div class="card-header"><span class="card-title">Payout history</span></div>
-          <table>
-            <thead><tr><th>Date</th><th>Period</th><th>Orders</th><th>Gross</th><th>Fee</th><th>Net</th><th>Status</th></tr></thead>
-            <tbody id="payouts-tbody"></tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- SELLERS (admin only) -->
-      <div id="sellers" class="section">
-        <div class="card" style="margin-bottom:1.5rem">
-          <div class="card-header">
-            <span class="card-title">Pending requests</span>
-            <span id="pending-count-label" class="nav-badge red" style="margin-left:0">0</span>
-          </div>
-          <div id="pending-sellers"></div>
-        </div>
-        <div class="card">
-          <div class="card-header"><span class="card-title">Approved sellers</span></div>
-          <div id="approved-sellers"></div>
-        </div>
-      </div>
-
-      <!-- SETTINGS -->
-      <div id="settings" class="section">
-        <div class="two-col">
-          <div class="card">
-            <div class="card-header"><span class="card-title">Store details</span></div>
-            <div class="modal-body">
-              <div class="fm-group"><label class="fm-label">Store name</label><input class="fm-input" id="settings-store"></div>
-              <div class="fm-group"><label class="fm-label">Email</label><input class="fm-input" id="settings-email"></div>
-              <div class="fm-group"><label class="fm-label">Location</label><input class="fm-input" value="Lagos, Nigeria"></div>
-              <button class="btn btn-primary" onclick="showToast('Settings saved!')">Save changes</button>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-header"><span class="card-title">Change password</span></div>
-            <div class="modal-body">
-              <div class="fm-group"><label class="fm-label">New password</label><input class="fm-input" type="password" id="new-pw" placeholder="••••••••"></div>
-              <div class="fm-group"><label class="fm-label">Confirm password</label><input class="fm-input" type="password" id="confirm-pw" placeholder="••••••••"></div>
-              <div id="pw-msg" style="font-size:13px;margin-bottom:.75rem;min-height:18px"></div>
-              <button class="btn btn-primary" onclick="changePw()">Update password</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div><!-- /content -->
+        <div class="fg"><label>Supplier / Farm (optional)</label><input type="text" id="rs_sup" placeholder="e.g. Borno Orchards"></div>
+        <div class="err" id="rs_err">Please fill all required fields</div>
+        <button class="btn-p" onclick="doRestock()">Record Delivery</button>
+      </div></div>
+    </div>
+    <!-- SELL -->
+    <div class="tp" id="tab-sell">
+      <div class="ph"><div><div class="pt">Record Sale</div><div class="ps">Deduct stock using your chosen method</div></div></div>
+      <div style="max-width:560px"><div class="card">
+        <div class="ct">New Sale</div>
+        <div class="fg"><label>Product</label><select id="sell_prod" onchange="onSellChange()"><option value="">Select product</option></select></div>
+        <div class="fg"><label>Quantity Sold</label><input type="number" id="sell_qty" placeholder="e.g. 20" min="1" oninput="onSellQty()"></div>
+        <div class="fg"><label>Selling Price (₦ per unit)</label><input type="number" id="sell_price" placeholder="e.g. 1500" oninput="onSellQty()"></div>
+        <div id="sell_prev"></div>
+        <div class="err" id="sell_err">Please fill all required fields</div>
+        <button class="btn-p" onclick="doSell()">Record Sale</button>
+      </div></div>
+    </div>
+    <!-- ORDERS -->
+    <div class="tp" id="tab-orders">
+      <div class="ph"><div><div class="pt">Orders</div><div class="ps">Your sales history</div></div></div>
+      <div class="tw"><table><thead><tr><th>Product</th><th>Qty</th><th>Revenue</th><th>COGS</th><th>Profit</th><th>Method</th><th>Date</th></tr></thead><tbody id="ordTbl"></tbody></table></div>
+    </div>
+    <!-- SETTINGS -->
+    <div class="tp" id="tab-settings">
+      <div class="ph"><div><div class="pt">Settings</div><div class="ps">Your merchant account</div></div></div>
+      <div style="max-width:480px" class="card" id="settCard"></div>
+    </div>
   </main>
-</div><!-- /portal-screen -->
+</div>
+</div>
 
-<!-- ADD PRODUCT MODAL -->
-<div class="modal-overlay" id="add-product-modal">
-  <div class="modal-box">
-    <div class="modal-head">
-      <div class="modal-title">Add new product</div>
-      <button class="modal-close" onclick="closeModal('add-product-modal')">✕</button>
-    </div>
-    <div class="modal-body">
-      <div class="fm-group"><label class="fm-label">Product name</label><input class="fm-input" id="np-name" placeholder="e.g. Nigerian Mango"></div>
-      <div class="form-row">
-        <div class="fm-group"><label class="fm-label">Price (₦)</label><input class="fm-input" id="np-price" type="number" placeholder="1500"></div>
-        <div class="fm-group"><label class="fm-label">Stock quantity</label><input class="fm-input" id="np-stock" type="number" placeholder="20"></div>
+<!-- MODALS -->
+<div class="mw" id="mAddProd">
+  <div class="modal">
+    <button class="mc" onclick="closeM('mAddProd')">✕</button>
+    <h2>Add Product</h2><p class="msub">Add a new product to your inventory</p>
+    <div class="fg"><label>Product Name</label><input type="text" id="ap_name" placeholder="e.g. Mango"></div>
+    <div class="fg2">
+      <div class="fg"><label>Category</label>
+        <select id="ap_cat">
+          <option value="fruits">Fresh Fruits</option>
+          <option value="vegetables">Vegetables</option>
+          <option value="grains">Grains &amp; Cereals</option>
+          <option value="spices">Spices &amp; Condiments</option>
+          <option value="dairy">Dairy &amp; Eggs</option>
+          <option value="other">Other</option>
+        </select>
       </div>
-      <div class="fm-group"><label class="fm-label">Image URL (optional)</label><input class="fm-input" id="np-img" placeholder="https://..."></div>
-      <div style="display:flex;gap:.75rem;justify-content:flex-end;margin-top:.5rem">
-        <button class="btn" onclick="closeModal('add-product-modal')">Cancel</button>
-        <button class="btn btn-primary" onclick="addProduct()">Add product</button>
-      </div>
+      <div class="fg"><label>Selling Unit</label><input type="text" id="ap_unit" placeholder="kg / each / bag"></div>
     </div>
+    <div class="fg"><label>Default Selling Price (₦)</label><input type="number" id="ap_price" placeholder="e.g. 1500"></div>
+    <div class="fg"><label>Inventory Method</label>
+      <select id="ap_method">
+        <option value="auto">Auto (AI recommends)</option>
+        <option value="fifo">FIFO — First In, First Out</option>
+        <option value="lifo">LIFO — Last In, First Out</option>
+      </select>
+    </div>
+    <div class="err" id="ap_err">Please fill all fields</div>
+    <button class="btn-p" onclick="doAddProduct()">Add Product</button>
+  </div>
+</div>
+<div class="mw" id="mBatch">
+  <div class="modal" style="max-width:560px">
+    <button class="mc" onclick="closeM('mBatch')">✕</button>
+    <div id="mBatchContent"></div>
+  </div>
+</div>
+<div class="mw" id="mSuccess">
+  <div class="modal" style="text-align:center;max-width:380px">
+    <div style="font-size:3rem;margin-bottom:0.8rem" id="sIcon">✅</div>
+    <h2 id="sTitle" style="margin-bottom:0.4rem">Done!</h2>
+    <p id="sMsg" style="font-size:0.85rem;color:var(--muted);margin-bottom:1.5rem"></p>
+    <button class="btn-p" onclick="closeM('mSuccess')">Continue</button>
   </div>
 </div>
 
-<div class="toast" id="toast">✓ <span id="toast-msg"></span></div>
-
+<!-- SUPABASE CDN -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-// ════════════════════════════════════
-// DATA
-// ════════════════════════════════════
-const ADMIN = { email:'omolola@ojalocal.com', password:'OjaLocal2025!', name:'Omolola Omotalade', store:"Omolola's Fruits", isAdmin:true };
+// ── SUPABASE INIT ──────────────────────────────────────────────────────────
+const { createClient } = supabase;
+const sb = createClient(
+  'https://wuxnuibdrajbtkzgcifo.supabase.co',
+  'sb_publishable_GyIqYVC6TW_nLBS4fIz5Ow_OY3zCUfe'
+);
 
-let sellerRequests = [
-  {id:'s1',name:'Tunde Bello',store:"Tunde's Farm",email:'tunde@farm.com',password:'tunde123',desc:'Fresh pawpaw and citrus from Ondo',status:'pending',requested:'Apr 20'},
-  {id:'s2',name:'Ngozi Eze',store:"Ngozi's Produce",email:'ngozi@produce.com',password:'ngozi456',desc:'Pineapples and bananas from Cross River',status:'approved',requested:'Apr 18'},
-];
+// ── STATE ──────────────────────────────────────────────────────────────────
+let merchant = null;
+let products = [];
+let orders = [];
+const PERISHABLE = ['fruits','vegetables','dairy'];
 
-const sellerData = {
-  'omolola@ojalocal.com': {
-    metrics:{revenue:'₦74,500',orders:38,rating:'4.7',payout:'₦32,400'},
-    orders:[
-      {id:'#ORD-038',customer:'Amaka Obi',items:'Mango x3, Banana x2',amount:'₦8,700',date:'Apr 22',status:'pending'},
-      {id:'#ORD-037',customer:'Tunde Bello',items:'Watermelon x1',amount:'₦2,000',date:'Apr 22',status:'shipped'},
-      {id:'#ORD-036',customer:'Ngozi Eze',items:'Pawpaw x2, Pineapple x1',amount:'₦7,500',date:'Apr 21',status:'delivered'},
-      {id:'#ORD-035',customer:'Funke Adeyemi',items:'Banana x5, Orange x4',amount:'₦4,700',date:'Apr 21',status:'delivered'},
-      {id:'#ORD-034',customer:'Emeka Chukwu',items:'Mango x4',amount:'₦6,500',date:'Apr 20',status:'pending'},
-    ],
-    products:[
-      {name:'Nigerian Mango',price:'₦1,500/kg',stock:24,status:'in-stock',img:'https://images.unsplash.com/photo-1553279768-865429fa0078?w=400&q=80'},
-      {name:'Watermelon',price:'₦2,000 each',stock:3,status:'low',img:'https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=400&q=80'},
-      {name:'Pineapple',price:'₦1,200 each',stock:15,status:'in-stock',img:'https://images.unsplash.com/photo-1550258987-190a2d41a8ba?w=400&q=80'},
-      {name:'Banana',price:'₦700/bunch',stock:30,status:'in-stock',img:'https://images.unsplash.com/photo-1603833665858-e61d17a86224?w=400&q=80'},
-      {name:'Pawpaw',price:'₦1,500 each',stock:0,status:'out',img:'https://images.unsplash.com/photo-1526318472351-c75fcf070305?w=400&q=80'},
-      {name:'Orange',price:'₦400 each',stock:50,status:'in-stock',img:'https://images.unsplash.com/photo-1547514701-42782101795e?w=400&q=80'},
-    ],
-    reviews:[
-      {name:'Chisom A.',init:'C',stars:5,product:'Nigerian Mango',date:'Apr 17',text:'The mangoes were incredibly fresh and sweet. Delivery was on time!',replied:true,reply:"Thank you Chisom! We're so glad you loved them 🥭"},
-      {name:'Adaeze K.',init:'A',stars:4,product:'Watermelon',date:'Apr 12',text:'Fresh and juicy. Took a bit longer to arrive than expected.',replied:false},
-    ],
-    payouts:[
-      {date:'Apr 22',period:'Apr 15–21',orders:14,gross:'₦38,200',fee:'₦3,056',net:'₦35,144',status:'processing'},
-      {date:'Apr 15',period:'Apr 8–14',orders:11,gross:'₦29,800',fee:'₦2,384',net:'₦27,416',status:'paid'},
-    ]
-  },
-  'ngozi@produce.com': {
-    metrics:{revenue:'₦28,300',orders:14,rating:'4.5',payout:'₦11,200'},
-    orders:[
-      {id:'#ORD-021',customer:'Bola Akin',items:'Pineapple x3',amount:'₦5,100',date:'Apr 22',status:'pending'},
-      {id:'#ORD-020',customer:'Kemi Ojo',items:'Banana x6',amount:'₦4,200',date:'Apr 21',status:'delivered'},
-      {id:'#ORD-019',customer:'Uche Nwosu',items:'Pineapple x2',amount:'₦3,400',date:'Apr 20',status:'shipped'},
-    ],
-    products:[
-      {name:'Pineapple',price:'₦1,700 each',stock:20,status:'in-stock',img:'https://images.unsplash.com/photo-1550258987-190a2d41a8ba?w=400&q=80'},
-      {name:'Banana',price:'₦700/bunch',stock:4,status:'low',img:'https://images.unsplash.com/photo-1603833665858-e61d17a86224?w=400&q=80'},
-    ],
-    reviews:[
-      {name:'Bola T.',init:'B',stars:5,product:'Pineapple',date:'Apr 18',text:'Best pineapple ever! So sweet and very fresh.',replied:false},
-    ],
-    payouts:[
-      {date:'Apr 22',period:'Apr 15–21',orders:6,gross:'₦14,800',fee:'₦1,184',net:'₦13,616',status:'processing'},
-    ]
+// ── LOADING ────────────────────────────────────────────────────────────────
+function showLoad(msg='Loading...'){document.getElementById('loadingText').textContent=msg;document.getElementById('loadingOverlay').classList.add('show');}
+function hideLoad(){document.getElementById('loadingOverlay').classList.remove('show');}
+
+// ── AUTH STATE ─────────────────────────────────────────────────────────────
+sb.auth.onAuthStateChange(async(event,session)=>{
+  if(session?.user){
+    showLoad('Loading your dashboard...');
+    try{
+      const {data,error}=await sb.from('merchants').select('*').eq('id',session.user.id).single();
+      if(data){
+        merchant={...data};
+        updateNav();
+        showScreen('screenDash');
+        await loadAll();
+        switchTab('overview',document.querySelector('.sl'));
+      } else {
+        await sb.auth.signOut();
+        showScreen('screenOnboard');
+      }
+    }catch(e){showScreen('screenOnboard');}
+    hideLoad();
+  } else {
+    merchant=null;products=[];orders=[];
+    hideLoad();
+    showScreen('screenOnboard');
   }
-};
+});
 
-let currentUser = null;
-let orderFilter = 'all', productFilter = 'all';
-
-// ════════════════════════════════════
-// SCREENS
-// ════════════════════════════════════
-function showScreen(id) {
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-}
-
-// ════════════════════════════════════
-// AUTH
-// ════════════════════════════════════
-function doLogin() {
-  const email = document.getElementById('login-email').value.trim().toLowerCase();
-  const pw    = document.getElementById('login-pw').value;
-  const err   = document.getElementById('login-error');
-  err.textContent = '';
-
-  if (email === ADMIN.email && pw === ADMIN.password) {
-    currentUser = {...ADMIN, email: ADMIN.email};
-    openPortal(); return;
+// ── SIGN UP ────────────────────────────────────────────────────────────────
+async function doSignup(){
+  const fname=v('su_fname'),lname=v('su_lname'),biz=v('su_biz'),
+    email=v('su_email').toLowerCase(),phone=v('su_phone'),
+    cat=v('su_cat'),loc=v('su_loc'),pass=v('su_pass');
+  const err=document.getElementById('su_err');
+  err.style.display='none';
+  if(!fname||!lname||!biz||!email||!phone||!cat||!loc||pass.length<6){
+    err.textContent='Please fill all fields (password min. 6 chars)';err.style.display='block';return;
   }
-
-  const s = sellerRequests.find(x=>x.email.toLowerCase()===email && x.password===pw);
-  if (s) {
-    if (s.status==='pending')  { err.textContent='Your request is still waiting for approval.'; return; }
-    if (s.status==='rejected') { err.textContent='Your request was not approved. Contact Omolola.'; return; }
-    currentUser = {email:s.email.toLowerCase(), name:s.name, store:s.store, isAdmin:false};
-    openPortal(); return;
-  }
-  err.textContent = 'Incorrect email or password.';
+  showLoad('Creating your account...');
+  const {data,error}=await sb.auth.signUp({email,password:pass});
+  if(error){hideLoad();err.textContent=error.message;err.style.display='block';return;}
+  const uid=data.user.id;
+  const {error:dbErr}=await sb.from('merchants').insert({id:uid,name:fname+' '+lname,email,biz,phone,cat,loc,joined:today()});
+  if(dbErr){hideLoad();err.textContent=dbErr.message;err.style.display='block';return;}
+  // onAuthStateChange handles redirect
 }
 
-function openPortal() {
-  showScreen('portal-screen');
-  document.getElementById('sidebar-av').textContent   = currentUser.name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
-  document.getElementById('sidebar-name').textContent = currentUser.store;
-  document.getElementById('sidebar-role').textContent = currentUser.isAdmin ? 'Admin · Verified' : 'Verified Seller';
-  document.getElementById('seller-nav').style.display = currentUser.isAdmin ? 'none' : 'block';
-  document.getElementById('admin-nav').style.display  = currentUser.isAdmin ? 'block' : 'none';
-  document.getElementById('add-product-btn').style.display = currentUser.isAdmin ? 'none' : 'flex';
-  document.getElementById('settings-store').value = currentUser.store;
-  document.getElementById('settings-email').value = currentUser.email;
-
-  // Active nav
-  const activeNav = currentUser.isAdmin ? '#admin-nav' : '#seller-nav';
-  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
-  document.querySelector(activeNav+' .nav-item').classList.add('active');
-
-  // Update pending badge
-  const pending = sellerRequests.filter(s=>s.status==='pending').length;
-  document.getElementById('requests-badge').textContent = pending;
-
-  renderOverview(); renderOrders(); renderProducts(); renderReviews(); renderPayouts();
-  if (currentUser.isAdmin) renderSellers();
-  showSection('overview', null);
+// ── LOG IN ─────────────────────────────────────────────────────────────────
+async function doLogin(){
+  const email=v('li_email').toLowerCase(),pass=v('li_pass');
+  const err=document.getElementById('li_err');
+  err.style.display='none';
+  if(!email||!pass){err.textContent='Please enter email and password';err.style.display='block';return;}
+  showLoad('Signing you in...');
+  const {error}=await sb.auth.signInWithPassword({email,password:pass});
+  if(error){hideLoad();err.textContent='Invalid email or password';err.style.display='block';}
 }
 
-function doLogout() {
-  currentUser = null;
-  document.getElementById('login-email').value='';
-  document.getElementById('login-pw').value='';
-  document.getElementById('login-error').textContent='';
-  showScreen('login-screen');
+// ── SIGN OUT ───────────────────────────────────────────────────────────────
+async function doSignOut(){
+  showLoad('Signing out...');
+  await sb.auth.signOut();
 }
 
-function submitRequest() {
-  const name  = document.getElementById('req-name').value.trim();
-  const store = document.getElementById('req-store').value.trim();
-  const email = document.getElementById('req-email').value.trim().toLowerCase();
-  const pw    = document.getElementById('req-pw').value;
-  const desc  = document.getElementById('req-desc').value.trim();
-  const err   = document.getElementById('req-error');
-
-  if (!name||!store||!email||!pw) { err.textContent='Please fill in all fields.'; return; }
-  if (email===ADMIN.email || sellerRequests.find(s=>s.email.toLowerCase()===email)) {
-    err.textContent='An account with this email already exists.'; return;
-  }
-
-  sellerRequests.push({id:'s'+Date.now(),name,store,email,password:pw,desc,status:'pending',requested:'Apr 23'});
-  sellerData[email] = {metrics:{revenue:'₦0',orders:0,rating:'—',payout:'₦0'},orders:[],products:[],reviews:[],payouts:[]};
-
-  const pending = sellerRequests.filter(s=>s.status==='pending').length;
-  document.getElementById('requests-badge').textContent = pending;
-
-  // Clear form
-  ['req-name','req-store','req-email','req-pw','req-desc'].forEach(id=>document.getElementById(id).value='');
-  err.textContent='';
-  showScreen('pending-screen');
+function updateNav(){
+  const el=document.getElementById('navBiz');
+  el.innerHTML=`<strong>${merchant.biz}</strong>`;
+  el.style.display='block';
+  document.getElementById('btnSO').style.display='block';
 }
 
-// ════════════════════════════════════
-// NAVIGATION
-// ════════════════════════════════════
-function showSection(id, btn) {
-  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  const titles={overview:'Overview',orders:'Orders',products:'Products',reviews:'Reviews',notifications:'Notifications',payouts:'Payouts',sellers:'Sellers',settings:'Settings'};
-  document.getElementById('page-title').textContent = titles[id]||id;
-  if (btn) { document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active')); btn.classList.add('active'); }
+// ── LOAD DATA ──────────────────────────────────────────────────────────────
+async function loadAll(){
+  await Promise.all([loadProducts(),loadOrders()]);
+  renderOverview();
+  populateSelects();
 }
 
-// ════════════════════════════════════
-// RENDER
-// ════════════════════════════════════
-function myData() { return sellerData[currentUser.email] || {orders:[],products:[],reviews:[],payouts:[],metrics:{revenue:'₦0',orders:0,rating:'—',payout:'₦0'}}; }
-
-function renderOverview() {
-  const d=myData(), m=d.metrics;
-  document.getElementById('overview-metrics').innerHTML=`
-    <div class="metric-card"><div class="metric-label">Total revenue</div><div class="metric-value" style="color:var(--green-mid)">${m.revenue}</div><div class="metric-change">↑ This month</div></div>
-    <div class="metric-card"><div class="metric-label">Total orders</div><div class="metric-value">${m.orders}</div><div class="metric-change">Active</div></div>
-    <div class="metric-card"><div class="metric-label">Avg. rating</div><div class="metric-value" style="color:var(--amber)">${m.rating}</div><div class="metric-change">From reviews</div></div>
-    <div class="metric-card"><div class="metric-label">Next payout</div><div class="metric-value">${m.payout}</div><div class="metric-change" style="color:var(--text-muted)">Pending</div></div>`;
-
-  const recent=d.orders.slice(0,5);
-  document.getElementById('overview-orders').innerHTML=recent.length
-    ?recent.map(o=>`<tr><td><strong>${o.id}</strong></td><td>${o.customer}</td><td>${o.amount}</td><td><span class="badge badge-${o.status}">${cap(o.status)}</span></td></tr>`).join('')
-    :'<tr><td colspan="4" style="text-align:center;color:#888;padding:1.5rem">No orders yet</td></tr>';
-
-  const low=d.products.filter(p=>p.status!=='in-stock');
-  document.getElementById('low-stock-list').innerHTML=low.length
-    ?low.map(p=>`<div style="display:flex;align-items:center;justify-content:space-between;padding:.5rem 0;border-bottom:1px solid var(--border);font-size:13px"><span>${p.name}</span><span class="badge badge-${p.status}">${p.status==='low'?p.stock+' left':'Out of stock'}</span></div>`).join('')
-    :'<div style="font-size:13px;color:#888;padding:.5rem 0">All products in stock ✓</div>';
-
-  const pendingOrders=d.orders.filter(o=>o.status==='pending').length;
-  document.getElementById('orders-badge').textContent=pendingOrders;
+async function loadProducts(){
+  const {data}=await sb.from('products').select('*').eq('merchant_id',merchant.id).order('name');
+  products=data||[];
 }
 
-function renderOrders() {
-  const d=myData(), search=(document.getElementById('order-search')?.value||'').toLowerCase();
-  const f=d.orders.filter(o=>(orderFilter==='all'||o.status===orderFilter)&&(!search||o.id.toLowerCase().includes(search)||o.customer.toLowerCase().includes(search)));
-  document.getElementById('orders-tbody').innerHTML=f.length
-    ?f.map(o=>`<tr><td><strong>${o.id}</strong></td><td>${o.customer}</td><td style="font-size:12px;color:#555">${o.items}</td><td>${o.amount}</td><td>${o.date}</td><td><span class="badge badge-${o.status}">${cap(o.status)}</span></td><td><button class="btn btn-sm" onclick="showToast('${o.id} viewed')">View</button></td></tr>`).join('')
-    :'<tr><td colspan="7" style="text-align:center;padding:2rem;color:#888">No orders found</td></tr>';
+async function loadOrders(){
+  const {data}=await sb.from('orders').select('*').eq('merchant_id',merchant.id).order('date',{ascending:false});
+  orders=data||[];
+  document.getElementById('oBdg').textContent=orders.length;
 }
 
-function renderProducts(search) {
-  const d=myData(); search=(search||'').toLowerCase();
-  const f=d.products.filter(p=>(productFilter==='all'||p.status===productFilter)&&(!search||p.name.toLowerCase().includes(search)));
-  document.getElementById('product-grid').innerHTML=f.length
-    ?f.map(p=>`<div class="product-card"><img class="product-img" src="${p.img}" alt="${p.name}" onerror="this.style.minHeight='130px';this.style.background='#e8f5ed'"><div class="product-body"><div class="product-name">${p.name}</div><div class="product-price">${p.price}</div><div class="product-stock"><span class="badge badge-${p.status}">${p.status==='in-stock'?'In stock':p.status==='low'?p.stock+' left':'Out of stock'}</span></div></div><div class="product-actions"><button class="btn btn-sm" onclick="showToast('Edit coming soon!')">Edit</button><button class="btn btn-sm btn-danger" onclick="removeProduct('${p.name}')">Remove</button></div></div>`).join('')
-    :'<div style="text-align:center;padding:3rem;color:#888;grid-column:1/-1">No products found</div>';
+// ── ADD PRODUCT ────────────────────────────────────────────────────────────
+async function doAddProduct(){
+  const name=v('ap_name'),cat=v('ap_cat'),unit=v('ap_unit'),price=parseInt(v('ap_price')),method=v('ap_method');
+  const err=document.getElementById('ap_err');
+  if(!name||!cat||!unit||!price){err.style.display='block';return;}
+  err.style.display='none';
+  showLoad('Adding product...');
+  const {error}=await sb.from('products').insert({merchant_id:merchant.id,name,cat,unit,sell_price:price,method,batches:[]});
+  if(error){hideLoad();showOK('❌','Error',error.message);return;}
+  await loadProducts();
+  closeM('mAddProd');
+  showOK('📦','Product Added',`${name} added. Go to Restock to record your first delivery.`);
+  renderAll();
+  ['ap_name','ap_price','ap_unit'].forEach(id=>document.getElementById(id).value='');
+  hideLoad();
 }
 
-function renderReviews() {
-  const d=myData();
-  document.getElementById('reviews-list').innerHTML=d.reviews.length
-    ?d.reviews.map((r,i)=>`<div class="review-item"><div class="review-head"><div class="reviewer-av">${r.init}</div><div><div class="reviewer-name">${r.name} <span class="stars-sm">${'★'.repeat(r.stars)}${'☆'.repeat(5-r.stars)}</span></div><div class="review-meta">${r.product} · ${r.date}</div></div></div><div class="review-body">"${r.text}"</div>${r.replied?`<div class="merchant-reply"><div class="merchant-reply-label">Your reply</div>${r.reply}</div>`:`<div class="reply-area"><textarea rows="2" placeholder="Write a reply..." id="reply-${i}"></textarea><div style="display:flex;justify-content:flex-end;margin-top:.5rem"><button class="btn btn-primary btn-sm" onclick="submitReply(${i})">Send reply</button></div></div>`}</div>`).join('')
-    :'<div style="text-align:center;padding:3rem;color:#888">No reviews yet</div>';
+// ── DELETE PRODUCT ─────────────────────────────────────────────────────────
+async function deleteProd(id){
+  if(!confirm('Delete this product and all its data?'))return;
+  showLoad('Deleting...');
+  await sb.from('products').delete().eq('id',id);
+  await loadProducts();
+  renderProducts();renderOverview();
+  hideLoad();
 }
 
-function renderPayouts() {
-  const d=myData();
-  document.getElementById('payouts-tbody').innerHTML=d.payouts.length
-    ?d.payouts.map(p=>`<tr><td>${p.date}</td><td>${p.period}</td><td>${p.orders}</td><td>${p.gross}</td><td>${p.fee}</td><td>${p.net}</td><td><span class="badge badge-${p.status}">${cap(p.status)}</span></td></tr>`).join('')
-    :'<tr><td colspan="7" style="text-align:center;padding:2rem;color:#888">No payouts yet</td></tr>';
+// ── RESTOCK ────────────────────────────────────────────────────────────────
+async function doRestock(){
+  const pid=v('rs_prod'),qty=parseInt(v('rs_qty')),unit=v('rs_unit'),
+    cost=parseInt(v('rs_cost')),date=v('rs_date'),sup=v('rs_sup');
+  const err=document.getElementById('rs_err');
+  if(!pid||!qty||!unit||!cost||!date){err.style.display='block';return;}
+  err.style.display='none';
+  const p=products.find(x=>x.id===pid);
+  if(!p)return;
+  const newBatch={id:'b'+Date.now(),qty,remaining:qty,costPerUnit:cost,date,supplier:sup||''};
+  const updBatches=[...(p.batches||[]),newBatch];
+  showLoad('Recording delivery...');
+  const {error}=await sb.from('products').update({batches:updBatches,unit}).eq('id',pid);
+  if(error){hideLoad();showOK('❌','Error',error.message);return;}
+  await loadProducts();
+  showOK('✅','Delivery Recorded',`${qty} ${unit} of ${p.name} added at ₦${cost.toLocaleString()}/unit.`);
+  renderAll();
+  ['rs_qty','rs_cost','rs_sup'].forEach(id=>document.getElementById(id).value='');
+  hideLoad();
 }
 
-function renderSellers() {
-  const pending  = sellerRequests.filter(s=>s.status==='pending');
-  const approved = sellerRequests.filter(s=>s.status==='approved');
-  document.getElementById('pending-count-label').textContent = pending.length;
-  document.getElementById('requests-badge').textContent      = pending.length;
-
-  document.getElementById('pending-sellers').innerHTML = pending.length
-    ?pending.map(s=>`<div class="seller-card"><div class="seller-av">${s.name.split(' ').map(w=>w[0]).join('').slice(0,2)}</div><div class="seller-info"><div class="seller-name">${s.name} — <em>${s.store}</em></div><div class="seller-meta">${s.email} · Requested ${s.requested}</div><div class="seller-meta" style="margin-top:3px;color:#444">${s.desc}</div></div><div class="seller-actions"><button class="btn btn-primary btn-sm" onclick="approveSeller('${s.id}')">Approve</button><button class="btn btn-danger btn-sm" onclick="rejectSeller('${s.id}')">Reject</button></div></div>`).join('')
-    :'<div style="padding:1.25rem;font-size:13px;color:#888">No pending requests</div>';
-
-  document.getElementById('approved-sellers').innerHTML = approved.length
-    ?approved.map(s=>`<div class="seller-card"><div class="seller-av">${s.name.split(' ').map(w=>w[0]).join('').slice(0,2)}</div><div class="seller-info"><div class="seller-name">${s.name} — <em>${s.store}</em></div><div class="seller-meta">${s.email} · Joined ${s.requested}</div></div><span class="badge badge-approved">Active</span></div>`).join('')
-    :'<div style="padding:1.25rem;font-size:13px;color:#888">No approved sellers yet</div>';
+// ── SELL ───────────────────────────────────────────────────────────────────
+async function doSell(){
+  const pid=v('sell_prod'),qty=parseInt(v('sell_qty')),sp=parseInt(v('sell_price'));
+  const err=document.getElementById('sell_err');
+  if(!pid||!qty||!sp){err.style.display='block';return;}
+  err.style.display='none';
+  const p=products.find(x=>x.id===pid);
+  if(!p)return;
+  const eff=effMethod(p);
+  const cogs=calcCOGS(p,qty,eff);
+  if(!cogs){err.textContent=`Not enough stock (${totalStock(p)} ${p.unit} available)`;err.style.display='block';return;}
+  const updBatches=JSON.parse(JSON.stringify(p.batches||[]));
+  const sorted=eff==='fifo'?[...updBatches].sort((a,b)=>new Date(a.date)-new Date(b.date)):[...updBatches].sort((a,b)=>new Date(b.date)-new Date(a.date));
+  let rem=qty;
+  for(const sb2 of sorted){const b=updBatches.find(x=>x.id===sb2.id);if(!b||rem<=0)continue;const take=Math.min(b.remaining,rem);b.remaining-=take;rem-=take;}
+  showLoad('Recording sale...');
+  const [r1,r2]=await Promise.all([
+    sb.from('products').update({batches:updBatches}).eq('id',pid),
+    sb.from('orders').insert({merchant_id:merchant.id,product_id:pid,product_name:p.name,qty,sell_price:sp,cogs:cogs.totalCost,revenue:qty*sp,method:eff,date:today()})
+  ]);
+  if(r1.error||r2.error){hideLoad();showOK('❌','Error',(r1.error||r2.error).message);return;}
+  await loadAll();
+  showOK('💰','Sale Recorded',`${qty} ${p.unit} of ${p.name} · Revenue: ₦${(qty*sp).toLocaleString()} · COGS: ₦${cogs.totalCost.toLocaleString()} · Profit: ₦${((qty*sp)-cogs.totalCost).toLocaleString()}`);
+  ['sell_qty','sell_price'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('sell_prev').innerHTML='';
+  hideLoad();
 }
 
-function approveSeller(id) {
-  const s=sellerRequests.find(x=>x.id===id);
-  if (!s) return;
-  s.status='approved';
-  if (!sellerData[s.email]) sellerData[s.email]={metrics:{revenue:'₦0',orders:0,rating:'—',payout:'₦0'},orders:[],products:[],reviews:[],payouts:[]};
-  renderSellers(); showToast(s.name+' approved! They can now log in.');
+// ── FIFO/LIFO LOGIC ────────────────────────────────────────────────────────
+function getRec(p){
+  const isP=PERISHABLE.includes(p.cat),b=p.batches||[];
+  if(b.length<2)return{method:'fifo',reason:'Not enough batches yet — defaulting to FIFO.',detail:'Add more restocks to unlock full analysis.'};
+  const prices=b.map(x=>x.costPerUnit),rising=prices[prices.length-1]>prices[0];
+  const pct=Math.round((Math.abs(prices[prices.length-1]-prices[0])/prices[0])*100);
+  if(isP)return{method:'fifo',reason:`FIFO recommended — ${p.name} is perishable`,detail:`Sell oldest batch first to prevent spoilage. Freshness matters more than price for ${p.cat}.`};
+  if(rising&&pct>=5)return{method:'lifo',reason:`LIFO recommended — prices rising ${pct}%`,detail:`Cost went from ₦${prices[0].toLocaleString()} to ₦${prices[prices.length-1].toLocaleString()}/unit. Selling newer higher-cost stock first reduces taxable profit.`};
+  return{method:'fifo',reason:`FIFO recommended — prices stable (${pct}% change)`,detail:'Stable costs mean FIFO gives a fair profit view and keeps your stock orderly.'};
 }
-function rejectSeller(id) {
-  const s=sellerRequests.find(x=>x.id===id);
-  if (s) { s.status='rejected'; renderSellers(); showToast(s.name+' rejected.'); }
+function effMethod(p){return p.method==='auto'?getRec(p).method:p.method;}
+function calcCOGS(p,qty,method){
+  const b=JSON.parse(JSON.stringify(p.batches||[]));
+  const sorted=method==='fifo'?[...b].sort((a,x)=>new Date(a.date)-new Date(x.date)):[...b].sort((a,x)=>new Date(x.date)-new Date(a.date));
+  let rem=qty,total=0,breakdown=[];
+  for(const x of sorted){if(rem<=0)break;const take=Math.min(x.remaining,rem);total+=take*x.costPerUnit;breakdown.push({batchDate:x.date,qty:take,cost:x.costPerUnit,total:take*x.costPerUnit});rem-=take;}
+  return rem>0?null:{totalCost:total,breakdown};
 }
-function removeProduct(name) {
-  const d=myData(); const i=d.products.findIndex(p=>p.name===name);
-  if (i>-1) { d.products.splice(i,1); renderProducts(); renderOverview(); showToast(name+' removed.'); }
+function totalStock(p){return(p.batches||[]).reduce((s,b)=>s+b.remaining,0);}
+function avgCost(p){const b=p.batches||[],t=b.reduce((s,x)=>s+x.remaining,0);return t?Math.round(b.reduce((s,x)=>s+x.costPerUnit*x.remaining,0)/t):0;}
+
+// ── RENDER ─────────────────────────────────────────────────────────────────
+function renderAll(){renderOverview();renderProducts();renderFifoLifo();renderOrders();populateSelects();}
+
+function renderOverview(){
+  const rev=orders.reduce((s,o)=>s+o.revenue,0),profit=orders.reduce((s,o)=>s+(o.revenue-o.cogs),0);
+  const low=products.filter(p=>totalStock(p)<10&&totalStock(p)>0).length;
+  document.getElementById('ovTitle').textContent=`Welcome back, ${merchant.name.split(' ')[0]}`;
+  document.getElementById('ovSub').textContent=`${merchant.biz} · ${merchant.loc}`;
+  document.getElementById('ovStats').innerHTML=`
+    <div class="sb"><div class="ico">📦</div><div class="val">${products.length}</div><div class="lbl">Products</div></div>
+    <div class="sb"><div class="ico">🧾</div><div class="val">${orders.length}</div><div class="lbl">Sales</div></div>
+    <div class="sb"><div class="ico">💰</div><div class="val">₦${rev>=1000?(rev/1000).toFixed(0)+'k':rev}</div><div class="lbl">Revenue</div></div>
+    <div class="sb"><div class="ico">📈</div><div class="val">₦${profit>=1000?(profit/1000).toFixed(0)+'k':profit}</div><div class="lbl">Profit</div></div>`;
+  let alerts=low?`<div class="card" style="border-color:rgba(212,168,32,0.3)"><div class="ct" style="color:var(--gold)">⚠️ Stock Alerts</div><div style="font-size:0.82rem;color:var(--gold)">${low} product(s) running low</div><button class="bsm bo" style="margin-top:0.8rem" onclick="switchTab('restock',null)">Restock Now →</button></div>`:`<div class="card"><div class="ct">✅ Stock Healthy</div><div style="font-size:0.82rem;color:var(--muted)">All products have adequate stock.</div></div>`;
+  let fc=0,lc=0,ac=0;products.forEach(p=>{if(p.method==='fifo')fc++;else if(p.method==='lifo')lc++;else ac++;});
+  alerts+=`<div class="card"><div class="ct">🧠 Inventory Methods</div><div style="display:flex;flex-direction:column;gap:0.5rem;margin-bottom:0.8rem">
+    <div style="display:flex;justify-content:space-between;font-size:0.82rem"><span style="color:var(--fifo)">● FIFO</span><strong>${fc}</strong></div>
+    <div style="display:flex;justify-content:space-between;font-size:0.82rem"><span style="color:var(--lifo)">● LIFO</span><strong>${lc}</strong></div>
+    <div style="display:flex;justify-content:space-between;font-size:0.82rem"><span style="color:var(--muted)">● Auto</span><strong>${ac}</strong></div>
+  </div><button class="bsm bgr" onclick="switchTab('fifolifo',null)">View FIFO/LIFO Engine →</button></div>`;
+  document.getElementById('ovAlerts').innerHTML=alerts;
+  document.getElementById('ovAct').innerHTML=orders.length
+    ?`<table><thead><tr><th>Product</th><th>Qty</th><th>Revenue</th><th>COGS</th><th>Profit</th><th>Method</th><th>Date</th></tr></thead><tbody>${orders.slice(0,5).map(o=>`<tr><td>${o.product_name}</td><td>${o.qty}</td><td>₦${o.revenue.toLocaleString()}</td><td>₦${o.cogs.toLocaleString()}</td><td style="color:${o.revenue-o.cogs>=0?'var(--fifo)':'var(--red)'}">₦${(o.revenue-o.cogs).toLocaleString()}</td><td><span class="rp ${o.method==='fifo'?'rf':'rl'}">${o.method.toUpperCase()}</span></td><td>${o.date}</td></tr>`).join('')}</tbody></table>`
+    :'<div style="text-align:center;padding:2rem;color:var(--muted);font-size:0.85rem">No sales yet.</div>';
 }
 
-// ════════════════════════════════════
-// INTERACTIONS
-// ════════════════════════════════════
-function setFilter(which, val, btn) {
-  if (which==='orderFilter') { orderFilter=val; renderOrders(); }
-  if (which==='productFilter') { productFilter=val; renderProducts(); }
-  btn.closest('.toolbar').querySelectorAll('.filter-pill').forEach(p=>p.classList.remove('active'));
-  btn.classList.add('active');
+function renderProducts(){
+  document.getElementById('prodTbl').innerHTML=products.length
+    ?products.map(p=>{const ts=totalStock(p),ac=avgCost(p),eff=effMethod(p);return`<tr><td><strong>${p.name}</strong></td><td><span class="badge bcat" style="text-transform:capitalize">${p.cat}</span></td><td><span class="rp ${eff==='fifo'?'rf':'rl'}">${eff.toUpperCase()}</span>${p.method==='auto'?'<span style="font-size:0.6rem;color:var(--muted);margin-left:0.3rem">(auto)</span>':''}</td><td>${(p.batches||[]).length}</td><td>${ts} ${p.unit}</td><td>₦${ac.toLocaleString()}</td><td><span class="badge ${ts>20?'bok':ts>5?'blow':'bout'}">${ts>20?'In Stock':ts>5?'Low':'Out'}</span></td><td><button class="tb" onclick="openBatch('${p.id}')">Batches</button><button class="tb dl" onclick="deleteProd('${p.id}')">Delete</button></td></tr>`;}).join('')
+    :`<tr><td colspan="8" style="text-align:center;color:var(--muted);padding:2rem">No products yet. <a onclick="openM('mAddProd')" style="color:var(--gold);cursor:pointer">Add your first product →</a></td></tr>`;
 }
 
-function addProduct() {
-  const name=document.getElementById('np-name').value.trim();
-  const price=document.getElementById('np-price').value.trim();
-  const stock=parseInt(document.getElementById('np-stock').value)||0;
-  const img=document.getElementById('np-img').value.trim();
-  if (!name||!price) { showToast('Please fill in name and price'); return; }
-  myData().products.unshift({name,price:'₦'+price,stock,status:stock===0?'out':stock<5?'low':'in-stock',img:img||'https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea?w=400&q=80'});
-  renderProducts(); renderOverview(); closeModal('add-product-modal'); showToast(name+' added!');
-  ['np-name','np-price','np-stock','np-img'].forEach(id=>document.getElementById(id).value='');
+function renderFifoLifo(){
+  document.getElementById('flGrid').innerHTML=products.length
+    ?products.map(p=>{
+      const b=p.batches||[],rec=getRec(p),eff=effMethod(p),ts=totalStock(p);
+      const sf=[...b].sort((a,x)=>new Date(a.date)-new Date(x.date));
+      const sl=[...b].sort((a,x)=>new Date(x.date)-new Date(a.date));
+      const cf1=sf.find(x=>x.remaining>0)?.costPerUnit||0,cl1=sl.find(x=>x.remaining>0)?.costPerUnit||0;
+      const bHTML=sf.map((x,i)=>{
+        const isO=i===0,isN=i===sf.length-1;
+        return`<div class="br ${isO?'oldest':isN?'newest':'mid'}">
+          <div class="bd" style="background:${isO?'var(--fifo)':isN?'var(--lifo)':'var(--dim)'}"></div>
+          <div class="bi"><div class="bdate">${x.date}${x.supplier?' · '+x.supplier:''}</div><div class="bqty">${x.remaining}/${x.qty} ${p.unit}</div></div>
+          <div><div class="bcost">₦${x.costPerUnit.toLocaleString()}/unit</div>${isO?'<span class="blbl lo">OLDEST</span>':''}${isN&&sf.length>1?'<span class="blbl ln">NEWEST</span>':''}${(eff==='fifo'&&isO||eff==='lifo'&&isN)&&x.remaining>0?'<span class="blbl lns">NEXT</span>':''}</div>
+        </div>`;}).join('');
+      return`<div class="pc"><div class="pch"><div><div class="pcn">${p.name}</div><div class="pcc">${p.cat} · ${ts} ${p.unit}</div></div><div style="display:flex;gap:0.4rem;align-items:center"><span class="rp ${eff==='fifo'?'rf':'rl'}">● ${eff.toUpperCase()}</span>${p.method==='auto'?'<span style="font-size:0.6rem;color:var(--muted)">auto</span>':''}</div></div>
+        <div style="padding:1rem">
+          <div class="sbw"><div class="sbb" style="width:${Math.min(100,ts)}%;background:${ts>20?'var(--fifo)':ts>5?'var(--gold)':'var(--red)'}"></div></div>
+          <div style="font-size:0.72rem;color:var(--muted);margin-bottom:0.8rem">${ts} ${p.unit} · ${b.length} batch${b.length!==1?'es':''}</div>
+          ${b.length?`<div style="font-size:0.78rem;font-weight:600;color:var(--dim);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.5rem">Stock Batches</div><div class="bl">${bHTML}</div>`:'<div style="font-size:0.78rem;color:var(--muted);margin-bottom:0.8rem">No batches yet — restock to begin tracking.</div>'}
+          ${b.length?`<div class="cc"><div class="cb cf"><div class="cm">FIFO Cost</div><div class="cv">₦${cf1.toLocaleString()}</div><div class="cn">next unit</div></div><div class="cb cl"><div class="cm">LIFO Cost</div><div class="cv">₦${cl1.toLocaleString()}</div><div class="cn">next unit</div></div></div>`:''}
+          <div class="rb ${rec.method==='fifo'?'rbf':'rbl'}"><div class="ri">${rec.method==='fifo'?'🟢':'🟡'}</div><div class="rr"><strong>${rec.reason}</strong><em>${rec.detail}</em></div></div>
+        </div>
+        <div class="pcf">
+          <button class="bsm bo" onclick="openBatch('${p.id}')">View Batches</button>
+          <button class="bsm bgr" onclick="switchTab('restock',null);setTimeout(()=>{document.getElementById('rs_prod').value='${p.id}'},50)">+ Restock</button>
+          <button class="bsm bg" onclick="switchTab('sell',null);setTimeout(()=>{document.getElementById('sell_prod').value='${p.id}';onSellChange()},50)">Sell</button>
+        </div>
+      </div>`;}).join('')
+    :'<div style="color:var(--muted);font-size:0.88rem;grid-column:1/-1">No products yet. Add products and restock them to use the FIFO/LIFO engine.</div>';
 }
 
-function submitReply(i) {
-  const ta=document.getElementById('reply-'+i);
-  if (!ta||!ta.value.trim()) return;
-  const r=myData().reviews[i];
-  if (r) { r.replied=true; r.reply=ta.value.trim(); }
-  renderReviews(); showToast('Reply sent!');
+function renderOrders(){
+  document.getElementById('oBdg').textContent=orders.length;
+  document.getElementById('ordTbl').innerHTML=orders.length
+    ?orders.map(o=>`<tr><td>${o.product_name}</td><td>${o.qty}</td><td>₦${o.revenue.toLocaleString()}</td><td>₦${o.cogs.toLocaleString()}</td><td style="color:${o.revenue-o.cogs>=0?'var(--fifo)':'var(--red)'}"><strong>₦${(o.revenue-o.cogs).toLocaleString()}</strong></td><td><span class="rp ${o.method==='fifo'?'rf':'rl'}">${o.method.toUpperCase()}</span></td><td>${o.date}</td></tr>`).join('')
+    :'<tr><td colspan="7" style="text-align:center;color:var(--muted);padding:2rem">No sales yet.</td></tr>';
 }
 
-function changePw() {
-  const np=document.getElementById('new-pw').value, cp=document.getElementById('confirm-pw').value, msg=document.getElementById('pw-msg');
-  if (!np) { msg.style.color='#dc2626'; msg.textContent='Enter a new password.'; return; }
-  if (np!==cp) { msg.style.color='#dc2626'; msg.textContent="Passwords don't match."; return; }
-  msg.style.color='#1b6535'; msg.textContent='Password updated ✓';
-  document.getElementById('new-pw').value=''; document.getElementById('confirm-pw').value='';
+function renderSettings(){
+  if(!merchant)return;
+  document.getElementById('settCard').innerHTML=`<div class="ct">Your Merchant Account</div>
+    <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;padding-bottom:1.2rem;border-bottom:1px solid var(--border)">
+      <div style="width:56px;height:56px;border-radius:50%;background:var(--g-mid);border:2px solid var(--g-accent);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;color:var(--gold)">${merchant.name[0].toUpperCase()}</div>
+      <div><div style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--white)">${merchant.name}</div><div style="font-size:0.72rem;color:var(--g-bright)">${merchant.biz}</div></div>
+    </div>
+    ${[['Email',merchant.email],['Phone',merchant.phone||'—'],['Business',merchant.biz],['Category',merchant.cat],['Location',merchant.loc],['Member Since',merchant.joined]].map(([l,val])=>`<div style="margin-bottom:0.9rem"><div style="font-size:0.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.2rem">${l}</div><div style="font-size:0.88rem">${val}</div></div>`).join('')}
+    <button class="bsm bo" style="margin-top:0.5rem;width:100%;padding:0.65rem;border-radius:10px" onclick="doSignOut()">Sign Out</button>`;
 }
 
-function togglePw(id, btn) {
-  const input=document.getElementById(id);
-  input.type=input.type==='password'?'text':'password';
-  btn.textContent=input.type==='password'?'👁️':'🙈';
+function openBatch(pid){
+  const p=products.find(x=>x.id===pid);if(!p)return;
+  const eff=effMethod(p),rec=getRec(p);
+  const sorted=[...(p.batches||[])].sort((a,b)=>new Date(a.date)-new Date(b.date));
+  const tq=sorted.reduce((s,b)=>s+b.qty,0),tr=sorted.reduce((s,b)=>s+b.remaining,0);
+  const cf=tr>0?calcCOGS(p,tr,'fifo'):null,cl=tr>0?calcCOGS(p,tr,'lifo'):null;
+  document.getElementById('mBatchContent').innerHTML=`
+    <h2>${p.name} — Batches</h2><p class="msub">${p.cat} · Method: <strong style="color:${eff==='fifo'?'var(--fifo)':'var(--lifo)'}">${eff.toUpperCase()}</strong></p>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.8rem;margin-bottom:1.2rem">
+      <div class="cb cf"><div class="cm">Batches</div><div class="cv">${sorted.length}</div></div>
+      <div class="cb cl"><div class="cm">Total In</div><div class="cv">${tq}</div></div>
+      <div class="cb cf"><div class="cm">Remaining</div><div class="cv">${tr}</div></div>
+    </div>
+    ${sorted.length?`<table><thead><tr><th>#</th><th>Date</th><th>Supplier</th><th>In</th><th>Left</th><th>Cost/Unit</th></tr></thead><tbody>${sorted.map((b,i)=>`<tr><td>${i+1}</td><td>${b.date}</td><td>${b.supplier||'—'}</td><td>${b.qty}</td><td><strong>${b.remaining}</strong></td><td>₦${b.costPerUnit.toLocaleString()}</td></tr>`).join('')}</tbody></table>`:'<p style="color:var(--muted);text-align:center;padding:1rem">No batches yet.</p>'}
+    ${cf&&cl?`<div style="margin-top:1.2rem"><div style="font-size:0.75rem;font-weight:600;color:var(--dim);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.6rem">If you sell all ${tr} ${p.unit}</div>
+    <div class="cc"><div class="cb cf"><div class="cm">FIFO COGS</div><div class="cv">₦${cf.totalCost.toLocaleString()}</div><div class="cn">avg ₦${Math.round(cf.totalCost/tr).toLocaleString()}/unit</div></div>
+    <div class="cb cl"><div class="cm">LIFO COGS</div><div class="cv">₦${cl.totalCost.toLocaleString()}</div><div class="cn">avg ₦${Math.round(cl.totalCost/tr).toLocaleString()}/unit</div></div></div>
+    <div style="font-size:0.75rem;color:var(--muted);margin-top:0.7rem">${cf.totalCost<cl.totalCost?`FIFO shows ₦${(cl.totalCost-cf.totalCost).toLocaleString()} lower COGS → higher reported profit`:cf.totalCost>cl.totalCost?`LIFO shows ₦${(cf.totalCost-cl.totalCost).toLocaleString()} lower COGS → lower taxable profit`:'Both methods give the same COGS.'}</div></div>`:''}
+    <div class="rb ${rec.method==='fifo'?'rbf':'rbl'}" style="margin-top:1rem"><div class="ri">${rec.method==='fifo'?'🟢':'🟡'}</div><div class="rr"><strong>${rec.reason}</strong><em>${rec.detail}</em></div></div>`;
+  openM('mBatch');
 }
 
-function openModal(id)  { document.getElementById(id).classList.add('open'); }
-function closeModal(id) { document.getElementById(id).classList.remove('open'); }
-document.querySelectorAll('.modal-overlay').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('open');}));
-
-function showToast(msg) {
-  const t=document.getElementById('toast'); document.getElementById('toast-msg').textContent=msg;
-  t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2800);
+function onSellChange(){
+  const pid=v('sell_prod'),p=products.find(x=>x.id===pid);
+  if(p&&!document.getElementById('sell_price').value)document.getElementById('sell_price').value=p.sell_price||'';
+  onSellQty();
 }
-function cap(s) { return s.charAt(0).toUpperCase()+s.slice(1); }
+function onSellQty(){
+  const pid=v('sell_prod'),qty=parseInt(v('sell_qty'))||0,sp=parseInt(v('sell_price'))||0;
+  const prev=document.getElementById('sell_prev'),p=products.find(x=>x.id===pid);
+  if(!p||!qty){prev.innerHTML='';return;}
+  const eff=effMethod(p),rec=getRec(p),cogs=calcCOGS(p,qty,eff);
+  if(!cogs){prev.innerHTML=`<div style="font-size:0.8rem;color:var(--red);margin-bottom:0.8rem">⚠️ Not enough stock. Only ${totalStock(p)} ${p.unit} available.</div>`;return;}
+  const rev=qty*sp,profit=rev-cogs.totalCost;
+  prev.innerHTML=`<div class="sp"><div style="font-size:0.72rem;font-weight:600;color:var(--dim);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.6rem">Preview · <span style="color:${eff==='fifo'?'var(--fifo)':'var(--lifo)'}">${eff.toUpperCase()}</span></div>${cogs.breakdown.map(b=>`<div class="sr2"><span>Batch ${b.batchDate} · ${b.qty} × ₦${b.cost.toLocaleString()}</span><span>₦${b.total.toLocaleString()}</span></div>`).join('')}<div class="sr2"><span>Total COGS</span><span>₦${cogs.totalCost.toLocaleString()}</span></div>${sp?`<div class="sr2"><span>Revenue</span><span>₦${rev.toLocaleString()}</span></div><div class="sr2" style="color:${profit>=0?'var(--fifo)':'var(--red)'}"><span>Gross Profit</span><span>₦${profit.toLocaleString()}</span></div>`:''}</div>
+  <div class="rb ${rec.method==='fifo'?'rbf':'rbl'}" style="margin-bottom:0.8rem"><div class="ri">${rec.method==='fifo'?'🟢':'🟡'}</div><div class="rr"><strong>${rec.reason}</strong><em>${rec.detail}</em></div></div>`;
+}
 
-// Notifications
-document.getElementById('notif-list').innerHTML=`
-  <div class="notif-item unread"><div class="notif-icon-wrap ni-order">📦</div><div style="flex:1"><div class="notif-text"><strong>New order received</strong></div><div class="notif-time">2 mins ago</div></div><div class="unread-dot"></div></div>
-  <div class="notif-item unread"><div class="notif-icon-wrap ni-review">⭐</div><div style="flex:1"><div class="notif-text"><strong>New review on your product</strong></div><div class="notif-time">1 hour ago</div></div><div class="unread-dot"></div></div>
-  <div class="notif-item"><div class="notif-icon-wrap ni-payout">💰</div><div style="flex:1"><div class="notif-text">Payout processed successfully</div><div class="notif-time">Yesterday</div></div></div>`;
+function populateSelects(){
+  const opts='<option value="">Select product</option>'+products.map(p=>`<option value="${p.id}">${p.name} (${totalStock(p)} ${p.unit})</option>`).join('');
+  ['rs_prod','sell_prod'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML=opts;});
+  document.getElementById('rs_date').value=today();
+}
+
+// ── UI HELPERS ─────────────────────────────────────────────────────────────
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
+function switchTab(tab,el){
+  document.querySelectorAll('.sl').forEach(l=>l.classList.remove('active'));
+  if(el)el.classList.add('active');
+  document.querySelectorAll('.tp').forEach(p=>p.classList.remove('active'));
+  document.getElementById('tab-'+tab).classList.add('active');
+  if(tab==='products')renderProducts();
+  if(tab==='fifolifo')renderFifoLifo();
+  if(tab==='restock')populateSelects();
+  if(tab==='sell'){populateSelects();document.getElementById('sell_prev').innerHTML='';}
+  if(tab==='orders')renderOrders();
+  if(tab==='settings')renderSettings();
+}
+function switchOTab(tab,el){
+  document.querySelectorAll('.otab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.opanel').forEach(p=>p.classList.remove('active'));
+  el.classList.add('active');document.getElementById('opanel-'+tab).classList.add('active');
+}
+function openM(id){document.getElementById(id).classList.add('open');}
+function closeM(id){document.getElementById(id).classList.remove('open');}
+function showOK(icon,title,msg){document.getElementById('sIcon').textContent=icon;document.getElementById('sTitle').textContent=title;document.getElementById('sMsg').textContent=msg;openM('mSuccess');}
+document.querySelectorAll('.mw').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('open');}));
+function v(id){return document.getElementById(id)?.value?.trim()||'';}
+function today(){return new Date().toISOString().split('T')[0];}
+
+showLoad('Loading OjaLocal...');
 </script>
 </body>
 </html>
