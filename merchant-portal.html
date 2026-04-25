@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>OjaLocal · Merchant Portal</title>
+<title>OjaSaye · Merchant Portal</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700;900&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -150,11 +150,11 @@ tr:hover td{background:rgba(93,184,46,0.03)}
 
 <div id="loadingOverlay">
   <div class="loader"></div>
-  <div class="loader-text" id="loadingText">Loading OjaLocal...</div>
+  <div class="loader-text" id="loadingText">Loading OjaSaye...</div>
 </div>
 
 <nav>
-  <div class="logo">OjaLocal<span>Merchant Portal</span></div>
+  <div class="logo">OjaSaye<span>Merchant Portal</span></div>
   <div class="nav-r">
     <span class="nav-biz" id="navBiz"></span>
     <a href="index.html" class="btn-back">← Back to Store</a>
@@ -168,7 +168,7 @@ tr:hover td{background:rgba(93,184,46,0.03)}
   <div class="onboard-card">
     <div style="text-align:center;margin-bottom:1.5rem">
       <div style="font-size:2.5rem;margin-bottom:0.5rem">🏪</div>
-      <div style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:900;color:var(--white)">OjaLocal</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:900;color:var(--white)">OjaSaye</div>
       <div style="font-size:0.8rem;color:var(--muted);margin-top:0.3rem">Merchant Portal · FIFO &amp; LIFO Inventory Intelligence</div>
     </div>
     <div class="otabs">
@@ -177,7 +177,7 @@ tr:hover td{background:rgba(93,184,46,0.03)}
     </div>
     <div class="opanel active" id="opanel-signup">
       <div class="oh">Create your account</div>
-      <div class="os">Start selling on OjaLocal today</div>
+      <div class="os">Start selling on OjaSaye today</div>
       <div class="fg2">
         <div class="fg"><label>First Name</label><input type="text" id="su_fname" placeholder="Amaka"></div>
         <div class="fg"><label>Last Name</label><input type="text" id="su_lname" placeholder="Eze"></div>
@@ -189,12 +189,23 @@ tr:hover td{background:rgba(93,184,46,0.03)}
         <div class="fg"><label>Product Category</label>
           <select id="su_cat">
             <option value="">Select...</option>
-            <option value="fruits">Fresh Fruits</option>
-            <option value="vegetables">Vegetables</option>
-            <option value="grains">Grains &amp; Cereals</option>
-            <option value="spices">Spices &amp; Condiments</option>
-            <option value="dairy">Dairy &amp; Eggs</option>
-            <option value="other">Other</option>
+            <optgroup label="🌿 Fresh Produce">
+              <option value="fruits">Fresh Fruits</option>
+              <option value="vegetables">Vegetables</option>
+              <option value="grains">Grains &amp; Cereals</option>
+              <option value="spices">Spices &amp; Condiments</option>
+              <option value="dairy">Dairy &amp; Eggs</option>
+            </optgroup>
+            <optgroup label="🐓 Livestock">
+              <option value="poultry">Poultry (Chicken, Turkey, Duck)</option>
+              <option value="cattle">Cattle (Cow, Bull)</option>
+              <option value="goats">Goats &amp; Sheep</option>
+              <option value="fish">Fish &amp; Seafood</option>
+              <option value="other_livestock">Snails, Grasscutters &amp; Others</option>
+            </optgroup>
+            <optgroup label="📦 Other">
+              <option value="other">Other Products</option>
+            </optgroup>
           </select>
         </div>
       </div>
@@ -256,8 +267,8 @@ tr:hover td{background:rgba(93,184,46,0.03)}
       <div class="ph"><div><div class="pt">FIFO / LIFO Engine</div><div class="ps">Smart inventory method per product</div></div></div>
       <div class="card" style="margin-bottom:1.5rem">
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem">
-          <div><div style="font-size:0.8rem;font-weight:600;color:var(--cream);margin-bottom:0.5rem">🟢 FIFO — First In, First Out</div><div style="font-size:0.75rem;color:var(--muted);line-height:1.65">Oldest stock sells first. Best for <strong style="color:var(--cream)">perishables</strong> like fruits &amp; vegetables to prevent spoilage.</div></div>
-          <div><div style="font-size:0.8rem;font-weight:600;color:var(--cream);margin-bottom:0.5rem">🟡 LIFO — Last In, First Out</div><div style="font-size:0.75rem;color:var(--muted);line-height:1.65">Newest stock sells first. Best for <strong style="color:var(--cream)">shelf-stable goods</strong> when prices are rising — reduces taxable profit.</div></div>
+          <div><div style="font-size:0.8rem;font-weight:600;color:var(--cream);margin-bottom:0.5rem">🟢 FIFO — First In, First Out</div><div style="font-size:0.75rem;color:var(--muted);line-height:1.65">Oldest stock sells first. Best for <strong style="color:var(--cream)">perishables</strong> (fruits, veg, fish) and <strong style="color:var(--cream)">livestock</strong> — live animals cost more to hold each day.</div></div>
+          <div><div style="font-size:0.8rem;font-weight:600;color:var(--cream);margin-bottom:0.5rem">🟡 LIFO — Last In, First Out</div><div style="font-size:0.75rem;color:var(--muted);line-height:1.65">Newest stock sells first. Best for <strong style="color:var(--cream)">shelf-stable goods</strong> (grains, spices) when prices are rising — reduces taxable profit.</div></div>
         </div>
       </div>
       <div class="pg" id="flGrid"></div>
@@ -313,19 +324,38 @@ tr:hover td{background:rgba(93,184,46,0.03)}
   <div class="modal">
     <button class="mc" onclick="closeM('mAddProd')">✕</button>
     <h2>Add Product</h2><p class="msub">Add a new product to your inventory</p>
-    <div class="fg"><label>Product Name</label><input type="text" id="ap_name" placeholder="e.g. Mango"></div>
+    <div class="fg"><label>Product Name</label><input type="text" id="ap_name" placeholder="e.g. Broiler Chicken / Mango"></div>
     <div class="fg2">
       <div class="fg"><label>Category</label>
-        <select id="ap_cat">
-          <option value="fruits">Fresh Fruits</option>
-          <option value="vegetables">Vegetables</option>
-          <option value="grains">Grains &amp; Cereals</option>
-          <option value="spices">Spices &amp; Condiments</option>
-          <option value="dairy">Dairy &amp; Eggs</option>
-          <option value="other">Other</option>
+        <select id="ap_cat" onchange="onCatChange()">
+          <optgroup label="🌿 Fresh Produce">
+            <option value="fruits">Fresh Fruits</option>
+            <option value="vegetables">Vegetables</option>
+            <option value="grains">Grains &amp; Cereals</option>
+            <option value="spices">Spices &amp; Condiments</option>
+            <option value="dairy">Dairy &amp; Eggs</option>
+          </optgroup>
+          <optgroup label="🐓 Livestock">
+            <option value="poultry">Poultry (Chicken, Turkey, Duck)</option>
+            <option value="cattle">Cattle (Cow, Bull)</option>
+            <option value="goats">Goats &amp; Sheep</option>
+            <option value="fish">Fish &amp; Seafood</option>
+            <option value="other_livestock">Snails, Grasscutters &amp; Others</option>
+          </optgroup>
+          <optgroup label="📦 Other">
+            <option value="other">Other</option>
+          </optgroup>
         </select>
       </div>
-      <div class="fg"><label>Selling Unit</label><input type="text" id="ap_unit" placeholder="kg / each / bag"></div>
+      <div class="fg"><label>Selling Unit</label><input type="text" id="ap_unit" placeholder="kg / head / each"></div>
+    </div>
+    <div class="fg" id="ap_selling_type_wrap" style="display:none">
+      <label>Selling Type</label>
+      <select id="ap_selling_type">
+        <option value="live">Live animal (per head)</option>
+        <option value="processed">Processed / Dressed (per kg)</option>
+        <option value="both">Both available</option>
+      </select>
     </div>
     <div class="fg"><label>Default Selling Price (₦)</label><input type="number" id="ap_price" placeholder="e.g. 1500"></div>
     <div class="fg"><label>Inventory Method</label>
@@ -368,7 +398,13 @@ const sb = createClient(
 let merchant = null;
 let products = [];
 let orders = [];
-const PERISHABLE = ['fruits','vegetables','dairy'];
+const PERISHABLE = ['fruits','vegetables','dairy','fish'];
+const LIVESTOCK_CATS = ['poultry','cattle','goats','fish','other_livestock'];
+const CAT_LABELS = {
+  fruits:'Fresh Fruits',vegetables:'Vegetables',grains:'Grains',spices:'Spices',
+  dairy:'Dairy & Eggs',poultry:'Poultry',cattle:'Cattle',goats:'Goats & Sheep',
+  fish:'Fish & Seafood',other_livestock:'Livestock',other:'Other'
+};
 
 // ── LOADING ────────────────────────────────────────────────────────────────
 function showLoad(msg='Loading...'){document.getElementById('loadingText').textContent=msg;document.getElementById('loadingOverlay').classList.add('show');}
@@ -463,18 +499,34 @@ async function loadOrders(){
 // ── ADD PRODUCT ────────────────────────────────────────────────────────────
 async function doAddProduct(){
   const name=v('ap_name'),cat=v('ap_cat'),unit=v('ap_unit'),price=parseInt(v('ap_price')),method=v('ap_method');
+  const selling_type=LIVESTOCK_CATS.includes(cat)?v('ap_selling_type'):'standard';
   const err=document.getElementById('ap_err');
   if(!name||!cat||!unit||!price){err.style.display='block';return;}
   err.style.display='none';
   showLoad('Adding product...');
-  const {error}=await sb.from('products').insert({merchant_id:merchant.id,name,cat,unit,sell_price:price,method,batches:[]});
+  const {error}=await sb.from('products').insert({merchant_id:merchant.id,name,cat,unit,sell_price:price,method,batches:[],selling_type});
   if(error){hideLoad();showOK('❌','Error',error.message);return;}
   await loadProducts();
   closeM('mAddProd');
-  showOK('📦','Product Added',`${name} added. Go to Restock to record your first delivery.`);
+  const isLivestock=LIVESTOCK_CATS.includes(cat);
+  showOK('📦','Product Added',`${name} added as ${isLivestock?'livestock':'produce'}. Go to Restock to record your first batch.`);
   renderAll();
   ['ap_name','ap_price','ap_unit'].forEach(id=>document.getElementById(id).value='');
   hideLoad();
+}
+
+function onCatChange(){
+  const cat=document.getElementById('ap_cat').value;
+  const wrap=document.getElementById('ap_selling_type_wrap');
+  const unitInput=document.getElementById('ap_unit');
+  if(LIVESTOCK_CATS.includes(cat)){
+    wrap.style.display='block';
+    const hints={poultry:'bird / kg',cattle:'head / kg',goats:'head / kg',fish:'kg / piece',other_livestock:'head / kg'};
+    unitInput.placeholder=hints[cat]||'head / kg';
+  } else {
+    wrap.style.display='none';
+    unitInput.placeholder='kg / each / bag';
+  }
 }
 
 // ── DELETE PRODUCT ─────────────────────────────────────────────────────────
@@ -538,11 +590,12 @@ async function doSell(){
 
 // ── FIFO/LIFO LOGIC ────────────────────────────────────────────────────────
 function getRec(p){
-  const isP=PERISHABLE.includes(p.cat),b=p.batches||[];
+  const isP=PERISHABLE.includes(p.cat),isL=LIVESTOCK_CATS.includes(p.cat),b=p.batches||[];
   if(b.length<2)return{method:'fifo',reason:'Not enough batches yet — defaulting to FIFO.',detail:'Add more restocks to unlock full analysis.'};
   const prices=b.map(x=>x.costPerUnit),rising=prices[prices.length-1]>prices[0];
   const pct=Math.round((Math.abs(prices[prices.length-1]-prices[0])/prices[0])*100);
-  if(isP)return{method:'fifo',reason:`FIFO recommended — ${p.name} is perishable`,detail:`Sell oldest batch first to prevent spoilage. Freshness matters more than price for ${p.cat}.`};
+  if(isP)return{method:'fifo',reason:`FIFO recommended — ${p.name} is perishable`,detail:`Sell oldest batch first to prevent spoilage and reduce waste.`};
+  if(isL)return{method:'fifo',reason:`FIFO recommended — live animals cost more to hold`,detail:`Feeding and maintenance costs increase daily. Sell oldest stock first to minimise holding costs for ${CAT_LABELS[p.cat]||'livestock'}.`};
   if(rising&&pct>=5)return{method:'lifo',reason:`LIFO recommended — prices rising ${pct}%`,detail:`Cost went from ₦${prices[0].toLocaleString()} to ₦${prices[prices.length-1].toLocaleString()}/unit. Selling newer higher-cost stock first reduces taxable profit.`};
   return{method:'fifo',reason:`FIFO recommended — prices stable (${pct}% change)`,detail:'Stable costs mean FIFO gives a fair profit view and keeps your stock orderly.'};
 }
@@ -708,7 +761,7 @@ document.querySelectorAll('.mw').forEach(m=>m.addEventListener('click',e=>{if(e.
 function v(id){return document.getElementById(id)?.value?.trim()||'';}
 function today(){return new Date().toISOString().split('T')[0];}
 
-showLoad('Loading OjaLocal...');
+showLoad('Loading OjaSaye...');
 </script>
 </body>
 </html>
